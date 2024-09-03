@@ -29,7 +29,7 @@
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
-    nix-darwin.url = "github:LnL7/nix-darwin/master";
+    nix-darwin.url = "git+file:///Users/will/Documents/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.3.0";
@@ -67,6 +67,19 @@
 
       homeSharedModulesLinux = [ inputs.sops-nix.homeManagerModules.sops ];
 
+      homeManagerExtraSpecialArgs = {
+        nixpkgs = nixpkgs;
+        nix-colors = inputs.nix-colors;
+      };
+
+      homeManagerExtraSpecialArgsLinux = {
+        xremap-flake = inputs.xremap-flake;
+      };
+
+      homeManagerExtraSpecialArgsDarwin = {
+        sops-nix = inputs.sops-nix;
+      };
+
       darwinModules = [
         inputs.brew-nix.darwinModules.default
         inputs.mac-app-util.darwinModules.default
@@ -96,7 +109,7 @@
                 set -euox pipefail
                 pushd ~/.dotfiles
                 rm -f ~/Library/Application\ Support/Firefox/Profiles/default/search.json.mozlz4
-                darwin-rebuild switch --flake ".#$1"
+                ${inputs.nix-darwin.packages.${system}.darwin-rebuild}/bin/darwin-rebuild switch --flake ".#$1"
                 popd
               '')
 
@@ -115,7 +128,7 @@
               home-manager = {
                 useUserPackages = true;
                 useGlobalPkgs = true;
-                extraSpecialArgs = { nix-colors = inputs.nix-colors; sops-nix = inputs.sops-nix; };
+                extraSpecialArgs = homeManagerExtraSpecialArgs // homeManagerExtraSpecialArgsDarwin;
                 users.${config.username}.imports = [
                   ./home/hosts/macbook
                   ({ pkgs, ... }: {
@@ -144,10 +157,7 @@
                 useUserPackages = true;
                 useGlobalPkgs = true;
                 sharedModules = homeSharedModulesLinux;
-                extraSpecialArgs = {
-                  nix-colors = inputs.nix-colors;
-                  xremap-flake = inputs.xremap-flake;
-                };
+                extraSpecialArgs = homeManagerExtraSpecialArgs // homeManagerExtraSpecialArgsLinux;
                 users.${config.username}.imports = [
                   ./home/hosts/desktop
                   ({ pkgs, ... }: {
@@ -182,10 +192,7 @@
                 useUserPackages = true;
                 useGlobalPkgs = true;
                 sharedModules = homeSharedModulesLinux;
-                extraSpecialArgs = {
-                  nix-colors = inputs.nix-colors;
-                  xremap-flake = inputs.xremap-flake;
-                };
+                extraSpecialArgs = homeManagerExtraSpecialArgs // homeManagerExtraSpecialArgsLinux;
                 users.${config.username}.imports = [
                   ./home/hosts/laptop
                   ({ pkgs, ... }: {

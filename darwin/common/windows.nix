@@ -41,16 +41,14 @@
     '';
   };
 
-launchd.daemons.yabai-sa = let
-  yabaiScript = pkgs.writeShellScript "yabai-sa" ''
-    ${pkgs.yabai}/bin/yabai --load-sa
-  '';
-in {
-  script = pkgs.lib.mkForce "";
-  serviceConfig.RunAtLoad = true;
-  serviceConfig.KeepAlive.SuccessfulExit = false;
-  serviceConfig.ProgramArguments = [ "/bin/sh" "-c" "/bin/wait4path ${yabaiScript} &amp;&amp; exec ${yabaiScript}" ];
-};
+# launchd.daemons.yabai-sa = let
+#   yabaiScript = pkgs.writeShellScript "yabai-sa" ''
+#     ${pkgs.yabai}/bin/yabai --load-sa
+#   '';
+# in {
+#   script = pkgs.lib.mkForce "";
+#   serviceConfig.ProgramArguments = [ "/bin/sh" "-c" "/bin/wait4path ${yabaiScript} &amp;&amp; exec ${yabaiScript}" ];
+# };
 
   services.skhd = {
     enable = true;

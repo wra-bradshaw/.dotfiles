@@ -16,5 +16,6 @@
     ripgrep
     jq
     devenv
+    mariadb
   ];
 }

@@ -1,1 +1,1 @@
-{ pkgs, ... }: { home.packages = with pkgs; [ brewCasks.slack ]; }
+{ pkgs, ... }: { home.packages = with pkgs; [ brewCasks.slack brewCasks.notion ]; }
