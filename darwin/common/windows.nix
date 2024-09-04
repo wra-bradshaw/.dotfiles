@@ -30,6 +30,7 @@
     };
     extraConfig = ''
       yabai -m config debug_output on
+      yabai -m rule --add app="^Harvest$" manage=off
 
       for idx in $(yabai -m query --spaces | jq '.[].index | select(. > 0)' | sort -nr); do
         yabai -m space --destroy "$idx"

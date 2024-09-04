@@ -17,5 +17,6 @@
     jq
     devenv
     mariadb
+    fnm
   ];
 }

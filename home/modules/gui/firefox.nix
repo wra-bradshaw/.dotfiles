@@ -108,6 +108,7 @@
         firefox-translations
         vimium
         bitwarden
+        british-english-dictionary-2
         (buildFirefoxXpiAddon {
           pname = "what-to-click";
           version = "1.12.5";

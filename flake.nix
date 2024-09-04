@@ -108,6 +108,7 @@
               (pkgs.writeShellScriptBin "apply-darwin" ''
                 set -euox pipefail
                 pushd ~/.dotfiles
+                pkill firefox
                 rm -f ~/Library/Application\ Support/Firefox/Profiles/default/search.json.mozlz4
                 ${inputs.nix-darwin.packages.${system}.darwin-rebuild}/bin/darwin-rebuild switch --flake ".#$1"
                 popd

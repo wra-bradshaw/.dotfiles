@@ -61,6 +61,8 @@
               printf "\e]%s\e\\" "$1"
           fi
       }
+
+      eval "$(fnm env --use-on-cd --shell zsh)"
     '';
   };
 }

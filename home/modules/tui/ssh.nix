@@ -1,6 +1,7 @@
 {config, ...}: {
   programs.ssh = {
     enable = true;
+    addKeysToAgent = "yes";
     matchBlocks = {
       "*" = {
         identityFile = "${config.sops.secrets."sshkey/private".path}";

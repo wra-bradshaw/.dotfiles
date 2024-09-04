@@ -99,13 +99,6 @@
 
     plugins = {
       which-key = { enable = true; };
-      copilot-vim = {
-        enable = true;
-        settings = {
-          filetypes = { "*" = true; };
-          nodeCommand = "${pkgs.nodejs_22}/bin/node";
-        };
-      };
       cmp = {
         enable = true;
         autoEnableSources = true;
@@ -180,10 +173,10 @@
         keymaps = {
           addFile = "m";
           navFile = {
-            "1" = "<M-a>";
-            "2" = "<M-s>";
-            "3" = "<M-d>";
-            "4" = "<M-f>";
+            "1" = "<C-1>";
+            "2" = "<C-2>";
+            "3" = "<C-3>";
+            "4" = "<C-4>";
           };
           toggleQuickMenu = "<C-e>";
         };
@@ -213,6 +206,26 @@
           gopls.enable = true;
           lua-ls.enable = true;
           nixd.enable = true;
+          
+          phpactor = {
+            enable = true;
+            package = null;
+            rootDir = ''function(fname)
+              local util = require 'lspconfig.util'
+              local path = util.search_ancestors(fname, function(path)
+                if util.path.is_file(util.path.join(path, 'composer.lock')) then
+                  return path
+                end
+              end)
+
+              if path ~= nil then
+                return path
+              else
+                return util.find_git_ancestor(fname)
+              end
+            end
+            '';
+          };
 
           tsserver = {
             enable = true;
@@ -278,6 +291,10 @@
       vim-rhubarb
       vim-sleuth
       plenary-nvim
+      supermaven-nvim
     ];
+    extraConfigLua = ''
+      require('supermaven-nvim').setup({})
+    '';
   };
 }
