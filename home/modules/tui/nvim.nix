@@ -1,10 +1,13 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, ... }:
+{
   home.packages = with pkgs; [
     tree-sitter
     nodePackages.vscode-langservers-extracted
   ];
 
-  home.sessionVariables = { EDITOR = "nvim"; };
+  home.sessionVariables = {
+    EDITOR = "nvim";
+  };
 
   programs.nixvim = {
     enable = true;
@@ -17,10 +20,36 @@
         callback = {
           __raw = "function() vim.lsp.buf.format { async = false } end";
         };
+        pattern = [
+          "*.js"
+          "*.ts"
+          "*.jsx"
+          "*.tsx"
+          "*.flow"
+          "*.json"
+          "*.vue"
+          "*.less"
+          "*.scss"
+          "*.css"
+          "*.html"
+          "*.handlebars"
+          "*.graphql"
+          "*.gql"
+          "*.md"
+          "*.mdx"
+          "*.yaml"
+          "*.yml"
+          "*.nix"
+          "*.go"
+        ];
       }
       {
         event = "FileType";
-        pattern = [ "tex" "latex" "markdown" ];
+        pattern = [
+          "tex"
+          "latex"
+          "markdown"
+        ];
         command = "setlocal spell";
       }
     ];
@@ -30,7 +59,11 @@
       maplocalleader = " ";
     };
 
-    filetype = { extension = { templ = "templ"; }; };
+    filetype = {
+      extension = {
+        templ = "templ";
+      };
+    };
 
     keymaps = [
       {
@@ -44,7 +77,10 @@
         action = ":m '<-2<CR>gv=gv";
       }
       {
-        mode = [ "n" "v" ];
+        mode = [
+          "n"
+          "v"
+        ];
         key = "<Space>";
         action = "<Nop>";
         options.silent = true;
@@ -71,11 +107,17 @@
 
     colorschemes.tokyonight = {
       enable = true;
-      settings = { style = "storm"; };
+      settings = {
+        style = "storm";
+      };
     };
 
     opts = {
-      completeopt = [ "menu" "menuone" "noselect" ];
+      completeopt = [
+        "menu"
+        "menuone"
+        "noselect"
+      ];
       cursorline = true;
       number = true;
       relativenumber = true;
@@ -98,7 +140,9 @@
     };
 
     plugins = {
-      which-key = { enable = true; };
+      which-key = {
+        enable = true;
+      };
       none-ls = {
         enable = true;
         sources = {
@@ -116,8 +160,7 @@
         autoEnableSources = true;
 
         settings = {
-          snippet.expand =
-            "function(args) require('luasnip').lsp_expand(args.body) end";
+          snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
 
           mapping = {
             "<C-n>" = "cmp.mapping.select_next_item()";
@@ -128,10 +171,8 @@
               	      behavior = cmp.ConfirmBehavior.Replace,
               	      select = true,
               	    }'';
-            "<Tab>" =
-              "cmp.mapping(function(fallback) if cmp.visible() then cmp.select_next_item() else fallback() end end, { 'i', 's' })";
-            "<S-Tab>" =
-              "cmp.mapping(function(fallback) if cmp.visible() then cmp.select_prev_item() else fallback() end end, { 'i', 's' })";
+            "<Tab>" = "cmp.mapping(function(fallback) if cmp.visible() then cmp.select_next_item() else fallback() end end, { 'i', 's' })";
+            "<S-Tab>" = "cmp.mapping(function(fallback) if cmp.visible() then cmp.select_prev_item() else fallback() end end, { 'i', 's' })";
           };
           sources = [
             { name = "luasnip"; }
@@ -141,8 +182,7 @@
             { name = "supermaven"; }
             {
               name = "buffer";
-              option.get_bufnrs.__raw =
-                "vim.api.nvim_list_bufs"; # Words from other buffers are suggested
+              option.get_bufnrs.__raw = "vim.api.nvim_list_bufs"; # Words from other buffers are suggested
             }
           ];
 
@@ -152,8 +192,12 @@
       cmp-nvim-lsp.enable = true;
       cmp-nvim-lsp-signature-help.enable = true;
 
-      luasnip = { enable = true; };
-      fugitive = { enable = true; };
+      luasnip = {
+        enable = true;
+      };
+      fugitive = {
+        enable = true;
+      };
       lualine = {
         enable = true;
         componentSeparators = {
@@ -165,18 +209,32 @@
           right = "";
         };
       };
-      indent-blankline = { enable = true; };
-      comment = { enable = true; };
+      indent-blankline = {
+        enable = true;
+      };
+      comment = {
+        enable = true;
+      };
 
       gitsigns = {
         enable = true;
         settings = {
           signs = {
-            add = { text = "+"; };
-            change = { text = "~"; };
-            delete = { text = "_"; };
-            topdelete = { text = "‾"; };
-            changedelete = { text = "~"; };
+            add = {
+              text = "+";
+            };
+            change = {
+              text = "~";
+            };
+            delete = {
+              text = "_";
+            };
+            topdelete = {
+              text = "‾";
+            };
+            changedelete = {
+              text = "~";
+            };
           };
         };
       };
@@ -198,7 +256,9 @@
         enable = true;
         nixvimInjections = true;
 
-        settings = { indent.enable = true; };
+        settings = {
+          indent.enable = true;
+        };
       };
       treesitter-textobjects.enable = true;
       lsp = {
@@ -208,25 +268,26 @@
           gopls.enable = true;
           lua-ls.enable = true;
           nixd.enable = true;
-          
+
           intelephense = {
             enable = true;
-            rootDir = ''function(fname)
-              local util = require 'lspconfig.util'
-              local path = util.search_ancestors(fname, function(path)
-                if util.path.is_file(util.path.join(path, 'composer.lock')) then
-                  return path
-                end
-              end)
+            rootDir = ''
+              function(fname)
+                            local util = require 'lspconfig.util'
+                            local path = util.search_ancestors(fname, function(path)
+                              if util.path.is_file(util.path.join(path, 'composer.lock')) then
+                                return path
+                              end
+                            end)
 
-              if path ~= nil then
-                return path
-              else
-                return util.find_git_ancestor(fname)
-              end
-            end
+                            if path ~= nil then
+                              return path
+                            else
+                              return util.find_git_ancestor(fname)
+                            end
+                          end
             '';
-          }; 
+          };
 
           html.enable = true;
           jsonls.enable = true;
@@ -263,8 +324,12 @@
           };
         };
       };
-      fidget = { enable = true; };
-      nvim-autopairs = { enable = true; };
+      fidget = {
+        enable = true;
+      };
+      nvim-autopairs = {
+        enable = true;
+      };
       telescope = {
         enable = true;
         extensions.fzf-native.enable = true;
