@@ -99,6 +99,16 @@
 
     plugins = {
       which-key = { enable = true; };
+      none-ls = {
+        enable = true;
+        sources = {
+          formatting = {
+            prettierd = {
+              enable = true;
+            };
+          };
+        };
+      };
       cmp = {
         enable = true;
         autoEnableSources = true;
@@ -126,6 +136,7 @@
             { name = "nvim_lsp"; }
             { name = "path"; }
             { name = "nvim_lsp_signature_help"; }
+            { name = "supermaven"; }
             {
               name = "buffer";
               option.get_bufnrs.__raw =
@@ -186,17 +197,6 @@
         nixvimInjections = true;
 
         settings = { indent.enable = true; };
-
-        grammarPackages =
-          with config.programs.nixvim.plugins.treesitter.package.builtGrammars; [
-            templ
-            bash
-            javascript
-            nix
-            lua
-            go
-            rust
-          ];
       };
       treesitter-textobjects.enable = true;
       lsp = {
@@ -207,9 +207,8 @@
           lua-ls.enable = true;
           nixd.enable = true;
           
-          phpactor = {
+          intelephense = {
             enable = true;
-            package = null;
             rootDir = ''function(fname)
               local util = require 'lspconfig.util'
               local path = util.search_ancestors(fname, function(path)
@@ -225,17 +224,14 @@
               end
             end
             '';
-          };
+          }; 
 
-          tsserver = {
-            enable = true;
-            package = null;
-          };
-          terraformls = {
-            enable = true;
-            package = null;
-          };
-          jsonls = { enable = true; };
+          html.enable = true;
+          jsonls.enable = true;
+          cssls.enable = true;
+
+          tsserver.enable = true;
+          terraformls.enable = true;
           rust-analyzer = {
             enable = true;
             installCargo = false;
