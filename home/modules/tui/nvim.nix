@@ -357,7 +357,9 @@
       supermaven-nvim
     ];
     extraConfigLua = ''
-      require('supermaven-nvim').setup({})
+      require('supermaven-nvim').setup({
+        disable_inline_completion = true,
+      })
     '';
   };
 }
