@@ -1,24 +1,33 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+{
   programs.firefox = {
     enable = true;
-    package = if pkgs.stdenv.hostPlatform.isDarwin then
-      (pkgs.brewCasks."firefox".overrideAttrs (old: {
-        nativeBuildInputs = old.nativeBuildInputs
-          ++ [ pkgs.xmlstarlet pkgs.darwin.sigtool pkgs.makeWrapper ];
-        fixupPhase = ''
-          xmlstarlet ed -L -s "//key[contains(text(), 'LSEnvironment')]/following-sibling::dict[1]" -t "elem" -n "key" -v "MOZ_LEGACY_PROFILES" "$out/Applications/Firefox.app/Contents/Info.plist"
-          xmlstarlet ed -L -s "//key[contains(text(), 'LSEnvironment')]/following-sibling::dict[1]" -t "elem" -n "string" -v "true" "$out/Applications/Firefox.app/Contents/Info.plist"
-          makeWrapper "$out/Applications/Firefox.app/Contents/MacOS/firefox" "$out/bin/firefox" --set MOZ_LEGACY_PROFILES "true"
-          codesign -f -s - "$out/Applications/Firefox.app/Contents/MacOS/firefox"
-        '';
-      }))
-    else
-      pkgs.firefox;
+    package =
+      if pkgs.stdenv.hostPlatform.isDarwin then
+        (pkgs.brewCasks."firefox".overrideAttrs (old: {
+          nativeBuildInputs = old.nativeBuildInputs ++ [
+            pkgs.xmlstarlet
+            pkgs.darwin.sigtool
+            pkgs.makeWrapper
+          ];
+          fixupPhase = ''
+            xmlstarlet ed -L -s "//key[contains(text(), 'LSEnvironment')]/following-sibling::dict[1]" -t "elem" -n "key" -v "MOZ_LEGACY_PROFILES" "$out/Applications/Firefox.app/Contents/Info.plist"
+            xmlstarlet ed -L -s "//key[contains(text(), 'LSEnvironment')]/following-sibling::dict[1]" -t "elem" -n "string" -v "true" "$out/Applications/Firefox.app/Contents/Info.plist"
+            makeWrapper "$out/Applications/Firefox.app/Contents/MacOS/firefox" "$out/bin/firefox" --set MOZ_LEGACY_PROFILES "true"
+            codesign -f -s - "$out/Applications/Firefox.app/Contents/MacOS/firefox"
+          '';
+        }))
+      else
+        pkgs.firefox;
+    languagePacks = [ "en-GB" ];
     profiles.default = {
+      id = 0;
+      isDefault = true;
       settings = {
+        "devtools.everOpened" = true;
+        "intl.regional_prefs.use_os_locales" = true;
+        "intl.accept_languages" = "en-GB, en";
         "browser.toolbars.bookmarks.visibility" = "never";
-        "browser.newtabpage.enabled" = false;
-        "browser.startup.homepage" = "about:blank";
         "media.ffmpeg.vaapi.enabled" = true;
         "signon.rememberSignons" = false;
         "extensions.autoDisableScopes" = 0;
@@ -27,6 +36,8 @@
         "app.update.auto" = false;
         "browser.warnOnQuit" = false;
         "browser.warnOnQuitShortcut" = false;
+        "browser.newtabpage.activity-stream.topSitesRows" = 0;
+        "services.sync.prefs.sync.browser.newtabpage.activity-stream.feeds.topsites" = false;
 
         # fastfox things
         "content.notify.interval" = 1000;
@@ -115,63 +126,89 @@
           addonId = "{7feef224-a737-4d04-b0c1-ea47d4cad70a}";
           url = "https://addons.mozilla.org/firefox/downloads/file/4159230/what_to_click-1.12.5.xpi";
           sha256 = "8eccdf9d8ece5cc759f77b7628201590d57a98cc8d2335666a38bfef87fc0e4e";
-          meta = {};
+          meta = { };
+        })
+        (buildFirefoxXpiAddon {
+          pname = "tabwrangler";
+          version = "7.5.1";
+          addonId = "{81b74d53-9416-4fb3-afa2-ab46684b253b}";
+          url = "https://addons.mozilla.org/firefox/downloads/file/4292157/tabwrangler-7.5.1.xpi";
+          sha256 = "2e6f4ca2a3a2ea7380edad7a769fc0631e0c874c686fd4f5a0de16310cf25323";
+          meta = with pkgs.lib; {
+            homepage = "https://github.com/tabwrangler/tabwrangler/";
+            description = "Automatically closes inactive tabs and makes it easy to get them back";
+            license = licenses.mit;
+            mozPermissions = [
+              "alarms"
+              "contextMenus"
+              "sessions"
+              "storage"
+              "tabs"
+            ];
+            platforms = platforms.all;
+          };
         })
       ];
       search.force = true;
       search.engines = {
         "Will Lucky" = {
-          urls = [{ template = "https://github.com/will-lol/{searchTerms}"; }];
+          urls = [ { template = "https://github.com/will-lol/{searchTerms}"; } ];
           definedAliases = [ "@willl" ];
         };
         "Ionata WordPress Lucky" = {
-          urls = [{
-            template = "https://github.com/ionata/wp-theme-{searchTerms}";
-          }];
+          urls = [
+            {
+              template = "https://github.com/ionata/wp-theme-{searchTerms}";
+            }
+          ];
           definedAliases = [ "@ionwpl" ];
         };
         "Ionata Lucky" = {
-          urls = [{ template = "https://github.com/ionata/{searchTerms}"; }];
+          urls = [ { template = "https://github.com/ionata/{searchTerms}"; } ];
           definedAliases = [ "@ionl" ];
         };
         "Ionata" = {
-          urls = [{
-            template =
-              "https://github.com/search?q=org%3Aionata%20{searchTerms}&type=repositories";
-          }];
+          urls = [
+            {
+              template = "https://github.com/search?q=org%3Aionata%20{searchTerms}&type=repositories";
+            }
+          ];
           definedAliases = [ "@ion" ];
         };
         "Reddit - subreddit" = {
-          urls = [{ template = "https://www.reddit.com/r/{searchTerms}"; }];
+          urls = [ { template = "https://www.reddit.com/r/{searchTerms}"; } ];
           definedAliases = [ "r/" ];
         };
         "Reddit" = {
-          urls =
-            [{ template = "https://www.reddit.com/search/?q={searchTerms}"; }];
+          urls = [ { template = "https://www.reddit.com/search/?q={searchTerms}"; } ];
           definedAliases = [ "@reddit" ];
         };
         "Github" = {
-          urls = [{ template = "https://github.com/search?q={searchTerms}"; }];
+          urls = [ { template = "https://github.com/search?q={searchTerms}"; } ];
           definedAliases = [ "@github" ];
         };
         "Dictionary" = {
-          urls = [{
-            template = "https://www.oed.com/search/dictionary/?q={searchTerms}";
-          }];
+          urls = [
+            {
+              template = "https://www.oed.com/search/dictionary/?q={searchTerms}";
+            }
+          ];
           definedAliases = [ "@dict" ];
         };
         "es" = {
-          urls = [{
-            template =
-              "https://translate.google.com/?sl=es&tl=en&text={searchTerms}&op=translate";
-          }];
+          urls = [
+            {
+              template = "https://translate.google.com/?sl=es&tl=en&text={searchTerms}&op=translate";
+            }
+          ];
           definedAliases = [ "@es" ];
         };
         "en" = {
-          urls = [{
-            template =
-              "https://translate.google.com/?sl=en&tl=es&text={searchTerms}&op=translate";
-          }];
+          urls = [
+            {
+              template = "https://translate.google.com/?sl=en&tl=es&text={searchTerms}&op=translate";
+            }
+          ];
           definedAliases = [ "@en" ];
         };
       };

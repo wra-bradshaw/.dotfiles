@@ -2,7 +2,7 @@
   description = "System Config";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -43,9 +43,13 @@
     deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, ... }@inputs:
+  outputs =
+    { self, nixpkgs, ... }@inputs:
     let
-      supportedSystems = [ "x86_64-linux" "aarch64-darwin" ];
+      supportedSystems = [
+        "x86_64-linux"
+        "aarch64-darwin"
+      ];
 
       lib = import ./lib.nix { inherit nixpkgs supportedSystems; };
 
@@ -55,10 +59,7 @@
         inputs.nix-colors.homeManagerModules.default
       ];
 
-      homeManagerModulesDarwin = [ 
-        inputs.mac-app-util.homeManagerModules.default 
-      ]
-        ++ homeManagerModules;
+      homeManagerModulesDarwin = [ inputs.mac-app-util.homeManagerModules.default ] ++ homeManagerModules;
 
       homeManagerModulesLinux = [
         inputs.xremap-flake.homeManagerModules.default
@@ -91,16 +92,19 @@
         inputs.nix-flatpak.nixosModules.nix-flatpak
         ./nixpkgs.nix
       ];
-    in {
-      devShells = lib.forAllSupportedSystems (system:
-        let pkgs = nixpkgs.legacyPackages.${system};
-        in {
+    in
+    {
+      devShells = lib.forAllSupportedSystems (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        {
           default = pkgs.mkShell {
             packages = [
               (pkgs.writeShellScriptBin "apply-nixos" ''
                 set -euox pipefail
                 pushd ~/.dotfiles
-                rm -f ~/.mozilla/firefox/default/search.json.mozlz4
                 sudo nixos-rebuild switch --log-format internal-json -v --upgrade --flake .#$1 |& ${pkgs.nix-output-monitor}/bin/nom --json
                 popd
               '')
@@ -108,8 +112,6 @@
               (pkgs.writeShellScriptBin "apply-darwin" ''
                 set -euox pipefail
                 pushd ~/.dotfiles
-                pkill firefox
-                rm -f ~/Library/Application\ Support/Firefox/Profiles/default/search.json.mozlz4
                 ${inputs.nix-darwin.packages.${system}.darwin-rebuild}/bin/darwin-rebuild switch --flake ".#$1"
                 popd
               '')
@@ -117,7 +119,8 @@
               inputs.deploy-rs.defaultPackage.${system}
             ];
           };
-        });
+        }
+      );
 
       darwinConfigurations = {
         macbook = inputs.nix-darwin.lib.darwinSystem {
@@ -125,24 +128,31 @@
           modules = [
             ./darwin/macbook
             inputs.home-manager.darwinModules.home-manager
-            ({ config, ... }: {
-              home-manager = {
-                useUserPackages = true;
-                useGlobalPkgs = true;
-                extraSpecialArgs = homeManagerExtraSpecialArgs // homeManagerExtraSpecialArgsDarwin;
-                users.${config.username}.imports = [
-                  ./home/hosts/macbook
-                  ({ pkgs, ... }: {
-                    options.username = with pkgs.lib;
-                      mkOption {
-                        type = types.str;
-                        default = config.username;
-                        description = "The username of the user";
-                      };
-                  })
-                ] ++ homeManagerModulesDarwin;
-              };
-            })
+            (
+              { config, ... }:
+              {
+                home-manager = {
+                  useUserPackages = true;
+                  useGlobalPkgs = true;
+                  extraSpecialArgs = homeManagerExtraSpecialArgs // homeManagerExtraSpecialArgsDarwin;
+                  users.${config.username}.imports = [
+                    ./home/hosts/macbook
+                    (
+                      { pkgs, ... }:
+                      {
+                        options.username =
+                          with pkgs.lib;
+                          mkOption {
+                            type = types.str;
+                            default = config.username;
+                            description = "The username of the user";
+                          };
+                      }
+                    )
+                  ] ++ homeManagerModulesDarwin;
+                };
+              }
+            )
           ] ++ darwinModules;
         };
       };
@@ -153,25 +163,32 @@
           modules = [
             ./nixos/desktop
             inputs.home-manager.nixosModules.home-manager
-            ({ config, ... }: {
-              home-manager = {
-                useUserPackages = true;
-                useGlobalPkgs = true;
-                sharedModules = homeSharedModulesLinux;
-                extraSpecialArgs = homeManagerExtraSpecialArgs // homeManagerExtraSpecialArgsLinux;
-                users.${config.username}.imports = [
-                  ./home/hosts/desktop
-                  ({ pkgs, ... }: {
-                    options.username = with pkgs.lib;
-                      mkOption {
-                        type = types.str;
-                        default = config.username;
-                        description = "The username of the user";
-                      };
-                  })
-                ] ++ homeManagerModulesLinux;
-              };
-            })
+            (
+              { config, ... }:
+              {
+                home-manager = {
+                  useUserPackages = true;
+                  useGlobalPkgs = true;
+                  sharedModules = homeSharedModulesLinux;
+                  extraSpecialArgs = homeManagerExtraSpecialArgs // homeManagerExtraSpecialArgsLinux;
+                  users.${config.username}.imports = [
+                    ./home/hosts/desktop
+                    (
+                      { pkgs, ... }:
+                      {
+                        options.username =
+                          with pkgs.lib;
+                          mkOption {
+                            type = types.str;
+                            default = config.username;
+                            description = "The username of the user";
+                          };
+                      }
+                    )
+                  ] ++ homeManagerModulesLinux;
+                };
+              }
+            )
           ] ++ nixosModules;
         };
 
@@ -188,25 +205,32 @@
           modules = [
             ./nixos/laptop
             inputs.home-manager.nixosModules.home-manager
-            ({ config, ... }: {
-              home-manager = {
-                useUserPackages = true;
-                useGlobalPkgs = true;
-                sharedModules = homeSharedModulesLinux;
-                extraSpecialArgs = homeManagerExtraSpecialArgs // homeManagerExtraSpecialArgsLinux;
-                users.${config.username}.imports = [
-                  ./home/hosts/laptop
-                  ({ pkgs, ... }: {
-                    options.username = with pkgs.lib;
-                      mkOption {
-                        type = types.str;
-                        default = config.username;
-                        description = "The username of the user";
-                      };
-                  })
-                ] ++ homeManagerModulesLinux;
-              };
-            })
+            (
+              { config, ... }:
+              {
+                home-manager = {
+                  useUserPackages = true;
+                  useGlobalPkgs = true;
+                  sharedModules = homeSharedModulesLinux;
+                  extraSpecialArgs = homeManagerExtraSpecialArgs // homeManagerExtraSpecialArgsLinux;
+                  users.${config.username}.imports = [
+                    ./home/hosts/laptop
+                    (
+                      { pkgs, ... }:
+                      {
+                        options.username =
+                          with pkgs.lib;
+                          mkOption {
+                            type = types.str;
+                            default = config.username;
+                            description = "The username of the user";
+                          };
+                      }
+                    )
+                  ] ++ homeManagerModulesLinux;
+                };
+              }
+            )
           ] ++ nixosModules;
         };
       };
@@ -217,8 +241,7 @@
         profiles = {
           system = {
             sshUser = "admin";
-            path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos
-              self.nixosConfigurations.server;
+            path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.server;
             user = "root";
           };
         };

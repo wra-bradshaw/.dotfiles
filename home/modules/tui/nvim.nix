@@ -14,35 +14,32 @@
     viAlias = true;
     vimAlias = true;
 
+    userCommands = {
+      "FormatDisable" = {
+        command.__raw = ''
+          function(args)
+            if args.bang then
+              vim.b.disable_autoformat = true
+            else 
+              vim.g.disable_autoformat = true
+            end
+          end
+        '';
+        bang = true;
+        desc = "Disable autoformat-on-save";
+      };
+      "FormatEnable" = {
+        command.__raw = ''
+          function()
+            vim.b.disable_autoformat = false
+            vim.g.disable_autoformat = false
+          end
+        '';
+        desc = "Re-enable autoformat-on-save";
+      };
+    };
+
     autoCmd = [
-      {
-        event = "BufWritePre";
-        callback = {
-          __raw = "function() vim.lsp.buf.format { async = false } end";
-        };
-        pattern = [
-          "*.js"
-          "*.ts"
-          "*.jsx"
-          "*.tsx"
-          "*.flow"
-          "*.json"
-          "*.vue"
-          "*.less"
-          "*.scss"
-          "*.css"
-          "*.html"
-          "*.handlebars"
-          "*.graphql"
-          "*.gql"
-          "*.md"
-          "*.mdx"
-          "*.yaml"
-          "*.yml"
-          "*.nix"
-          "*.go"
-        ];
-      }
       {
         event = "FileType";
         pattern = [
@@ -143,6 +140,7 @@
       which-key = {
         enable = true;
       };
+      lazygit.enable = true;
       none-ls = {
         enable = true;
         sources = {
@@ -179,7 +177,6 @@
             { name = "nvim_lsp"; }
             { name = "path"; }
             { name = "nvim_lsp_signature_help"; }
-            { name = "supermaven"; }
             {
               name = "buffer";
               option.get_bufnrs.__raw = "vim.api.nvim_list_bufs"; # Words from other buffers are suggested
@@ -191,6 +188,86 @@
       };
       cmp-nvim-lsp.enable = true;
       cmp-nvim-lsp-signature-help.enable = true;
+
+      conform-nvim = {
+        enable = true;
+        settings = {
+          format_on_save = ''
+            function(bufnr)
+              if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+                return
+              end
+              return { timeout_ms = 500 }
+            end
+          '';
+          notify_on_error = true;
+          formatters_by_ft = {
+            bash = [
+              "shellcheck"
+              "shellharden"
+              "shfmt"
+            ];
+            javascript = {
+              "lsp_format" = "fallback";
+            };
+            html = {
+              "lsp_format" = "fallback";
+            };
+            css = {
+              "lsp_format" = "fallback";
+            };
+            scss = {
+              "lsp_format" = "fallback";
+            };
+            javascriptreact = {
+              "lsp_format" = "fallback";
+            };
+            typescript = {
+              "lsp_format" = "fallback";
+            };
+            typescriptreact = {
+              "lsp_format" = "fallback";
+            };
+            nix = {
+              "lsp_format" = "fallback";
+            };
+            markdown = {
+              "lsp_format" = "fallback";
+            };
+            yaml = {
+              "lsp_format" = "fallback";
+            };
+            json = {
+              "lsp_format" = "fallback";
+            };
+            go = {
+              "lsp_format" = "fallback";
+            };
+            terraform = {
+              "lsp_format" = "fallback";
+            };
+            "_" = [
+              "squeeze_blanks"
+              "trim_whitespace"
+              "trim_newlines"
+            ];
+          };
+          formatters = {
+            shellcheck = {
+              command = pkgs.lib.getExe pkgs.shellcheck;
+            };
+            shfmt = {
+              command = pkgs.lib.getExe pkgs.shfmt;
+            };
+            shellharden = {
+              command = pkgs.lib.getExe pkgs.shellharden;
+            };
+            squeeze_blanks = {
+              command = pkgs.lib.getExe' pkgs.coreutils "cat";
+            };
+          };
+        };
+      };
 
       luasnip = {
         enable = true;
@@ -358,7 +435,9 @@
     ];
     extraConfigLua = ''
       require('supermaven-nvim').setup({
-        disable_inline_completion = true,
+        keymaps = {
+          accept_suggestion = "<C-Tab>",
+        },
       })
     '';
   };

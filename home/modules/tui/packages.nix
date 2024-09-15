@@ -1,7 +1,13 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   home.packages = with pkgs; [
     dig
-    awscli2
+    (awscli2.overrideAttrs (old: {
+      makeWrapperArgs = (old.makeWrapperArgs or [ ]) ++ [
+        "--unset"
+        "PYTHONPATH"
+      ];
+    }))
     parallel
     sops
     ripgrep
@@ -12,6 +18,7 @@
     kalker
     ffmpeg
     unzip
+    lazygit
     nix-output-monitor
     ripgrep
     jq

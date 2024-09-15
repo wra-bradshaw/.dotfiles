@@ -1,4 +1,5 @@
-{ config, ... }: {
+{ config, ... }:
+{
   system.defaults = {
     screencapture.location = "/tmp";
 
@@ -10,8 +11,7 @@
     };
 
     CustomUserPreferences = {
-      "com.apple.finder".NewWindowTargetPath =
-        "file:///Users/${config.username}/";
+      "com.apple.finder".NewWindowTargetPath = "file:///Users/${config.username}/";
     };
 
     NSGlobalDomain = {
@@ -21,8 +21,7 @@
       InitialKeyRepeat = 15; # make initial key repeat delay shorter
       KeyRepeat = 2; # make key repeat delay lower
       AppleShowAllExtensions = true; # show file extensions
-      NSDocumentSaveNewDocumentsToCloud =
-        false; # disable icloud save by default
+      NSDocumentSaveNewDocumentsToCloud = false; # disable icloud save by default
       NSWindowResizeTime = 0.1;
       "com.apple.mouse.tapBehavior" = 1; # enable tap to click
 

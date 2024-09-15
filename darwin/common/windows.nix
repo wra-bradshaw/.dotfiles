@@ -1,6 +1,9 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   # enable non-Apple-signed arm64e binaries
-  system.nvram.variables = { "boot-args" = "-arm64e_preview_abi"; };
+  system.nvram.variables = {
+    "boot-args" = "-arm64e_preview_abi";
+  };
 
   services.yabai = {
     enable = true;
@@ -36,20 +39,30 @@
         yabai -m space --destroy "$idx"
       done
 
-      ${(builtins.concatStringsSep "\n" (builtins.genList (x: ''
-        yabai -m space --create
-      '') 8))}
+      ${
+        (builtins.concatStringsSep "\n" (
+          builtins.genList (x: ''
+            yabai -m space --create
+          '') 8
+        ))
+      }
     '';
   };
 
-# launchd.daemons.yabai-sa = let
-#   yabaiScript = pkgs.writeShellScript "yabai-sa" ''
-#     ${pkgs.yabai}/bin/yabai --load-sa
-#   '';
-# in {
-#   script = pkgs.lib.mkForce "";
-#   serviceConfig.ProgramArguments = [ "/bin/sh" "-c" "/bin/wait4path ${yabaiScript} &amp;&amp; exec ${yabaiScript}" ];
-# };
+  # launchd.daemons.yabai-sa =
+  #   let
+  #     yabaiScript = pkgs.writeShellScript "yabai-sa" ''
+  #       ${pkgs.yabai}/bin/yabai --load-sa
+  #     '';
+  #   in
+  #   {
+  #     script = pkgs.lib.mkForce "";
+  #     serviceConfig.ProgramArguments = [
+  #       "/bin/sh"
+  #       "-c"
+  #       "/bin/wait4path ${yabaiScript} &amp;&amp; exec ${yabaiScript}"
+  #     ];
+  #   };
 
   services.skhd = {
     enable = true;
@@ -69,15 +82,18 @@
       cmd + alt - k : yabai -m window --warp north
       cmd + alt - j : yabai -m window --warp south
 
-      ${builtins.concatStringsSep "\n" (builtins.genList (x:
-        "alt - ${builtins.toString (x + 1)} : yabai -m space --focus ${
-          builtins.toString (x + 1)
-        }") 9)}
+      ${builtins.concatStringsSep "\n" (
+        builtins.genList (
+          x: "alt - ${builtins.toString (x + 1)} : yabai -m space --focus ${builtins.toString (x + 1)}"
+        ) 9
+      )}
 
-      ${builtins.concatStringsSep "\n" (builtins.genList (x:
-        "shift + alt - ${builtins.toString (x + 1)} : yabai -m window --space ${
-          builtins.toString (x + 1)
-        }") 9)}
+      ${builtins.concatStringsSep "\n" (
+        builtins.genList (
+          x:
+          "shift + alt - ${builtins.toString (x + 1)} : yabai -m window --space ${builtins.toString (x + 1)}"
+        ) 9
+      )}
 
       # resize mode
       :: resize @ : yabai -m config active_window_opacity 1; yabai -m config normal_window_opacity 0.9;
@@ -95,4 +111,3 @@
   launchd.user.agents.skhd.serviceConfig.StandardErrorPath = "/tmp/skhd_error";
   launchd.user.agents.skhd.serviceConfig.StandardOutPath = "/tmp/skhd_out";
 }
-

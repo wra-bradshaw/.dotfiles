@@ -1,11 +1,15 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   home.packages = [ pkgs.amazon-ecr-credential-helper ];
-  home.file = {
-    ".docker/config.json".text = ''
+  home.file =
+    if !pkgs.stdenv.isDarwin then
       {
-        "credsStore": "ecr-login"
+        ".docker/config.json".text = ''
+          {
+            "credsStore": "ecr-login"
+          }
+        '';
       }
-    '';
-  };
-
+    else
+      { };
 }
