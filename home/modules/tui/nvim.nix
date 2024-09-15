@@ -345,6 +345,7 @@
           gopls.enable = true;
           lua-ls.enable = true;
           nixd.enable = true;
+          astro.enable = true;
 
           intelephense = {
             enable = true;
