@@ -2,6 +2,7 @@
 {
   home.packages = with pkgs; [
     tree-sitter
+    prettierd
     nodePackages.vscode-langservers-extracted
   ];
 
@@ -145,7 +146,7 @@
         enable = true;
         sources = {
           formatting = {
-            prettierd.enable = true;
+            # prettierd.enable = true;
             nixfmt = {
               enable = true;
               package = pkgs.nixfmt-rfc-style;
@@ -208,25 +209,46 @@
               "shfmt"
             ];
             javascript = {
-              "lsp_format" = "fallback";
+              __unkeyed-1 = "prettierd";
+              __unkeyed-2 = "prettier";
+              timeout_ms = 2000;
+              stop_after_first = true;
             };
             html = {
-              "lsp_format" = "fallback";
+              __unkeyed-1 = "prettierd";
+              __unkeyed-2 = "prettier";
+              timeout_ms = 2000;
+              stop_after_first = true;
             };
             css = {
-              "lsp_format" = "fallback";
+              __unkeyed-1 = "prettierd";
+              __unkeyed-2 = "prettier";
+              timeout_ms = 2000;
+              stop_after_first = true;
             };
             scss = {
-              "lsp_format" = "fallback";
+              __unkeyed-1 = "prettierd";
+              __unkeyed-2 = "prettier";
+              timeout_ms = 2000;
+              stop_after_first = true;
             };
             javascriptreact = {
-              "lsp_format" = "fallback";
+              __unkeyed-1 = "prettierd";
+              __unkeyed-2 = "prettier";
+              timeout_ms = 2000;
+              stop_after_first = true;
             };
             typescript = {
-              "lsp_format" = "fallback";
+              __unkeyed-1 = "prettierd";
+              __unkeyed-2 = "prettier";
+              timeout_ms = 2000;
+              stop_after_first = true;
             };
             typescriptreact = {
-              "lsp_format" = "fallback";
+              __unkeyed-1 = "prettierd";
+              __unkeyed-2 = "prettier";
+              timeout_ms = 2000;
+              stop_after_first = true;
             };
             nix = {
               "lsp_format" = "fallback";
@@ -238,7 +260,10 @@
               "lsp_format" = "fallback";
             };
             json = {
-              "lsp_format" = "fallback";
+              __unkeyed-1 = "prettierd";
+              __unkeyed-2 = "prettier";
+              timeout_ms = 2000;
+              stop_after_first = true;
             };
             go = {
               "lsp_format" = "fallback";
@@ -277,13 +302,15 @@
       };
       lualine = {
         enable = true;
-        componentSeparators = {
-          left = "|";
-          right = "|";
-        };
-        sectionSeparators = {
-          left = "";
-          right = "";
+        settings.options = {
+          component_separators = {
+            left = "|";
+            right = "|";
+          };
+          section_separators = {
+            left = "";
+            right = "";
+          };
         };
       };
       indent-blankline = {
@@ -371,7 +398,7 @@
           jsonls.enable = true;
           cssls.enable = true;
 
-          tsserver.enable = true;
+          ts-ls.enable = true;
           terraformls.enable = true;
           rust-analyzer = {
             enable = true;
@@ -428,9 +455,7 @@
       };
     };
     extraPlugins = with pkgs.vimPlugins; [
-      neodev-nvim
       vim-rhubarb
-      vim-sleuth
       plenary-nvim
       supermaven-nvim
     ];
