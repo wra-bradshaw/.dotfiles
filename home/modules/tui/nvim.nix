@@ -377,20 +377,20 @@
           intelephense = {
             enable = true;
             rootDir = ''
-              function(fname)
-                            local util = require 'lspconfig.util'
-                            local path = util.search_ancestors(fname, function(path)
-                              if util.path.is_file(util.path.join(path, 'composer.lock')) then
-                                return path
-                              end
-                            end)
+                            function(fname)
+              								local util = require 'lspconfig.util'
+              								local path = util.search_ancestors(fname, function(path)
+              									if util.path.is_file(util.path.join(path, 'composer.lock')) then
+              										return path
+              									end
+              								end)
 
-                            if path ~= nil then
-                              return path
-                            else
-                              return util.find_git_ancestor(fname)
-                            end
-                          end
+              								if path ~= nil then
+              									return path
+              								else
+              									return util.find_git_ancestor(fname)
+              								end
+              							end
             '';
           };
 
@@ -398,7 +398,31 @@
           jsonls.enable = true;
           cssls.enable = true;
 
-          ts-ls.enable = true;
+          ts-ls = {
+            enable = true;
+            rootDir = ''
+                            function (filename, bufnr)
+              								local util = require 'lspconfig.util'
+                            	local denoRootDir = util.root_pattern("deno.json", "deno.jsonc")(filename);
+                            	if denoRootDir then
+                            		return nil;
+                            	end
+                            	return util.root_pattern("package.json")(filename);
+                            end
+            '';
+            extraOptions = {
+              single_file_support = false;
+            };
+          };
+          denols = {
+            enable = true;
+            rootDir = ''
+                            function (filename, bufnr)
+              								local util = require 'lspconfig.util'
+                            	return util.root_pattern("deno.json", "deno.jsonc")(filename);
+                            end
+            '';
+          };
           terraformls.enable = true;
           rust-analyzer = {
             enable = true;
