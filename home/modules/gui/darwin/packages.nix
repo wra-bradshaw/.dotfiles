@@ -5,6 +5,5 @@
     brewCasks.notion
     brewCasks.eloston-chromium
     brewCasks.orbstack
-    brewCasks.visual-studio-code
   ];
 }

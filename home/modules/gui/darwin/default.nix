@@ -1,1 +1,6 @@
-{ imports = [ ./packages.nix ]; }
+{
+  imports = [
+    ./packages.nix
+    ./visual-studio-code.nix
+  ];
+}
