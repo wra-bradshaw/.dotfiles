@@ -1,10 +1,16 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, ... }:
+{
+  home.packages = [ pkgs.ollama ];
   programs.zsh = {
     enable = true;
-    autosuggestion.enable = true;
+    autosuggestion = {
+      enable = true;
+    };
     enableCompletion = true;
     defaultKeymap = "viins";
-    sessionVariables = { DIRENV_LOG_FORMAT = null; };
+    sessionVariables = {
+      DIRENV_LOG_FORMAT = null;
+    };
 
     shellAliases = {
       calc = "kalker";
@@ -63,6 +69,32 @@
       }
 
       eval "$(fnm env --use-on-cd --shell zsh)"
+
+      _zsh_autosuggest_strategy_ai() {
+        # Reset options to defaults and enable LOCAL_OPTIONS
+        emulate -L zsh
+        local prefix="''${1//(#m)[\\*?[\]<>()|^~#]/\\$MATCH}"
+
+        PROMPT=$(cat <<EOF
+      You are a helpful coding assistant that is providing completitions for the \`zsh\` shell.
+      You will receive a history of 16 commands that a user has typed, and you will see what the user has typed so far.
+      Your job is to use these commands to provide a full command suggestion for the user.
+
+      Do not respond with any english. Only respond in shell commands so that the response is able to be run directly in the \`zsh\` shell. Respond with an entire (whole) single command suggestion in JSON format ({\"command\": \"<enter the command here>\"}). Do not use multiple lines. Ensure that the beginning of the command exactly matches the beginning of the user's command.
+
+      HISTORIC COMMANDS:
+      $(fc -l | tail -16 | awk '{$1=""; print}' | sed 's/^ //g')
+
+      THE BEGINNING OF THE USER'S COMMAND:
+      $prefix
+      EOF
+      )
+        RESPONSE=$(ollama run llama3.2 "$PROMPT" 2&>/dev/null)
+        COMMAND=$(echo $RESPONSE | jq -r '.command' 2&>/dev/null)
+        typeset -g suggestion="$COMMAND"
+      }
+
+      ZSH_AUTOSUGGEST_STRATEGY=(history ai completion)
     '';
   };
 }
