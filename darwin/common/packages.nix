@@ -1,1 +1,4 @@
-{ pkgs, ... }: { programs.bash.enable = false; }
+{ pkgs, ... }:
+{
+  programs.bash.enable = false;
+}

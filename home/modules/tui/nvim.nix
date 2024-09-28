@@ -21,7 +21,7 @@
           function(args)
             if args.bang then
               vim.b.disable_autoformat = true
-            else 
+            else
               vim.g.disable_autoformat = true
             end
           end
@@ -458,6 +458,10 @@
       };
       nvim-autopairs = {
         enable = true;
+      };
+      mini.modules = {
+        icons.enable = true;
+        mockDevIcons.enable = true;
       };
       telescope = {
         enable = true;

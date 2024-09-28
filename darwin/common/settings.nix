@@ -8,6 +8,7 @@
       autohide-delay = 0.0;
       autohide-time-modifier = 0.25;
       persistent-apps = [ ];
+      mru-spaces = false;
     };
 
     CustomUserPreferences = {
