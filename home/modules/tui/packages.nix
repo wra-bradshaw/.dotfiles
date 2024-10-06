@@ -20,6 +20,8 @@
     unzip
     lazygit
     nix-output-monitor
+    xz
+    readline
     ripgrep
     jq
     devenv

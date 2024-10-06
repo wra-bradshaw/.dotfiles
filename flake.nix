@@ -87,11 +87,15 @@
         ./nixpkgs.nix
       ];
 
+      darwinSpecialArgs = { };
+
       nixosModules = [
         inputs.sops-nix.nixosModules.sops
         inputs.nix-flatpak.nixosModules.nix-flatpak
         ./nixpkgs.nix
       ];
+
+      nixosSpecialArgs = { };
     in
     {
       devShells = lib.forAllSupportedSystems (
@@ -125,6 +129,7 @@
       darwinConfigurations = {
         macbook = inputs.nix-darwin.lib.darwinSystem {
           system = "aarch64-darwin";
+          specialArgs = darwinSpecialArgs;
           modules = [
             ./darwin/macbook
             inputs.home-manager.darwinModules.home-manager
@@ -160,6 +165,7 @@
       nixosConfigurations = {
         desktop = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
+          specialArgs = nixosSpecialArgs;
           modules = [
             ./nixos/desktop
             inputs.home-manager.nixosModules.home-manager
@@ -194,6 +200,7 @@
 
         server = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
+          specialArgs = nixosSpecialArgs;
           modules = [
             ./nixos/server
             # microvm.nixosModules.microvm
@@ -202,6 +209,7 @@
 
         laptop = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
+          specialArgs = nixosSpecialArgs;
           modules = [
             ./nixos/laptop
             inputs.home-manager.nixosModules.home-manager

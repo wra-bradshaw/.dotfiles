@@ -373,6 +373,8 @@
           lua-ls.enable = true;
           nixd.enable = true;
           astro.enable = true;
+          sourcekit.enable = true;
+          basedpyright.enable = true;
 
           intelephense = {
             enable = true;
@@ -397,6 +399,7 @@
           html.enable = true;
           jsonls.enable = true;
           cssls.enable = true;
+          eslint.enable = true;
 
           ts-ls = {
             enable = true;
@@ -459,9 +462,10 @@
       nvim-autopairs = {
         enable = true;
       };
-      mini.modules = {
-        icons.enable = true;
-        mockDevIcons.enable = true;
+      mini = {
+        enable = true;
+        modules.icons.enable = true;
+        mockDevIcons = true;
       };
       telescope = {
         enable = true;

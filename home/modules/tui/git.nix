@@ -1,4 +1,5 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, ... }:
+{
   home.packages = with pkgs; [ pass ];
 
   programs.git = {
@@ -10,10 +11,10 @@
       key = "${config.sops.secrets."sshkey/private".path}";
     };
     extraConfig = {
-      credential.helper =
-        "${pkgs.git-credential-manager}/bin/git-credential-manager";
+      credential.helper = "${pkgs.git-credential-manager}/bin/git-credential-manager";
       init.defaultBranch = "main";
       gpg.format = "ssh";
+      url."ssh://git@github.com/".insteadOf = "https://github.com/";
     };
   };
 }

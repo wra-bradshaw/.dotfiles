@@ -1,4 +1,5 @@
-{config, ...}: {
+{ config, ... }:
+{
   programs.ssh = {
     enable = true;
     addKeysToAgent = "yes";
@@ -9,7 +10,8 @@
       "github.com" = {
         forwardAgent = true;
       };
-      "q.dev.ionata.com" = {
+      "stage" = {
+        hostname = "q.dev.ionata.com";
         forwardAgent = true;
       };
     };

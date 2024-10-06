@@ -31,38 +31,57 @@
       right_padding = 10;
       window_gap = 10;
     };
-    extraConfig = ''
-      yabai -m config debug_output on
-      yabai -m rule --add app="^Harvest$" manage=off
+    extraConfig =
+      let
+        wallpaperScript = pkgs.writeShellApplication {
+          name = "wallpaperScript";
 
-      for idx in $(yabai -m query --spaces | jq '.[].index | select(. > 0)' | sort -nr); do
-        yabai -m space --destroy "$idx"
-      done
+          runtimeInputs = [
+            pkgs.jq
+            (import ../lib/wallpaper-bin.nix { inherit pkgs; })
+          ];
 
-      ${
-        (builtins.concatStringsSep "\n" (
-          builtins.genList (x: ''
-            yabai -m space --create
-          '') 8
-        ))
-      }
-    '';
+          text = ''
+            set -euox pipefail
+            COLORS_PATH="$HOME/.config/wallpaper/colors.json"
+            test -f "$COLORS_PATH"
+
+            ${builtins.concatStringsSep "\n" (
+              builtins.genList (x: ''
+                COLOR=$(jq -r '.[${builtins.toString x}]' < "$COLORS_PATH")
+                yabai -m space --focus ${builtins.toString (x + 1)} || true
+                wallpaper set-solid-color "$COLOR" --screen 0
+              '') 9
+            )}
+          '';
+        };
+      in
+      ''
+        sudo yabai --load-sa
+
+        yabai -m config debug_output on
+        yabai -m rule --add app="^Harvest$" manage=off
+
+        for idx in $(yabai -m query --spaces | ${pkgs.lib.getExe pkgs.jq} '.[].index | select(. > 0)' | sort -nr); do
+          yabai -m space --destroy "$idx"
+        done
+
+        ${
+          (builtins.concatStringsSep "\n" (
+            builtins.genList (x: ''
+              yabai -m space --create
+            '') 8
+          ))
+        }
+
+        ${wallpaperScript}/bin/wallpaperScript
+      '';
   };
 
-  # launchd.daemons.yabai-sa =
-  #   let
-  #     yabaiScript = pkgs.writeShellScript "yabai-sa" ''
-  #       ${pkgs.yabai}/bin/yabai --load-sa
-  #     '';
-  #   in
-  #   {
-  #     script = pkgs.lib.mkForce "";
-  #     serviceConfig.ProgramArguments = [
-  #       "/bin/sh"
-  #       "-c"
-  #       "/bin/wait4path ${yabaiScript} &amp;&amp; exec ${yabaiScript}"
-  #     ];
-  #   };
+  launchd.user.agents.yabai = {
+    serviceConfig.StandardErrorPath = "/tmp/yabai_error";
+    serviceConfig.StandardOutPath = "/tmp/yabai_out";
+  };
 
   services.skhd = {
     enable = true;
