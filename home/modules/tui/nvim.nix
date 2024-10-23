@@ -146,7 +146,6 @@
         enable = true;
         sources = {
           formatting = {
-            # prettierd.enable = true;
             nixfmt = {
               enable = true;
               package = pkgs.nixfmt-rfc-style;
@@ -183,8 +182,6 @@
               option.get_bufnrs.__raw = "vim.api.nvim_list_bufs"; # Words from other buffers are suggested
             }
           ];
-
-          completion.autocomplete = [ "TextChanged" ];
         };
       };
       cmp-nvim-lsp.enable = true;
@@ -245,6 +242,12 @@
               stop_after_first = true;
             };
             typescriptreact = {
+              __unkeyed-1 = "prettierd";
+              __unkeyed-2 = "prettier";
+              timeout_ms = 2000;
+              stop_after_first = true;
+            };
+            vue = {
               __unkeyed-1 = "prettierd";
               __unkeyed-2 = "prettier";
               timeout_ms = 2000;
@@ -370,7 +373,7 @@
         servers = {
           templ.enable = true;
           gopls.enable = true;
-          lua-ls.enable = true;
+          lua_ls.enable = true;
           nixd.enable = true;
           astro.enable = true;
           sourcekit.enable = true;
@@ -378,6 +381,7 @@
 
           intelephense = {
             enable = true;
+            package = pkgs.intelephense;
             rootDir = ''
                             function(fname)
               								local util = require 'lspconfig.util'
@@ -400,8 +404,9 @@
           jsonls.enable = true;
           cssls.enable = true;
           eslint.enable = true;
+          volar.enable = true;
 
-          ts-ls = {
+          ts_ls = {
             enable = true;
             rootDir = ''
                             function (filename, bufnr)
@@ -413,6 +418,14 @@
                             	return util.root_pattern("package.json")(filename);
                             end
             '';
+            filetypes = [
+              "javascript"
+              "javascriptreact"
+              "javascript.jsx"
+              "typescript"
+              "typescriptreact"
+              "typescript.tsx"
+            ];
             extraOptions = {
               single_file_support = false;
             };
@@ -427,7 +440,7 @@
             '';
           };
           terraformls.enable = true;
-          rust-analyzer = {
+          rust_analyzer = {
             enable = true;
             installCargo = false;
             installRustc = false;

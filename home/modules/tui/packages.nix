@@ -13,9 +13,11 @@
     ripgrep
     aria2
     htop-vim
+    wget
     yt-dlp
     gcc
     kalker
+    watchexec
     ffmpeg
     unzip
     lazygit
@@ -24,6 +26,7 @@
     readline
     ripgrep
     jq
+    yq-go
     devenv
     mariadb
     fnm
