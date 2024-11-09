@@ -42,6 +42,19 @@
 
     autoCmd = [
       {
+        event = "BufWritePre";
+        callback.__raw = ''
+          function()
+            vim.lsp.buf.format({
+              async = false,
+              filter = function(client)
+                return client.name == "eslint"
+              end,
+            })
+          end
+        '';
+      }
+      {
         event = "FileType";
         pattern = [
           "tex"
@@ -73,6 +86,11 @@
         mode = [ "v" ];
         key = "K";
         action = ":m '<-2<CR>gv=gv";
+      }
+      {
+        mode = [ "n" ];
+        key = "<leader>gg";
+        action = ":LazyGit<CR>";
       }
       {
         mode = [
@@ -141,6 +159,7 @@
       which-key = {
         enable = true;
       };
+      ts-context-commentstring.enable = true;
       lazygit.enable = true;
       none-ls = {
         enable = true;
@@ -207,51 +226,47 @@
             ];
             javascript = {
               __unkeyed-1 = "prettierd";
-              __unkeyed-2 = "prettier";
-              timeout_ms = 2000;
-              stop_after_first = true;
-            };
-            html = {
-              __unkeyed-1 = "prettierd";
-              __unkeyed-2 = "prettier";
-              timeout_ms = 2000;
-              stop_after_first = true;
-            };
-            css = {
-              __unkeyed-1 = "prettierd";
-              __unkeyed-2 = "prettier";
-              timeout_ms = 2000;
-              stop_after_first = true;
-            };
-            scss = {
-              __unkeyed-1 = "prettierd";
-              __unkeyed-2 = "prettier";
-              timeout_ms = 2000;
-              stop_after_first = true;
+              timeout_ms = 5000;
             };
             javascriptreact = {
               __unkeyed-1 = "prettierd";
-              __unkeyed-2 = "prettier";
-              timeout_ms = 2000;
-              stop_after_first = true;
+              timeout_ms = 5000;
             };
             typescript = {
               __unkeyed-1 = "prettierd";
-              __unkeyed-2 = "prettier";
-              timeout_ms = 2000;
-              stop_after_first = true;
+              timeout_ms = 5000;
             };
             typescriptreact = {
               __unkeyed-1 = "prettierd";
-              __unkeyed-2 = "prettier";
-              timeout_ms = 2000;
-              stop_after_first = true;
+              timeout_ms = 5000;
+            };
+            html = {
+              __unkeyed-1 = "prettierd";
+              timeout_ms = 5000;
             };
             vue = {
               __unkeyed-1 = "prettierd";
-              __unkeyed-2 = "prettier";
-              timeout_ms = 2000;
-              stop_after_first = true;
+              timeout_ms = 5000;
+            };
+            astro = {
+              __unkeyed-1 = "prettierd";
+              timeout_ms = 5000;
+            };
+            svelte = {
+              __unkeyed-1 = "prettierd";
+              timeout_ms = 5000;
+            };
+            css = {
+              __unkeyed-1 = "prettierd";
+              timeout_ms = 5000;
+            };
+            scss = {
+              __unkeyed-1 = "prettierd";
+              timeout_ms = 5000;
+            };
+            json = {
+              __unkeyed-1 = "prettierd";
+              timeout_ms = 5000;
             };
             nix = {
               "lsp_format" = "fallback";
@@ -261,12 +276,6 @@
             };
             yaml = {
               "lsp_format" = "fallback";
-            };
-            json = {
-              __unkeyed-1 = "prettierd";
-              __unkeyed-2 = "prettier";
-              timeout_ms = 2000;
-              stop_after_first = true;
             };
             go = {
               "lsp_format" = "fallback";
@@ -378,6 +387,7 @@
           astro.enable = true;
           sourcekit.enable = true;
           basedpyright.enable = true;
+          tailwindcss.enable = true;
 
           intelephense = {
             enable = true;

@@ -6,5 +6,6 @@
     brewCasks.eloston-chromium
     brewCasks.orbstack
     brewCasks.anki
+    brewCasks.homerow
   ];
 }

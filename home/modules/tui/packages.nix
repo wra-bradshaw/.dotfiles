@@ -20,7 +20,6 @@
     watchexec
     ffmpeg
     unzip
-    lazygit
     nix-output-monitor
     xz
     readline

@@ -11,6 +11,8 @@
     settings.extra-nix-path = "nixpkgs=flake:nixpkgs";
   };
 
+  nixpkgs.config.allowUnfree = true;
+
   system.stateVersion = 5;
 
   services.nix-daemon.enable = true;

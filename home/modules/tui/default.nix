@@ -10,6 +10,7 @@
     ./fzf.nix
     ./zsh.nix
     ./zellij.nix
+    ./lazygit.nix
     ./nix.nix
     ./rbw.nix
     ./ssh.nix
