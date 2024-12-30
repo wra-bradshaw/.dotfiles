@@ -16,6 +16,8 @@
     wget
     yt-dlp
     gcc
+    ngrok
+    terraform
     kalker
     watchexec
     ffmpeg

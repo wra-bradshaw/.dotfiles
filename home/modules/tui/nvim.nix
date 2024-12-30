@@ -388,6 +388,7 @@
           sourcekit.enable = true;
           basedpyright.enable = true;
           tailwindcss.enable = true;
+          yamlls.enable = true;
 
           intelephense = {
             enable = true;

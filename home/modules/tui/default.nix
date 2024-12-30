@@ -14,6 +14,5 @@
     ./nix.nix
     ./rbw.nix
     ./ssh.nix
-    ./pyenv.nix
   ];
 }

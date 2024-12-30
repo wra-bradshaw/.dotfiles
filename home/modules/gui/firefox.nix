@@ -114,7 +114,7 @@
           color = "blue";
         };
       };
-      extensions = with config.nur.repos.rycee.firefox-addons; [
+      extensions = with pkgs.nur.repos.rycee.firefox-addons; [
         multi-account-containers
         firefox-translations
         vimium

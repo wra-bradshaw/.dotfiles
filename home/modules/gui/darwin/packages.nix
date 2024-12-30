@@ -7,5 +7,6 @@
     brewCasks.orbstack
     brewCasks.anki
     brewCasks.homerow
+    brewCasks.audacity
   ];
 }

@@ -55,8 +55,8 @@
 
       homeManagerModules = [
         inputs.nixvim.homeManagerModules.nixvim
-        inputs.nur.nixosModules.nur
         inputs.nix-colors.homeManagerModules.default
+        ./nixpkgs.nix
       ];
 
       homeManagerModulesDarwin = [ inputs.mac-app-util.homeManagerModules.default ] ++ homeManagerModules;
@@ -84,6 +84,9 @@
       darwinModules = [
         inputs.brew-nix.darwinModules.default
         inputs.mac-app-util.darwinModules.default
+        {
+          nixpkgs.overlays = [ inputs.nur.overlays.default ];
+        }
         ./nixpkgs.nix
       ];
 
@@ -91,6 +94,7 @@
 
       nixosModules = [
         inputs.sops-nix.nixosModules.sops
+        inputs.nur.modules.nixos.default
         inputs.nix-flatpak.nixosModules.nix-flatpak
         ./nixpkgs.nix
       ];
