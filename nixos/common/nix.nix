@@ -1,9 +1,9 @@
-{ pkgs, config, ... }: {
+{ config, ... }:
+{
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.permittedInsecurePackages = [ "nix-2.16.2" ];
 
   nix = {
-    package = pkgs.nixFlakes;
     gc = {
       automatic = true;
       dates = "daily";

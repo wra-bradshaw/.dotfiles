@@ -1,6 +1,8 @@
 { pkgs, config, ... }:
 {
   nix = {
+    linux-builder.enable = true;
+    linux-builder.package = pkgs.darwin.linux-builder-x86_64;
     package = pkgs.nixVersions.latest;
     nixPath = [ { nixpkgs = "flake:nixpkgs"; } ];
     settings.trusted-users = [

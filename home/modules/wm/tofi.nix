@@ -1,4 +1,5 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, ... }:
+{
   home.packages = with pkgs; [ tofi ];
 
   wayland.windowManager.hyprland.settings = {
@@ -7,7 +8,7 @@
 
   home.file = {
     ".config/tofi/config".text = ''
-      font = "${pkgs.nerdfonts}/share/fonts/truetype/NerdFonts/FiraCodeNerdFont-Regular.ttf"
+      font = "${pkgs.nerd-fonts.fira-code}/share/fonts/truetype/NerdFonts/FiraCode/FiraCodeNerdFont-Regular.ttf"
       width = 100%
       height = 100%
       border-width = 0

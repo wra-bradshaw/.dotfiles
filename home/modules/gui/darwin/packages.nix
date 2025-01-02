@@ -8,5 +8,6 @@
     brewCasks.anki
     brewCasks.homerow
     brewCasks.audacity
+    brewCasks.keepingyouawake
   ];
 }
