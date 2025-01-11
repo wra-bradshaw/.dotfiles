@@ -6,8 +6,8 @@
         set -euox pipefail
 
         if [ "$(${pkgs.lib.getExe pkgs.aerospace} list-windows --focused --format "%{app-bundle-id}")" = "com.mitchellh.ghostty" ]; then
-        	${pkgs.lib.getExe pkgs.aerospace} mode alacritty
-        	echo "alacritty" >> /tmp/log
+        	${pkgs.lib.getExe pkgs.aerospace} mode terminal
+        	echo "terminal" >> /tmp/log
         else
         	${pkgs.lib.getExe pkgs.aerospace} mode main
         	echo "main" >> /tmp/log
@@ -128,7 +128,7 @@
           '';
         };
 
-        mode.alacritty.binding = mainConfig;
+        mode.terminal.binding = mainConfig;
 
         mode.resize.binding = {
           backspace = "flatten-workspace-tree";
