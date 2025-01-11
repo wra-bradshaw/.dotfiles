@@ -5,12 +5,12 @@
       focusScript = pkgs.writeShellScriptBin "focus-script" ''
         set -euox pipefail
 
-        if ${pkgs.lib.getExe pkgs.aerospace} list-windows --focused --format "%{app-name}" | grep -qi "alacritty"; then
-          ${pkgs.lib.getExe pkgs.aerospace} mode alacritty
-          echo "alacritty" >> /tmp/log
+        if [ "$(${pkgs.lib.getExe pkgs.aerospace} list-windows --focused --format "%{app-bundle-id}")" = "com.mitchellh.ghostty" ]; then
+        	${pkgs.lib.getExe pkgs.aerospace} mode alacritty
+        	echo "alacritty" >> /tmp/log
         else
-          ${pkgs.lib.getExe pkgs.aerospace} mode main
-          echo "main" >> /tmp/log
+        	${pkgs.lib.getExe pkgs.aerospace} mode main
+        	echo "main" >> /tmp/log
         fi
       '';
 
@@ -118,7 +118,14 @@
         ];
 
         mode.main.binding = mainConfig // {
-          cmd-enter = "exec-and-forget ${pkgs.lib.getExe pkgs.alacritty}";
+          cmd-enter = ''
+            exec-and-forget osascript -e 'if application "Ghostty" is not running then
+            	tell application "Ghostty" to activate
+            else
+            	tell application "Ghostty" to activate
+            	tell application "System Events" to tell process "Ghostty" to click menu item "New Window" of menu "File" of menu bar 1
+            end if'
+          '';
         };
 
         mode.alacritty.binding = mainConfig;
