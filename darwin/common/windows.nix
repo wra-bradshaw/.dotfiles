@@ -7,10 +7,8 @@
 
         if [ "$(${pkgs.lib.getExe pkgs.aerospace} list-windows --focused --format "%{app-bundle-id}")" = "com.mitchellh.ghostty" ]; then
         	${pkgs.lib.getExe pkgs.aerospace} mode terminal
-        	echo "terminal" >> /tmp/log
         else
         	${pkgs.lib.getExe pkgs.aerospace} mode main
-        	echo "main" >> /tmp/log
         fi
       '';
 
