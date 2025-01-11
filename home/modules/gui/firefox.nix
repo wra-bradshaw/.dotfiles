@@ -120,6 +120,7 @@
         vimium
         bitwarden
         british-english-dictionary-2
+        temporary-containers
         (buildFirefoxXpiAddon {
           pname = "what-to-click";
           version = "1.12.5";
