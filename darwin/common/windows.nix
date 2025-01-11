@@ -1,132 +1,141 @@
 { pkgs, ... }:
 {
-  # enable non-Apple-signed arm64e binaries
-  system.nvram.variables = {
-    "boot-args" = "-arm64e_preview_abi";
-  };
+  services.aerospace =
+    let
+      focusScript = pkgs.writeShellScriptBin "focus-script" ''
+        set -euox pipefail
 
-  services.yabai = {
-    enable = true;
-    package = pkgs.yabai;
-    enableScriptingAddition = true;
-    config = {
-      focus_follows_mouse = "autoraise";
-      mouse_follows_focus = "on";
-      window_placement = "second_child";
-      window_opacity = "off";
-      window_opacity_duration = "0.0";
-      window_shadow = "off";
-      active_window_opacity = "1.0";
-      normal_window_opacity = "1.0";
-      split_ratio = "0.50";
-      split_type = "auto";
-      auto_balance = "on";
-      mouse_modifier = "ctrl";
-      mouse_action1 = "move";
-      mouse_action2 = "resize";
-      layout = "bsp";
-      top_padding = 10;
-      bottom_padding = 10;
-      left_padding = 10;
-      right_padding = 10;
-      window_gap = 10;
-    };
-    extraConfig =
-      let
-        wallpaperScript = pkgs.writeShellApplication {
-          name = "wallpaperScript";
-
-          runtimeInputs = [
-            pkgs.jq
-            (import ../lib/wallpaper-bin.nix { inherit pkgs; })
-          ];
-
-          text = ''
-            set -euox pipefail
-            COLORS_PATH="$HOME/.config/wallpaper/colors.json"
-            test -f "$COLORS_PATH"
-
-            ${builtins.concatStringsSep "\n" (
-              builtins.genList (x: ''
-                COLOR=$(jq -r '.[${builtins.toString x}]' < "$COLORS_PATH")
-                yabai -m space --focus ${builtins.toString (x + 1)} || true
-                wallpaper set-solid-color "$COLOR" --screen 0
-              '') 9
-            )}
-          '';
-        };
-      in
-      ''
-        sudo yabai --load-sa
-
-        yabai -m config debug_output on
-        yabai -m rule --add app="^Harvest$" manage=off
-
-        for idx in $(yabai -m query --spaces | ${pkgs.lib.getExe pkgs.jq} '.[].index | select(. > 0)' | sort -nr); do
-          yabai -m space --destroy "$idx"
-        done
-
-        ${
-          (builtins.concatStringsSep "\n" (
-            builtins.genList (x: ''
-              yabai -m space --create
-            '') 8
-          ))
-        }
-
-        ${wallpaperScript}/bin/wallpaperScript
+        if ${pkgs.lib.getExe pkgs.aerospace} list-windows --focused --format "%{app-name}" | grep -qi "alacritty"; then
+          ${pkgs.lib.getExe pkgs.aerospace} mode alacritty
+          echo "alacritty" >> /tmp/log
+        else
+          ${pkgs.lib.getExe pkgs.aerospace} mode main
+          echo "main" >> /tmp/log
+        fi
       '';
-  };
 
-  launchd.user.agents.yabai = {
-    serviceConfig.StandardErrorPath = "/tmp/yabai_error";
-    serviceConfig.StandardOutPath = "/tmp/yabai_out";
-  };
+      mainConfig = {
+        cmd-h = [ ];
+        cmd-alt-h = [ ];
+        alt-r = "mode resize";
 
-  services.skhd = {
-    enable = true;
-    skhdConfig = ''
-      cmd - return [
-        * : alacritty
-        "alacritty" ~
-      ]
+        alt-slash = "layout tiles horizontal vertical";
+        alt-comma = "layout accordion horizontal vertical";
 
-      alt - h : yabai -m window --focus west
-      alt - l : yabai -m window --focus east
-      alt - k : yabai -m window --focus north
-      alt - j : yabai -m window --focus south
+        alt-h = "focus left";
+        alt-j = "focus down";
+        alt-k = "focus up";
+        alt-l = "focus right";
 
-      cmd + alt - h : yabai -m window --warp west
-      cmd + alt - l : yabai -m window --warp east
-      cmd + alt - k : yabai -m window --warp north
-      cmd + alt - j : yabai -m window --warp south
+        alt-shift-h = "move left";
+        alt-shift-j = "move down";
+        alt-shift-k = "move up";
+        alt-shift-l = "move right";
 
-      ${builtins.concatStringsSep "\n" (
-        builtins.genList (
-          x: "alt - ${builtins.toString (x + 1)} : yabai -m space --focus ${builtins.toString (x + 1)}"
-        ) 9
-      )}
+        alt-ctrl-h = "join-with left";
+        alt-ctrl-j = "join-with down";
+        alt-ctrl-k = "join-with up";
+        alt-ctrl-l = "join-with right";
 
-      ${builtins.concatStringsSep "\n" (
-        builtins.genList (
-          x:
-          "shift + alt - ${builtins.toString (x + 1)} : yabai -m window --space ${builtins.toString (x + 1)}"
-        ) 9
-      )}
+        alt-1 = "workspace 1";
+        alt-2 = "workspace 2";
+        alt-3 = "workspace 3";
+        alt-4 = "workspace 4";
+        alt-5 = "workspace 5";
+        alt-6 = "workspace 6";
+        alt-7 = "workspace 7";
+        alt-8 = "workspace 8";
+        alt-9 = "workspace 9";
+        alt-a = "workspace A";
+        alt-b = "workspace B";
+        alt-c = "workspace C";
+        alt-d = "workspace D";
+        alt-e = "workspace E";
+        alt-f = "workspace F";
+        alt-g = "workspace G";
+        alt-i = "workspace I";
+        alt-m = "workspace M";
+        alt-n = "workspace N";
+        alt-o = "workspace O";
+        alt-p = "workspace P";
+        alt-q = "workspace Q";
+        alt-s = "workspace S";
+        alt-t = "workspace T";
+        alt-u = "workspace U";
+        alt-v = "workspace V";
+        alt-w = "workspace W";
+        alt-x = "workspace X";
+        alt-y = "workspace Y";
+        alt-z = "workspace Z";
 
-      # resize mode
-      :: resize @ : yabai -m config active_window_opacity 1; yabai -m config normal_window_opacity 0.9;
-      alt - r ; resize
-      resize < escape ; default
-      resize < alt -r ; default
-      resize < backspace : yabai -m space --balance
-      resize < h : yabai -m window --resize right:-20:0 2> /dev/null || yabai -m window --resize left:-20:0 2> /dev/null
-      resize < l : yabai -m window --resize right:20:0 2> /dev/null || yabai -m window --resize left:20:0 2> /dev/null
-      resize < k : yabai -m window --resize bottom:0:-20 2> /dev/null || yabai -m window --resize top:0:-20 2> /dev/null
-      resize < j : yabai -m window --resize bottom:0:20 2> /dev/null || yabai -m window --resize top:0:20 2> /dev/null
-    '';
-  };
+        alt-shift-1 = "move-node-to-workspace 1";
+        alt-shift-2 = "move-node-to-workspace 2";
+        alt-shift-3 = "move-node-to-workspace 3";
+        alt-shift-4 = "move-node-to-workspace 4";
+        alt-shift-5 = "move-node-to-workspace 5";
+        alt-shift-6 = "move-node-to-workspace 6";
+        alt-shift-7 = "move-node-to-workspace 7";
+        alt-shift-8 = "move-node-to-workspace 8";
+        alt-shift-9 = "move-node-to-workspace 9";
+        alt-shift-a = "move-node-to-workspace A";
+        alt-shift-b = "move-node-to-workspace B";
+        alt-shift-c = "move-node-to-workspace C";
+        alt-shift-d = "move-node-to-workspace D";
+        alt-shift-e = "move-node-to-workspace E";
+        alt-shift-f = "move-node-to-workspace F";
+        alt-shift-g = "move-node-to-workspace G";
+        alt-shift-i = "move-node-to-workspace I";
+        alt-shift-m = "move-node-to-workspace M";
+        alt-shift-n = "move-node-to-workspace N";
+        alt-shift-o = "move-node-to-workspace O";
+        alt-shift-p = "move-node-to-workspace P";
+        alt-shift-q = "move-node-to-workspace Q";
+        alt-shift-s = "move-node-to-workspace S";
+        alt-shift-t = "move-node-to-workspace T";
+        alt-shift-u = "move-node-to-workspace U";
+        alt-shift-v = "move-node-to-workspace V";
+        alt-shift-w = "move-node-to-workspace W";
+        alt-shift-x = "move-node-to-workspace X";
+        alt-shift-y = "move-node-to-workspace Y";
+        alt-shift-z = "move-node-to-workspace Z";
+      };
+    in
+    {
+      enable = true;
+      settings = {
+        gaps = {
+          inner.horizontal = 8;
+          inner.vertical = 8;
+          outer.left = 8;
+          outer.right = 8;
+          outer.top = 8;
+          outer.bottom = 8;
+        };
 
-  launchd.user.agents.skhd.serviceConfig.StandardErrorPath = "/tmp/skhd_error";
-  launchd.user.agents.skhd.serviceConfig.StandardOutPath = "/tmp/skhd_out";
+        on-focus-changed = [
+          "move-mouse window-lazy-center"
+          "exec-and-forget ${pkgs.lib.getExe focusScript}"
+        ];
+
+        mode.main.binding = mainConfig // {
+          cmd-enter = "exec-and-forget ${pkgs.lib.getExe pkgs.alacritty}";
+        };
+
+        mode.alacritty.binding = mainConfig;
+
+        mode.resize.binding = {
+          backspace = "flatten-workspace-tree";
+          minus = "resize smart -20";
+          equal = "resize smart +20";
+          leftSquareBracket = "resize smart-opposite -20";
+          rightSquareBracket = "resize smart-opposite +20";
+          esc = "exec-and-forget ${pkgs.lib.getExe focusScript}";
+
+          h = "join-with left";
+          j = "join-with down";
+          k = "join-with up";
+          l = "join-with right";
+        };
+      };
+    };
 }

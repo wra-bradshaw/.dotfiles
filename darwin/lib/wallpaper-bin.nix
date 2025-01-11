@@ -8,13 +8,11 @@
     sha256 = "sha256-SAs2ciOPY2VeGyFBdzXpmE7qkHnTugXvWjJ24r5Nz1M=";
   };
 
-  nativeBuildInputs =
-    [
-    ];
+  nativeBuildInputs = [
+  ];
 
-  buildInputs =
-    [
-    ];
+  buildInputs = [
+  ];
 
   sourceRoot = ".";
 
