@@ -164,6 +164,40 @@
             )
           ] ++ darwinModules;
         };
+
+        macbookair = inputs.nix-darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          specialArgs = darwinSpecialArgs;
+          modules = [
+            ./darwin/macbookair
+            inputs.home-manager.darwinModules.home-manager
+            (
+              { config, ... }:
+              {
+                home-manager = {
+                  useUserPackages = true;
+                  useGlobalPkgs = true;
+                  extraSpecialArgs = homeManagerExtraSpecialArgs // homeManagerExtraSpecialArgsDarwin;
+                  users.${config.username}.imports = [
+                    ./home/hosts/macbookair
+                    (
+                      { pkgs, ... }:
+                      {
+                        options.username =
+                          with pkgs.lib;
+                          mkOption {
+                            type = types.str;
+                            default = config.username;
+                            description = "The username of the user";
+                          };
+                      }
+                    )
+                  ] ++ homeManagerModulesDarwin;
+                };
+              }
+            )
+          ] ++ darwinModules;
+        };
       };
 
       nixosConfigurations = {
