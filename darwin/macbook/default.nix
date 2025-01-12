@@ -2,7 +2,6 @@
 {
   imports = [
     ../common
-    ./packages.nix
   ];
 
   options.username =
