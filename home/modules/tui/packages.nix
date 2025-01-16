@@ -25,5 +25,7 @@
     devenv
     mariadb
     fnm
+    shellcheck
+    shfmt
   ];
 }

@@ -13,5 +13,6 @@
     ../../modules/gui/darwin
     ./home.nix
     ./aws.nix
+    ./packages.nix
   ];
 }

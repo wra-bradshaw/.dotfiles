@@ -379,6 +379,7 @@
           templ.enable = true;
           gopls.enable = true;
           lua_ls.enable = true;
+          bashls.enable = true;
           nixd.enable = true;
           astro.enable = true;
           sourcekit.enable = true;
@@ -432,6 +433,7 @@
               "typescript"
               "typescriptreact"
               "typescript.tsx"
+              "astro"
             ];
             extraOptions = {
               single_file_support = false;

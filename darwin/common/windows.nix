@@ -129,7 +129,8 @@
         mode.terminal.binding = mainConfig;
 
         mode.resize.binding = {
-          backspace = "flatten-workspace-tree";
+          backspace = "balance-sizes";
+          shift-backspace = "flatten-workspace-tree";
           minus = "resize smart -20";
           equal = "resize smart +20";
           leftSquareBracket = "resize smart-opposite -20";
