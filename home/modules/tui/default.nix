@@ -14,5 +14,6 @@
     ./nix.nix
     ./rbw.nix
     ./ssh.nix
+    ./aws.nix
   ];
 }

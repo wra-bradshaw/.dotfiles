@@ -121,6 +121,24 @@
         bitwarden
         british-english-dictionary-2
         temporary-containers
+        granted
+        (buildFirefoxXpiAddon {
+          pname = "automatic-adskipper";
+          version = "4.1";
+          addonId = "miletadulovic98@gmail.com";
+          url = "https://addons.mozilla.org/firefox/downloads/file/4411263/automatic_adskipper-4.1.xpi";
+          sha256 = "bb3dc1ef419cb9bd3d231b4f7c66ee0742503a0b3631c3e720960d18867d7994";
+          meta = with pkgs.lib; {
+            homepage = "https://www.adskipper.me";
+            description = "AdSkipper is browser extension that automatically skips in video ads on websites. \n\nSupport the project on:\n<a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/b14c8e45a91db2662ff71cedb888892d794f9ec116a52763b69fa83bc39967b5/https%3A//www.buymeacoffee.com/mileta\" rel=\"nofollow\">https://www.buymeacoffee.com/mileta</a>\n<a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/591feb7cd4b5d3b7c85ca86f90a6aab5f9a7e55c0264515b651dbd1b10365420/https%3A//patreon.com/MiletaDulovic\" rel=\"nofollow\">https://patreon.com/MiletaDulovic</a>\n\nSource Code\n<a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/a6c2e4d70815f1cf580713a85fdb5152b5c25a6b29cbdcad3b2142c235a6fd70/https%3A//github.com/M1ck0/adskipper-extension\" rel=\"nofollow\">https://github.com/M1ck0/adskipper-extension</a>";
+            license = licenses.mit;
+            mozPermissions = [
+              "storage"
+              "*://*.youtube.com/*"
+            ];
+            platforms = platforms.all;
+          };
+        })
         (buildFirefoxXpiAddon {
           pname = "what-to-click";
           version = "1.12.5";

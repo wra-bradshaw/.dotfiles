@@ -2,12 +2,6 @@
 {
   home.packages = with pkgs; [
     dig
-    (awscli2.overrideAttrs (old: {
-      makeWrapperArgs = (old.makeWrapperArgs or [ ]) ++ [
-        "--unset"
-        "PYTHONPATH"
-      ];
-    }))
     parallel
     sops
     ripgrep

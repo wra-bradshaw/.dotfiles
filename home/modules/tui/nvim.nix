@@ -4,6 +4,7 @@
     tree-sitter
     prettierd
     nodePackages.vscode-langservers-extracted
+    nixfmt-rfc-style
   ];
 
   home.sessionVariables = {
@@ -45,12 +46,16 @@
         event = "BufWritePre";
         callback.__raw = ''
           function()
-            vim.lsp.buf.format({
-              async = false,
-              filter = function(client)
-                return client.name == "eslint"
-              end,
-            })
+          	pcall(
+          		function()
+          			vim.lsp.buf.format({
+          				async = false,
+          				filter = function(client)
+          					return client.name == "eslint"
+          				end,
+          			})
+          		end
+          	)
           end
         '';
       }
@@ -161,17 +166,6 @@
       };
       ts-context-commentstring.enable = true;
       lazygit.enable = true;
-      none-ls = {
-        enable = true;
-        sources = {
-          formatting = {
-            nixfmt = {
-              enable = true;
-              package = pkgs.nixfmt-rfc-style;
-            };
-          };
-        };
-      };
       cmp = {
         enable = true;
         autoEnableSources = true;
@@ -270,7 +264,8 @@
               timeout_ms = 5000;
             };
             nix = {
-              "lsp_format" = "fallback";
+              __unkeyed-1 = "nixfmt";
+              timeout_ms = 5000;
             };
             markdown = {
               "lsp_format" = "fallback";
