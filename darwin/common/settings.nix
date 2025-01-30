@@ -1,7 +1,7 @@
 { config, ... }:
 {
   system.defaults = {
-    screencapture.location = "/tmp";
+    screencapture.location = "~/Downloads";
 
     dock = {
       autohide = true;
@@ -15,6 +15,10 @@
       "com.apple.finder".NewWindowTargetPath = "file:///Users/${config.username}/";
     };
 
+    finder = {
+      FXDefaultSearchScope = "SCcf";
+    };
+
     NSGlobalDomain = {
       ApplePressAndHoldEnabled = false;
       AppleICUForce24HourTime = true; # use 24 hr time
@@ -25,6 +29,7 @@
       NSDocumentSaveNewDocumentsToCloud = false; # disable icloud save by default
       NSWindowResizeTime = 0.1;
       "com.apple.mouse.tapBehavior" = 1; # enable tap to click
+      AppleInterfaceStyleSwitchesAutomatically = true;
 
     };
   };

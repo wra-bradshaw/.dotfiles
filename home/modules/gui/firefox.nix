@@ -24,6 +24,10 @@
       id = 0;
       isDefault = true;
       settings = {
+        # sidebar
+        "sidebar.revamp" = true;
+        "sidebar.verticalTabs" = true;
+
         "devtools.everOpened" = true;
         "intl.regional_prefs.use_os_locales" = true;
         "intl.accept_languages" = "en-GB, en";
