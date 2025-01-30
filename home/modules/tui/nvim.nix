@@ -267,6 +267,10 @@
               __unkeyed-1 = "nixfmt";
               timeout_ms = 5000;
             };
+            php = {
+              __unkeyed-1 = "pint";
+              timeout_ms = 5000;
+            };
             markdown = {
               "lsp_format" = "fallback";
             };

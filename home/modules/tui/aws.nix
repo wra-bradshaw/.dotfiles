@@ -20,16 +20,19 @@
         sso_session = "personal";
         sso_account_id = "301436506805";
         sso_role_name = "AdministratorAccess";
+        granted_color = "green";
       };
       "profile personal-shufflepuck" = {
         sso_session = "personal";
         sso_account_id = "182399685701";
         sso_role_name = "AdministratorAccess";
+        granted_color = "green";
       };
       "profile personal-valleyfield" = {
         sso_session = "personal";
         sso_account_id = "381492167517";
         sso_role_name = "AdministratorAccess";
+        granted_color = "green";
       };
       "sso-session personal" = {
         sso_start_url = "https://will-lol.awsapps.com/start";
