@@ -59,7 +59,10 @@
         ./nixpkgs.nix
       ];
 
-      homeManagerModulesDarwin = [ inputs.mac-app-util.homeManagerModules.default ] ++ homeManagerModules;
+      homeManagerModulesDarwin = [
+        inputs.mac-app-util.homeManagerModules.default
+        inputs.sops-nix.homeManagerModules.sops
+      ] ++ homeManagerModules;
 
       homeManagerModulesLinux = [
         inputs.xremap-flake.homeManagerModules.default

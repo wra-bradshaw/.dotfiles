@@ -4,6 +4,7 @@
     brewCasks.orbstack
     brewCasks.anki
     brewCasks.audacity
+    brewCasks.vlc
     (pkgs.brewCasks.eloston-chromium.overrideAttrs (old: {
       nativeBuildInputs = old.nativeBuildInputs ++ [
         pkgs.darwin.xattr
