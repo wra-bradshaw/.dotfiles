@@ -20,6 +20,13 @@
         alt-slash = "layout tiles horizontal vertical";
         alt-comma = "layout accordion horizontal vertical";
 
+        cmd-shift-enter = ''
+          exec-and-forget osascript -e 'if application "Ghostty" is not running then
+          	tell application "Ghostty" to activate
+          end if
+          tell application "System Events" to tell process "Ghostty" to click menu item "Quick Terminal" of menu "View" of menu bar 1'
+        '';
+
         alt-h = "focus left";
         alt-j = "focus down";
         alt-k = "focus up";
