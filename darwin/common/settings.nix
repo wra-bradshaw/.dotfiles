@@ -29,8 +29,8 @@
       NSDocumentSaveNewDocumentsToCloud = false; # disable icloud save by default
       NSWindowResizeTime = 0.1;
       "com.apple.mouse.tapBehavior" = 1; # enable tap to click
-      AppleInterfaceStyleSwitchesAutomatically = true;
-
+      AppleInterfaceStyleSwitchesAutomatically = false;
+      AppleInterfaceStyle = "Dark";
     };
   };
 
