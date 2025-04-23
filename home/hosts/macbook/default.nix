@@ -14,5 +14,6 @@
     ./home.nix
     ./aws.nix
     ./packages.nix
+    ../../extensions
   ];
 }

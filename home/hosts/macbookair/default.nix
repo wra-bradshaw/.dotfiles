@@ -10,5 +10,6 @@
     ../../modules/gui/darwin
     ./home.nix
     ./packages.nix
+    ../../extensions
   ];
 }

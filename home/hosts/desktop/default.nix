@@ -1,4 +1,10 @@
-{ pkgs, config, nix-colors, ... }: {
+{
+  pkgs,
+  config,
+  nix-colors,
+  ...
+}:
+{
   imports = [
     ../../../secrets.nix
     ../../modules/tui
@@ -8,5 +14,6 @@
     ../../modules/gui/linux
     ./home.nix
     ./display.nix
+    ../../extensions
   ];
 }

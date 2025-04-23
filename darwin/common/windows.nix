@@ -109,12 +109,12 @@
       enable = true;
       settings = {
         gaps = {
-          inner.horizontal = 8;
-          inner.vertical = 8;
-          outer.left = 8;
-          outer.right = 8;
-          outer.top = 8;
-          outer.bottom = 8;
+          inner.horizontal = 0;
+          inner.vertical = 0;
+          outer.left = 0;
+          outer.right = 0;
+          outer.top = 0;
+          outer.bottom = 0;
         };
 
         on-focus-changed = [

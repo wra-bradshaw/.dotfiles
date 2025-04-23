@@ -5,5 +5,7 @@
     brewCasks.anki
     brewCasks.audacity
     brewCasks.vlc
+    brewCasks.obsidian
+    raycast
   ];
 }

@@ -83,6 +83,36 @@
 
     keymaps = [
       {
+        mode = "n";
+        key = "<leader>m";
+        action.__raw = "function() require'harpoon':list():add() end";
+      }
+      {
+        mode = "n";
+        key = "<C-e>";
+        action.__raw = "function() require'harpoon'.ui:toggle_quick_menu(require'harpoon':list()) end";
+      }
+      {
+        mode = "n";
+        key = "<C-1>";
+        action.__raw = "function() require'harpoon':list():select(1) end";
+      }
+      {
+        mode = "n";
+        key = "<C-2>";
+        action.__raw = "function() require'harpoon':list():select(2) end";
+      }
+      {
+        mode = "n";
+        key = "<C-3>";
+        action.__raw = "function() require'harpoon':list():select(3) end";
+      }
+      {
+        mode = "n";
+        key = "<C-4>";
+        action.__raw = "function() require'harpoon':list():select(4) end";
+      }
+      {
         mode = [ "v" ];
         key = "J";
         action = ":m '>+1<CR>gv=gv";
@@ -357,16 +387,6 @@
       harpoon = {
         enable = true;
         enableTelescope = true;
-        keymaps = {
-          addFile = "m";
-          navFile = {
-            "1" = "<C-1>";
-            "2" = "<C-2>";
-            "3" = "<C-3>";
-            "4" = "<C-4>";
-          };
-          toggleQuickMenu = "<C-e>";
-        };
       };
       treesitter = {
         enable = true;

@@ -8,6 +8,7 @@ let
     "ddkjiahejlhfcafbddmgiahcphecmpfh" # ublock origin lite
     "oobpkmpnffeacpnfbbepbdlhbfdejhpg" # ddg bangs
     "oemmndcbldboiebfnladdacbdfmadadm" # pdf.js
+    "ekhagklcjbdpajgpjgmbionohlpdbjgc" # zotero connector
   ];
 in
 {

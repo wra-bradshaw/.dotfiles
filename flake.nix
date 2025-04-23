@@ -34,8 +34,6 @@
 
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.3.0";
 
-    mac-app-util.url = "github:hraban/mac-app-util";
-
     microvm.url = "github:astro/microvm.nix";
     microvm.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -60,7 +58,6 @@
       ];
 
       homeManagerModulesDarwin = [
-        inputs.mac-app-util.homeManagerModules.default
         inputs.sops-nix.homeManagerModules.sops
       ] ++ homeManagerModules;
 
@@ -86,7 +83,6 @@
 
       darwinModules = [
         inputs.brew-nix.darwinModules.default
-        inputs.mac-app-util.darwinModules.default
         {
           nixpkgs.overlays = [ inputs.nur.overlays.default ];
         }

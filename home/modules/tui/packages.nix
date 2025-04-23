@@ -4,6 +4,7 @@
     dig
     parallel
     sops
+    pandoc
     ripgrep
     aria2
     htop-vim
