@@ -122,6 +122,17 @@
           "exec-and-forget ${pkgs.lib.getExe focusScript}"
         ];
 
+        on-window-detected = [
+          {
+            "if" = {
+              app-id = "com.sproutcube.Shortcat";
+            };
+            run = [
+              "layout floating"
+            ];
+          }
+        ];
+
         mode.main.binding = mainConfig // {
           cmd-enter = ''
             exec-and-forget osascript -e 'if application "Ghostty" is not running then

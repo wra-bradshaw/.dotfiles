@@ -176,7 +176,8 @@
       };
       search.force = true;
       search.engines = {
-        "nixpkgs" = {
+        nixpkgs = {
+          name = "nixpkgs";
           urls = [
             {
               template = "https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query={searchTerms}";
@@ -184,43 +185,28 @@
           ];
           definedAliases = [ "@nix" ];
         };
-        "Will Lucky" = {
+        github-will-lol = {
+          name = "Will Lucky";
           urls = [ { template = "https://github.com/will-lol/{searchTerms}"; } ];
           definedAliases = [ "@willl" ];
         };
-        "Ionata WordPress Lucky" = {
-          urls = [
-            {
-              template = "https://github.com/ionata/wp-theme-{searchTerms}";
-            }
-          ];
-          definedAliases = [ "@ionwpl" ];
-        };
-        "Ionata Lucky" = {
-          urls = [ { template = "https://github.com/ionata/{searchTerms}"; } ];
-          definedAliases = [ "@ionl" ];
-        };
-        "Ionata" = {
-          urls = [
-            {
-              template = "https://github.com/search?q=org%3Aionata%20{searchTerms}&type=repositories";
-            }
-          ];
-          definedAliases = [ "@ion" ];
-        };
-        "Reddit - subreddit" = {
+        reddit-subreddit = {
+          name = "Reddit - subreddit";
           urls = [ { template = "https://www.reddit.com/r/{searchTerms}"; } ];
           definedAliases = [ "r/" ];
         };
-        "Reddit" = {
+        reddit = {
+          name = "Reddit";
           urls = [ { template = "https://www.reddit.com/search/?q={searchTerms}"; } ];
           definedAliases = [ "@reddit" ];
         };
-        "Github" = {
+        github = {
+          name = "GitHub";
           urls = [ { template = "https://github.com/search?q={searchTerms}"; } ];
           definedAliases = [ "@github" ];
         };
-        "Dictionary" = {
+        dictionary = {
+          name = "Dictionary";
           urls = [
             {
               template = "https://www.oed.com/search/dictionary/?q={searchTerms}";
@@ -228,7 +214,8 @@
           ];
           definedAliases = [ "@dict" ];
         };
-        "es" = {
+        es = {
+          name = "Translate from Spanish";
           urls = [
             {
               template = "https://translate.google.com/?sl=es&tl=en&text={searchTerms}&op=translate";
@@ -236,7 +223,8 @@
           ];
           definedAliases = [ "@es" ];
         };
-        "en" = {
+        en = {
+          name = "Translate from English";
           urls = [
             {
               template = "https://translate.google.com/?sl=en&tl=es&text={searchTerms}&op=translate";

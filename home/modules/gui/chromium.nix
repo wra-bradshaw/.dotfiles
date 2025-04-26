@@ -3,7 +3,6 @@ let
   extensionIds = [
     "cjjieeldgoohbkifkogalkmfpddeafcm" # granted
     "egnjhciaieeiiohknchakcodbpgjnchh" # tab wrangler
-    "nngceckbapebfimnlniiiahkandclblb" # bitwarden
     "dinhbmppbaekibhlomcimjbhdhacoael" # ad skipper
     "ddkjiahejlhfcafbddmgiahcphecmpfh" # ublock origin lite
     "oobpkmpnffeacpnfbbepbdlhbfdejhpg" # ddg bangs
@@ -20,7 +19,7 @@ in
           name = "google-chrome";
           src = pkgs.fetchurl {
             url = builtins.head old.src.urls;
-            hash = "sha256-S50fHFQbj0cJ3u1SUcHkkA4F31fXtlws3qvmA19Vg4M=";
+            hash = "sha256-3nrt9UyJKcXoFujwB1MkNDKd2JJkGHvyn69E6uQTr9o=";
           };
         }))
       else

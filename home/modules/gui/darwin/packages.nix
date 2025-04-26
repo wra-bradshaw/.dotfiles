@@ -6,6 +6,8 @@
     brewCasks.audacity
     brewCasks.vlc
     brewCasks.obsidian
+    brewCasks.proxyman
     raycast
+    shortcat
   ];
 }

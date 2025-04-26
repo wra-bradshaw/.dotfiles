@@ -421,22 +421,10 @@
           intelephense = {
             enable = true;
             package = pkgs.intelephense;
-            rootDir = ''
-                            function(fname)
-              								local util = require 'lspconfig.util'
-              								local path = util.search_ancestors(fname, function(path)
-              									if util.path.is_file(util.path.join(path, 'composer.lock')) then
-              										return path
-              									end
-              								end)
-
-              								if path ~= nil then
-              									return path
-              								else
-              									return util.find_git_ancestor(fname)
-              								end
-              							end
-            '';
+            rootMarkers = [
+              "composer.lock"
+              ".git"
+            ];
           };
 
           html.enable = true;
@@ -447,16 +435,9 @@
 
           ts_ls = {
             enable = true;
-            rootDir = ''
-                            function (filename, bufnr)
-              								local util = require 'lspconfig.util'
-                            	local denoRootDir = util.root_pattern("deno.json", "deno.jsonc")(filename);
-                            	if denoRootDir then
-                            		return nil;
-                            	end
-                            	return util.root_pattern("package.json")(filename);
-                            end
-            '';
+            rootMarkers = [
+              "package.json"
+            ];
             filetypes = [
               "javascript"
               "javascriptreact"
@@ -472,12 +453,10 @@
           };
           denols = {
             enable = true;
-            rootDir = ''
-                            function (filename, bufnr)
-              								local util = require 'lspconfig.util'
-                            	return util.root_pattern("deno.json", "deno.jsonc")(filename);
-                            end
-            '';
+            rootMarkers = [
+              "deno.json"
+              "deno.jsonc"
+            ];
           };
           terraformls.enable = true;
           rust_analyzer = {

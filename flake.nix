@@ -2,7 +2,7 @@
   description = "System Config";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "nixpkgs/nixos-unstable";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -10,6 +10,7 @@
     nix-colors.url = "github:misterio77/nix-colors";
 
     nur.url = "github:nix-community/NUR";
+    nur.inputs.nixpkgs.follows = "nixpkgs";
 
     brew-nix = {
       url = "github:BatteredBunny/brew-nix";
@@ -51,10 +52,11 @@
 
       lib = import ./lib.nix { inherit nixpkgs supportedSystems; };
 
+      overlays = import ./overlays { inherit lib; };
+
       homeManagerModules = [
         inputs.nixvim.homeManagerModules.nixvim
         inputs.nix-colors.homeManagerModules.default
-        ./nixpkgs.nix
       ];
 
       homeManagerModulesDarwin = [
@@ -82,16 +84,19 @@
       };
 
       darwinModules = [
-        inputs.brew-nix.darwinModules.default
         {
-          nixpkgs.overlays = [ inputs.nur.overlays.default ];
+          nixpkgs.overlays = [ inputs.nur.overlays.default ] ++ overlays;
         }
+        inputs.brew-nix.darwinModules.default
         ./nixpkgs.nix
       ];
 
       darwinSpecialArgs = { };
 
       nixosModules = [
+        {
+          nixpkgs.overlays = overlays;
+        }
         inputs.sops-nix.nixosModules.sops
         inputs.nur.modules.nixos.default
         inputs.nix-flatpak.nixosModules.nix-flatpak
