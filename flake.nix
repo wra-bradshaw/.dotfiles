@@ -2,7 +2,7 @@
   description = "System Config";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-unstable";
+    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -52,7 +52,7 @@
 
       lib = import ./lib.nix { inherit nixpkgs supportedSystems; };
 
-      overlays = import ./overlays { inherit lib; };
+      overlays = import ./overlays { };
 
       homeManagerModules = [
         inputs.nixvim.homeManagerModules.nixvim
@@ -124,7 +124,9 @@
               (pkgs.writeShellScriptBin "apply-darwin" ''
                 set -euox pipefail
                 pushd ~/.dotfiles
-                ${inputs.nix-darwin.packages.${system}.darwin-rebuild}/bin/darwin-rebuild switch --flake ".#$1"
+                sudo ${
+                  inputs.nix-darwin.packages.${system}.darwin-rebuild
+                }/bin/darwin-rebuild switch --show-trace --flake ".#$1"
                 popd
               '')
 

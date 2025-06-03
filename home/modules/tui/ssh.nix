@@ -7,8 +7,14 @@
       "*" = {
         identityFile = "${config.sops.secrets."sshkey/private".path}";
       };
-      "github.com" = {
+      "ssh.github.com" = {
         forwardAgent = true;
+        port = 443;
+      };
+      "github.com" = {
+        hostname = "ssh.github.com";
+        forwardAgent = true;
+        port = 443;
       };
       "stage" = {
         hostname = "q.dev.ionata.com";

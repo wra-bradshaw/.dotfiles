@@ -6,8 +6,10 @@
     brewCasks.audacity
     brewCasks.vlc
     brewCasks.obsidian
-    brewCasks.proxyman
+    brewCasks.calibre
+    brewCasks.roblox
     raycast
     shortcat
+    autopip
   ];
 }

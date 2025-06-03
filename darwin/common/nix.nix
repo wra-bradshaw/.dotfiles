@@ -1,6 +1,7 @@
 { pkgs, config, ... }:
 {
   nix = {
+    enable = false;
     linux-builder.enable = false;
     linux-builder.package = pkgs.darwin.linux-builder-x86_64;
     package = pkgs.nixVersions.latest;

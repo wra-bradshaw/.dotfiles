@@ -5,6 +5,7 @@
     ./packages.nix
     ./git.nix
     ./nvim.nix
+    ./mitmproxy.nix
     ./password.nix
     ./docker-ecr.nix
     ./fzf.nix

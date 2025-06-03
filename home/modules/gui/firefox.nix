@@ -2,23 +2,7 @@
 {
   programs.firefox = {
     enable = true;
-    package =
-      if pkgs.stdenv.hostPlatform.isDarwin then
-        (pkgs.brewCasks."firefox".overrideAttrs (old: {
-          nativeBuildInputs = old.nativeBuildInputs ++ [
-            pkgs.xmlstarlet
-            pkgs.darwin.sigtool
-            pkgs.makeWrapper
-          ];
-          fixupPhase = ''
-            xmlstarlet ed -L -s "//key[contains(text(), 'LSEnvironment')]/following-sibling::dict[1]" -t "elem" -n "key" -v "MOZ_LEGACY_PROFILES" "$out/Applications/Firefox.app/Contents/Info.plist"
-            xmlstarlet ed -L -s "//key[contains(text(), 'LSEnvironment')]/following-sibling::dict[1]" -t "elem" -n "string" -v "true" "$out/Applications/Firefox.app/Contents/Info.plist"
-            makeWrapper "$out/Applications/Firefox.app/Contents/MacOS/firefox" "$out/bin/firefox" --set MOZ_LEGACY_PROFILES "true"
-            codesign -f -s - "$out/Applications/Firefox.app/Contents/MacOS/firefox"
-          '';
-        }))
-      else
-        pkgs.firefox;
+    package = pkgs.firefox;
     languagePacks = [ "en-GB" ];
     profiles.default = {
       id = 0;

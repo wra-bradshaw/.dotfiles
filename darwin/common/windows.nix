@@ -131,6 +131,14 @@
               "layout floating"
             ];
           }
+          {
+            "if" = {
+              app-id = "com.apple.finder";
+            };
+            run = [
+              "layout floating"
+            ];
+          }
         ];
 
         mode.main.binding = mainConfig // {

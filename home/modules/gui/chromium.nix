@@ -19,7 +19,7 @@ in
           name = "google-chrome";
           src = pkgs.fetchurl {
             url = builtins.head old.src.urls;
-            hash = "sha256-3nrt9UyJKcXoFujwB1MkNDKd2JJkGHvyn69E6uQTr9o=";
+            hash = "sha256-llFjQ0ZKmY3JOQRaoBsZHh4oolPyJVVZ7KkQfv6Xoao=";
           };
         }))
       else

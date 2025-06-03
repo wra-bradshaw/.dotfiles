@@ -6,6 +6,8 @@
     sops
     pandoc
     ripgrep
+    uv
+    rimage
     aria2
     htop-vim
     wget
