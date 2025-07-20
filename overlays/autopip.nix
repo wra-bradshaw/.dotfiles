@@ -8,31 +8,27 @@
       hash = "sha256-tXbK6+8nHqLYB9XS9BPSLAJtqpdhCAWFWh2+Dm3k9B0=";
     };
     nativeBuildInputs = [
+      prev._7zz
+      prev.darwin.sigtool
+      prev.findutils
       prev.gnugrep
-      prev.coreutils
       prev.gawk
-      prev.darwin.ditto
     ];
     unpackPhase = ''
-      mount_output=$(/usr/bin/hdiutil attach -readonly -nobrowse -mountrandom /tmp $src)
-      echo "hdiutil attach output:"
-      echo "$mount_output"
-
-      mount_point=$(echo "$mount_output" | grep -o '/private/tmp/dmg\.[^[:space:]]*' | tail -n1)
-
-      ditto "$mount_point/AutoPiP.app" "./AutoPiP.app"
-
-      /usr/bin/hdiutil detach "$mount_point"
+      7zz x -snld $src
     '';
     dontPatchShebangs = true;
+    sourceRoot = "AutoPiP.app";
     installPhase = ''
-      runHook preInstall
-
-      ls
-      mkdir -p "$out/Applications"
-      ditto "AutoPiP.app" "$out/Applications/AutoPiP.app"
-
-      runHook postInstall
+      mkdir -p "$out/Applications/${finalAttrs.sourceRoot}"
+      cp -R . "$out/Applications/${finalAttrs.sourceRoot}"
+      find "$out/Applications/${finalAttrs.sourceRoot}" -type f \
+      \( -name "*.dylib" -o -name "*.so" -o -name "*.framework" -o -name "*.app" -o -name "*.plugin" -o -name "*.appex" -o -name "*.bundle" \) \
+      -print0 | \
+      xargs -0 sh -c 'file "$@" | \
+      grep -E "Mach-O (64-bit |32-bit )?executable" | \
+      awk -F: "{print \$1}" | \
+      xargs -I {} codesign --force -s - "{}"' _
     '';
   });
 })

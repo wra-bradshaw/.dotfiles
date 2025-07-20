@@ -16,6 +16,7 @@
         cmd-h = [ ];
         cmd-alt-h = [ ];
         alt-r = "mode resize";
+        alt-f = "layout floating tiling";
 
         alt-slash = "layout tiles horizontal vertical";
         alt-comma = "layout accordion horizontal vertical";
@@ -56,7 +57,6 @@
         alt-c = "workspace C";
         alt-d = "workspace D";
         alt-e = "workspace E";
-        alt-f = "workspace F";
         alt-g = "workspace G";
         alt-i = "workspace I";
         alt-m = "workspace M";
@@ -134,6 +134,46 @@
           {
             "if" = {
               app-id = "com.apple.finder";
+            };
+            run = [
+              "layout floating"
+            ];
+          }
+          {
+            "if" = {
+              app-id = "com.pattonium.Sidekick";
+            };
+            run = [
+              "layout floating"
+            ];
+          }
+          {
+            "if" = {
+              app-id = "com.apple.Preview";
+            };
+            run = [
+              "layout floating"
+            ];
+          }
+          {
+            "if" = {
+              app-id = "com.apple.iBooksX";
+            };
+            run = [
+              "layout floating"
+            ];
+          }
+          {
+            "if" = {
+              app-id = "com.apple.ActivityMonitor";
+            };
+            run = [
+              "layout floating"
+            ];
+          }
+          {
+            "if" = {
+              app-id = "com.raycast.macos";
             };
             run = [
               "layout floating"

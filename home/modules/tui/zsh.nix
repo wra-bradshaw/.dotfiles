@@ -1,6 +1,5 @@
 { pkgs, config, ... }:
 {
-  home.packages = [ pkgs.ollama ];
   programs.zsh = {
     enable = true;
     autosuggestion = {

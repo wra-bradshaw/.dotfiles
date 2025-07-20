@@ -2,7 +2,7 @@
   description = "System Config";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -34,12 +34,6 @@
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.3.0";
-
-    microvm.url = "github:astro/microvm.nix";
-    microvm.inputs.nixpkgs.follows = "nixpkgs";
-
-    deploy-rs.url = "github:serokell/deploy-rs";
-    deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -130,7 +124,6 @@
                 popd
               '')
 
-              inputs.deploy-rs.defaultPackage.${system}
             ];
           };
         }
@@ -284,18 +277,6 @@
               }
             )
           ] ++ nixosModules;
-        };
-      };
-
-      deploy.nodes.server = {
-        hostname = "server.squeaker-eel.ts.net";
-        fastConnection = true;
-        profiles = {
-          system = {
-            sshUser = "admin";
-            path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.server;
-            user = "root";
-          };
         };
       };
     };

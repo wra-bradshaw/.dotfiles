@@ -1,8 +1,8 @@
 { ... }:
 {
   programs.granted = {
-    enable = true;
-    enableZshIntegration = true;
+    # enable = true;
+    # enableZshIntegration = true;
 
   };
 }

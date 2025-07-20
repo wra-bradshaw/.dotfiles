@@ -1,8 +1,8 @@
 { pkgs, ... }:
 {
   programs.granted = {
-    enable = true;
-    enableZshIntegration = true;
+    # enable = true;
+    # enableZshIntegration = true;
   };
 
   programs.awscli = {
@@ -16,21 +16,9 @@
       })
     );
     settings = {
-      "profile personal-juiced" = {
+      "profile personal-william-bradshaw" = {
         sso_session = "personal";
         sso_account_id = "301436506805";
-        sso_role_name = "AdministratorAccess";
-        granted_color = "green";
-      };
-      "profile personal-shufflepuck" = {
-        sso_session = "personal";
-        sso_account_id = "182399685701";
-        sso_role_name = "AdministratorAccess";
-        granted_color = "green";
-      };
-      "profile personal-valleyfield" = {
-        sso_session = "personal";
-        sso_account_id = "381492167517";
         sso_role_name = "AdministratorAccess";
         granted_color = "green";
       };
