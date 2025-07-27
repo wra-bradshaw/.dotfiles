@@ -1,1 +1,7 @@
-{ imports = [ ./git.nix ./docker.nix ]; }
+{
+  imports = [
+    ./git.nix
+    ./docker.nix
+    ./packages.nix
+  ];
+}

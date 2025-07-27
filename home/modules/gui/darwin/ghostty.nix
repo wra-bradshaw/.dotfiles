@@ -7,6 +7,16 @@
     settings = {
       theme = "default";
       font-family = "FiraCode Nerd Font";
+      custom-shader =
+        let
+          ghosttyShaders = pkgs.fetchFromGitHub {
+            owner = "KroneCorylus";
+            repo = "ghostty-shader-playground";
+            rev = "main";
+            sha256 = "sha256-dfk2Ti+T1jEC5M8ijaO1KnfzW6MP5yswovZgoptqO3A=";
+          };
+        in
+        "${ghosttyShaders}/shaders/cursor_smear_fade.glsl";
       keybind = [
         "super+enter=new_window"
         "super+page_up=scroll_page_up"

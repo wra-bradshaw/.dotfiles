@@ -46,7 +46,10 @@
 
       lib = import ./lib.nix { inherit nixpkgs supportedSystems; };
 
-      overlays = import ./overlays { };
+      overlays = import ./overlays {
+        nur = inputs.nur;
+        brew-nix = inputs.brew-nix;
+      };
 
       homeManagerModules = [
         inputs.nixvim.homeManagerModules.nixvim
@@ -55,12 +58,14 @@
 
       homeManagerModulesDarwin = [
         inputs.sops-nix.homeManagerModules.sops
-      ] ++ homeManagerModules;
+      ]
+      ++ homeManagerModules;
 
       homeManagerModulesLinux = [
         inputs.xremap-flake.homeManagerModules.default
         inputs.nix-flatpak.homeManagerModules.nix-flatpak
-      ] ++ homeManagerModules;
+      ]
+      ++ homeManagerModules;
 
       homeSharedModulesLinux = [ inputs.sops-nix.homeManagerModules.sops ];
 
@@ -79,9 +84,8 @@
 
       darwinModules = [
         {
-          nixpkgs.overlays = [ inputs.nur.overlays.default ] ++ overlays;
+          nixpkgs.overlays = overlays;
         }
-        inputs.brew-nix.darwinModules.default
         ./nixpkgs.nix
       ];
 
@@ -157,11 +161,13 @@
                           };
                       }
                     )
-                  ] ++ homeManagerModulesDarwin;
+                  ]
+                  ++ homeManagerModulesDarwin;
                 };
               }
             )
-          ] ++ darwinModules;
+          ]
+          ++ darwinModules;
         };
 
         macbookair = inputs.nix-darwin.lib.darwinSystem {
@@ -191,11 +197,13 @@
                           };
                       }
                     )
-                  ] ++ homeManagerModulesDarwin;
+                  ]
+                  ++ homeManagerModulesDarwin;
                 };
               }
             )
-          ] ++ darwinModules;
+          ]
+          ++ darwinModules;
         };
       };
 
@@ -228,11 +236,13 @@
                           };
                       }
                     )
-                  ] ++ homeManagerModulesLinux;
+                  ]
+                  ++ homeManagerModulesLinux;
                 };
               }
             )
-          ] ++ nixosModules;
+          ]
+          ++ nixosModules;
         };
 
         server = nixpkgs.lib.nixosSystem {
@@ -241,7 +251,8 @@
           modules = [
             ./nixos/server
             # microvm.nixosModules.microvm
-          ] ++ nixosModules;
+          ]
+          ++ nixosModules;
         };
 
         laptop = nixpkgs.lib.nixosSystem {
@@ -272,11 +283,13 @@
                           };
                       }
                     )
-                  ] ++ homeManagerModulesLinux;
+                  ]
+                  ++ homeManagerModulesLinux;
                 };
               }
             )
-          ] ++ nixosModules;
+          ]
+          ++ nixosModules;
         };
       };
     };

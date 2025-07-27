@@ -6,5 +6,6 @@
     ./packages.nix
     ./ollama.nix
     ./open-webui.nix
+    ./zed.nix
   ];
 }

@@ -9,7 +9,6 @@
       autohide-time-modifier = 0.25;
       persistent-apps = [ ];
       mru-spaces = false;
-      mineffect = "suck";
     };
 
     CustomUserPreferences = {
