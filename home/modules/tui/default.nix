@@ -1,13 +1,15 @@
 {
   imports = [
     ./direnv.nix
+    ./opencode.nix
+    ./codex.nix
+    ./docker.nix
     ./spell.nix
     ./packages.nix
     ./git.nix
     ./nvim.nix
     ./mitmproxy.nix
     ./password.nix
-    ./docker-ecr.nix
     ./fzf.nix
     ./zsh.nix
     ./zellij.nix

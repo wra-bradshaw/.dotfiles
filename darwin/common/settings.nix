@@ -9,6 +9,8 @@
       autohide-time-modifier = 0.25;
       persistent-apps = [ ];
       mru-spaces = false;
+      mineffect = "scale";
+      expose-group-apps = true;
     };
 
     CustomUserPreferences = {
@@ -24,14 +26,19 @@
       AppleICUForce24HourTime = true; # use 24 hr time
       AppleShowAllFiles = true; # show hidden files
       InitialKeyRepeat = 15; # make initial key repeat delay shorter
-      KeyRepeat = 2; # make key repeat delay lower
+      KeyRepeat = 3;
       AppleShowAllExtensions = true; # show file extensions
       NSDocumentSaveNewDocumentsToCloud = false; # disable icloud save by default
       NSWindowResizeTime = 0.1;
       "com.apple.mouse.tapBehavior" = 1; # enable tap to click
-      AppleInterfaceStyleSwitchesAutomatically = false;
-      AppleInterfaceStyle = "Dark";
+      AppleInterfaceStyleSwitchesAutomatically = true;
     };
+  };
+
+  services.colima = {
+    enable = true;
+    enableDockerCompatability = true;
+    groupMembers = [ "${config.username}" ];
   };
 
   system.keyboard = {

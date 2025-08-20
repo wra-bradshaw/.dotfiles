@@ -11,6 +11,8 @@
     brewCasks.hammerspoon
     brewCasks.utm
     brewCasks.claude
+    brewCasks.cursor
+    brewCasks.qlab
     raycast
     shortcat
     autopip

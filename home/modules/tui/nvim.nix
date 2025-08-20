@@ -129,6 +129,36 @@
       }
       {
         mode = [
+          "i"
+          "s"
+        ];
+        key = "<C-l>";
+        action.__raw = ''
+          function()
+          	local ls = require("luasnip")
+          	if ls.jumpable(1) then
+          		ls.jump(1)
+          	end
+          end
+        '';
+      }
+      {
+        mode = [
+          "i"
+          "s"
+        ];
+        key = "<C-h>";
+        action.__raw = ''
+          function()
+          	local ls = require("luasnip")
+          	if ls.jumpable(-1) then
+          		ls.jump(-1)
+          	end
+          end
+        '';
+      }
+      {
+        mode = [
           "n"
           "v"
         ];
@@ -156,11 +186,43 @@
       }
     ];
 
-    colorschemes.tokyonight = {
+    colorscheme = "github_light";
+
+    colorschemes.github-theme = {
       enable = true;
       settings = {
-        style = "storm";
+        options = {
+          transparent = true;
+        };
+        groups = {
+          all = {
+            BlinkCmpSignatureHelp = {
+              bg = "bg1";
+            };
+            BlinkCmpMenu = {
+              bg = "bg1";
+            };
+          };
+          github_light = {
+            IblIndent = {
+              fg = "#d3d6d9";
+            };
+            DiagnosticHint = {
+              fg = "fg0";
+            };
+          };
+        };
       };
+      luaConfig.post = ''
+        require('OSC11').setup({
+        	on_dark = function()
+        		vim.cmd("colorscheme github_dark")
+        	end,
+        	on_light = function()
+        		vim.cmd("colorscheme github_light")
+        	end,
+        });
+      '';
     };
 
     opts = {
@@ -196,40 +258,85 @@
       };
       ts-context-commentstring.enable = true;
       lazygit.enable = true;
-      cmp = {
+
+      blink-cmp = {
         enable = true;
-        autoEnableSources = true;
-
         settings = {
-          snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
-
-          mapping = {
-            "<C-n>" = "cmp.mapping.select_next_item()";
-            "<C-p>" = "cmp.mapping.select_prev_item()";
-            "<CR>" = ''
-              cmp.mapping.confirm {
-              	      behavior = cmp.ConfirmBehavior.Replace,
-              	      select = true,
-              	    }'';
-            "<Tab>" =
-              "cmp.mapping(function(fallback) if cmp.visible() then cmp.select_next_item() else fallback() end end, { 'i', 's' })";
-            "<S-Tab>" =
-              "cmp.mapping(function(fallback) if cmp.visible() then cmp.select_prev_item() else fallback() end end, { 'i', 's' })";
+          completion = {
+            accept = {
+              auto_brackets = {
+                enabled = true;
+                semantic_token_resolution = {
+                  enabled = false;
+                };
+              };
+            };
+            documentation = {
+              auto_show = true;
+            };
+            ghost_text = {
+              enabled = true;
+            };
           };
-          sources = [
-            { name = "luasnip"; }
-            { name = "nvim_lsp"; }
-            { name = "path"; }
-            { name = "nvim_lsp_signature_help"; }
-            {
-              name = "buffer";
-              option.get_bufnrs.__raw = "vim.api.nvim_list_bufs"; # Words from other buffers are suggested
-            }
-          ];
+
+          snippets = {
+            preset = "luasnip";
+          };
+
+          sources = {
+            providers = {
+              buffer = {
+                score_offset = -7;
+              };
+            };
+          };
+
+          signature = {
+            enabled = true;
+          };
+
+          keymap = {
+            preset = "super-tab";
+          };
+
         };
+
       };
-      cmp-nvim-lsp.enable = true;
-      cmp-nvim-lsp-signature-help.enable = true;
+
+      # cmp = {
+      #   enable = true;
+      #   autoEnableSources = true;
+      #
+      #   settings = {
+      #     snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
+      #
+      #     mapping = {
+      #       "<C-n>" = "cmp.mapping.select_next_item()";
+      #       "<C-p>" = "cmp.mapping.select_prev_item()";
+      #       "<CR>" = ''
+      #         cmp.mapping.confirm {
+      #         	      behavior = cmp.ConfirmBehavior.Replace,
+      #         	      select = true,
+      #         	    }'';
+      #       "<Tab>" =
+      #         "cmp.mapping(function(fallback) if cmp.visible() then cmp.select_next_item() else fallback() end end, { 'i', 's' })";
+      #       "<S-Tab>" =
+      #         "cmp.mapping(function(fallback) if cmp.visible() then cmp.select_prev_item() else fallback() end end, { 'i', 's' })";
+      #     };
+      #     sources = [
+      #       { name = "luasnip"; }
+      #       { name = "nvim_lsp"; }
+      #       { name = "path"; }
+      #       { name = "nvim_lsp_signature_help"; }
+      #       {
+      #         name = "buffer";
+      #         option.get_bufnrs.__raw = "vim.api.nvim_list_bufs"; # Words from other buffers are suggested
+      #       }
+      #     ];
+      #   };
+      # };
+      # cmp-nvim-lsp.enable = true;
+      # cmp-nvim-lsp-signature-help.enable = true;
 
       conform-nvim = {
         enable = true;
@@ -248,6 +355,9 @@
               "shellcheck"
               "shellharden"
               "shfmt"
+            ];
+            c = [
+              "clang-format"
             ];
             javascript = {
               __unkeyed-1 = "prettierd";
@@ -411,6 +521,7 @@
           gopls.enable = true;
           lua_ls.enable = true;
           bashls.enable = true;
+          clangd.enable = true;
           nixd.enable = true;
           astro.enable = true;
           sourcekit.enable = true;
@@ -451,13 +562,13 @@
               single_file_support = false;
             };
           };
-          denols = {
-            enable = true;
-            rootMarkers = [
-              "deno.json"
-              "deno.jsonc"
-            ];
-          };
+          # denols = {
+          #   enable = true;
+          #   rootMarkers = [
+          #     "deno.json"
+          #     "deno.jsonc"
+          #   ];
+          # };
           terraformls.enable = true;
           rust_analyzer = {
             enable = true;
@@ -519,17 +630,18 @@
         };
       };
     };
-    extraPlugins = with pkgs.vimPlugins; [
-      vim-rhubarb
-      plenary-nvim
-      supermaven-nvim
-    ];
-    extraConfigLua = ''
-      require('supermaven-nvim').setup({
-        keymaps = {
-          accept_suggestion = "<C-Space>",
-        },
+    extraPlugins = [
+      pkgs.vimPlugins.vim-rhubarb
+      pkgs.vimPlugins.plenary-nvim
+      (pkgs.vimUtils.buildVimPlugin {
+        name = "osc11";
+        src = pkgs.fetchFromGitHub {
+          owner = "afonsofrancof";
+          repo = "OSC11.nvim";
+          rev = "main";
+          hash = "sha256-s7HyMf90WdO0pyk1EQeRzOwK+5jbPDaoooK/sKroCw4=";
+        };
       })
-    '';
+    ];
   };
 }

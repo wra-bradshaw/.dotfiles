@@ -117,6 +117,10 @@
           outer.bottom = 6;
         };
 
+        workspace-to-monitor-force-assignment = {
+          M = "secondary";
+        };
+
         on-focus-changed = [
           "move-mouse window-lazy-center"
           "exec-and-forget ${pkgs.lib.getExe focusScript}"

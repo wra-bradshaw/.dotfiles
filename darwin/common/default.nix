@@ -1,5 +1,6 @@
 {
   imports = [
+    ./virby.nix
     ./nix.nix
     ./fonts.nix
     ./users.nix
@@ -8,5 +9,6 @@
     ./security.nix
     ./settings.nix
     ./windows.nix
+    ./../extensions
   ];
 }

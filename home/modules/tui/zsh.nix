@@ -36,7 +36,7 @@
 
     initContent = ''
       PROMPT='%{$fg_bold[blue]%}$(get_pwd)%{$reset_color%} ''${prompt_suffix}'
-      local prompt_suffix="%(?:%{$fg_bold[green]%}❯ :%{$fg_bold[red]%}❯%{$reset_color%} "
+      local prompt_suffix="%{$fg_bold[green]%}❯%{$reset_color%} "
       RPROMPT=
 
       function get_pwd(){

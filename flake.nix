@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    virby.url = "github:quinneden/virby-nix-darwin";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -52,7 +53,7 @@
       };
 
       homeManagerModules = [
-        inputs.nixvim.homeManagerModules.nixvim
+        inputs.nixvim.homeModules.nixvim
         inputs.nix-colors.homeManagerModules.default
       ];
 
@@ -83,6 +84,7 @@
       };
 
       darwinModules = [
+        inputs.virby.darwinModules.default
         {
           nixpkgs.overlays = overlays;
         }
@@ -208,89 +210,97 @@
       };
 
       nixosConfigurations = {
-        desktop = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
+        docker = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
           specialArgs = nixosSpecialArgs;
           modules = [
-            ./nixos/desktop
-            inputs.home-manager.nixosModules.home-manager
-            (
-              { config, ... }:
-              {
-                home-manager = {
-                  useUserPackages = true;
-                  useGlobalPkgs = true;
-                  sharedModules = homeSharedModulesLinux;
-                  extraSpecialArgs = homeManagerExtraSpecialArgs // homeManagerExtraSpecialArgsLinux;
-                  users.${config.username}.imports = [
-                    ./home/hosts/desktop
-                    (
-                      { pkgs, ... }:
-                      {
-                        options.username =
-                          with pkgs.lib;
-                          mkOption {
-                            type = types.str;
-                            default = config.username;
-                            description = "The username of the user";
-                          };
-                      }
-                    )
-                  ]
-                  ++ homeManagerModulesLinux;
-                };
-              }
-            )
-          ]
-          ++ nixosModules;
-        };
 
-        server = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = nixosSpecialArgs;
-          modules = [
-            ./nixos/server
-            # microvm.nixosModules.microvm
-          ]
-          ++ nixosModules;
-        };
+          ];
 
-        laptop = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = nixosSpecialArgs;
-          modules = [
-            ./nixos/laptop
-            inputs.home-manager.nixosModules.home-manager
-            (
-              { config, ... }:
-              {
-                home-manager = {
-                  useUserPackages = true;
-                  useGlobalPkgs = true;
-                  sharedModules = homeSharedModulesLinux;
-                  extraSpecialArgs = homeManagerExtraSpecialArgs // homeManagerExtraSpecialArgsLinux;
-                  users.${config.username}.imports = [
-                    ./home/hosts/laptop
-                    (
-                      { pkgs, ... }:
-                      {
-                        options.username =
-                          with pkgs.lib;
-                          mkOption {
-                            type = types.str;
-                            default = config.username;
-                            description = "The username of the user";
-                          };
-                      }
-                    )
-                  ]
-                  ++ homeManagerModulesLinux;
-                };
-              }
-            )
-          ]
-          ++ nixosModules;
         };
+        # desktop = nixpkgs.lib.nixosSystem {
+        #   system = "x86_64-linux";
+        #   specialArgs = nixosSpecialArgs;
+        #   modules = [
+        #     ./nixos/desktop
+        #     inputs.home-manager.nixosModules.home-manager
+        #     (
+        #       { config, ... }:
+        #       {
+        #         home-manager = {
+        #           useUserPackages = true;
+        #           useGlobalPkgs = true;
+        #           sharedModules = homeSharedModulesLinux;
+        #           extraSpecialArgs = homeManagerExtraSpecialArgs // homeManagerExtraSpecialArgsLinux;
+        #           users.${config.username}.imports = [
+        #             ./home/hosts/desktop
+        #             (
+        #               { pkgs, ... }:
+        #               {
+        #                 options.username =
+        #                   with pkgs.lib;
+        #                   mkOption {
+        #                     type = types.str;
+        #                     default = config.username;
+        #                     description = "The username of the user";
+        #                   };
+        #               }
+        #             )
+        #           ]
+        #           ++ homeManagerModulesLinux;
+        #         };
+        #       }
+        #     )
+        #   ]
+        #   ++ nixosModules;
+        # };
+        #
+        # server = nixpkgs.lib.nixosSystem {
+        #   system = "x86_64-linux";
+        #   specialArgs = nixosSpecialArgs;
+        #   modules = [
+        #     ./nixos/server
+        #     # microvm.nixosModules.microvm
+        #   ]
+        #   ++ nixosModules;
+        # };
+        #
+        # laptop = nixpkgs.lib.nixosSystem {
+        #   system = "x86_64-linux";
+        #   specialArgs = nixosSpecialArgs;
+        #   modules = [
+        #     ./nixos/laptop
+        #     inputs.home-manager.nixosModules.home-manager
+        #     (
+        #       { config, ... }:
+        #       {
+        #         home-manager = {
+        #           useUserPackages = true;
+        #           useGlobalPkgs = true;
+        #           sharedModules = homeSharedModulesLinux;
+        #           extraSpecialArgs = homeManagerExtraSpecialArgs // homeManagerExtraSpecialArgsLinux;
+        #           users.${config.username}.imports = [
+        #             ./home/hosts/laptop
+        #             (
+        #               { pkgs, ... }:
+        #               {
+        #                 options.username =
+        #                   with pkgs.lib;
+        #                   mkOption {
+        #                     type = types.str;
+        #                     default = config.username;
+        #                     description = "The username of the user";
+        #                   };
+        #               }
+        #             )
+        #           ]
+        #           ++ homeManagerModulesLinux;
+        #         };
+        #       }
+        #     )
+        #   ]
+        #   ++ nixosModules;
+        # };
       };
     };
 }

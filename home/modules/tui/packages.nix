@@ -4,13 +4,13 @@
     dig
     parallel
     sops
+    gdb
     pandoc
     ripgrep
     uv
     rimage
     aria2
     gemini-cli
-    opencode
     htop-vim
     wget
     yt-dlp

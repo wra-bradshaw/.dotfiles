@@ -8,6 +8,7 @@ let
     "oobpkmpnffeacpnfbbepbdlhbfdejhpg" # ddg bangs
     "oemmndcbldboiebfnladdacbdfmadadm" # pdf.js
     "ekhagklcjbdpajgpjgmbionohlpdbjgc" # zotero connector
+    "pejdijmoenmkgeppbflobdenhhabjlaj" # icloud passwords
   ];
 in
 {
@@ -19,7 +20,7 @@ in
           name = "google-chrome";
           src = pkgs.fetchurl {
             url = builtins.head old.src.urls;
-            hash = "sha256-OXa07MVYa7J4S/PkFJZ6RCEXXlzTkZig2WQBilFxbqM=";
+            hash = "sha256-vrIpPzlgQEe+ZNwCaoXQCFSaGvpksowaBFKaDAGWyd0=";
           };
         }))
       else
