@@ -10,6 +10,7 @@
     uv
     rimage
     aria2
+    lldb
     gemini-cli
     htop-vim
     wget
