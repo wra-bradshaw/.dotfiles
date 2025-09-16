@@ -2,10 +2,10 @@
 {
   programs.ghostty = {
     enable = true;
-    package = pkgs.brewCasks.ghostty;
+    package = pkgs.ghostty;
     clearDefaultKeybinds = true;
     settings = {
-      theme = "light:GitHub-Light-Default,dark:GitHub-Dark-Default";
+      theme = "light:GitHub Light Default,dark:GitHub Dark Default";
       font-family = "FiraCode Nerd Font";
       custom-shader = "${./ghostty_shader.glsl}";
       background-opacity = 0.9;

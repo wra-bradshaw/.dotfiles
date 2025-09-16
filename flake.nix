@@ -5,6 +5,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     virby.url = "github:quinneden/virby-nix-darwin";
 
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/0";
+
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -84,6 +86,7 @@
       };
 
       darwinModules = [
+        inputs.sops-nix.darwinModules.sops
         inputs.virby.darwinModules.default
         {
           nixpkgs.overlays = overlays;

@@ -10,6 +10,10 @@
       signByDefault = true;
       key = "${config.sops.secrets."sshkey/private".path}";
     };
+    delta = {
+      enable = true;
+
+    };
     extraConfig = {
       credential.helper = "${pkgs.git-credential-manager}/bin/git-credential-manager";
       init.defaultBranch = "main";

@@ -1,6 +1,7 @@
 {
   imports = [
     ./fonts.nix
+    ./qutebrowser.nix
     ./firefox.nix
     ./chromium.nix
     ./packages.nix

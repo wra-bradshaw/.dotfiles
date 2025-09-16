@@ -17,4 +17,5 @@
   sops.secrets."dufs/hash" = { };
   sops.secrets."pihole" = { };
   sops.secrets."openai" = { };
+  sops.secrets."openrouter" = { };
 }

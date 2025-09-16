@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   home.packages = with pkgs; [
     mixxx
     gimp
@@ -10,7 +11,6 @@
     xorg.xwininfo
     fontforge-gtk
     # zotero
-    neovide
     mpv
     lunar-client
   ];

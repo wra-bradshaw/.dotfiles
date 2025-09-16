@@ -1,6 +1,7 @@
 {
   imports = [
     ./direnv.nix
+    ./aichat.nix
     ./opencode.nix
     ./codex.nix
     ./docker.nix

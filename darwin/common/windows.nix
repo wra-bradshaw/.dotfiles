@@ -12,6 +12,44 @@
         fi
       '';
 
+      floatingApps = [
+        "com.raycast.macos"
+        "com.apple.ActivityMonitor"
+        "com.apple.iBooksX"
+        "com.apple.Preview"
+        "com.pattonium.Sidekick"
+        "com.apple.finder"
+        "com.sproutcube.Shortcat"
+      ];
+
+      appLinkedWorkspaces = [
+        {
+          id = "com.apple.iCal";
+          bundle = "/System/Applications/Calendar.app";
+          workspace = "C";
+        }
+        {
+          id = "com.apple.Music";
+          bundle = "/System/Applications/Music.app";
+          workspace = "M";
+        }
+        {
+          id = "com.apple.Podcasts";
+          bundle = "/System/Applications/Podcasts.app";
+          workspace = "P";
+        }
+        {
+          id = "com.brave.Browser.app.faolnafnngnfdaknnbpnkhgohbobgegn";
+          bundle = "/Users/will/Applications/Brave Browser Apps.localized/Outlook (PWA).app";
+          workspace = "O";
+        }
+        {
+          id = "com.brave.Browser.app.fmgjjmmmlfnkbppncabfkddbjimcfncm";
+          bundle = "/Users/will/Applications/Brave Browser Apps.localized/Gmail.app";
+          workspace = "G";
+        }
+      ];
+
       mainConfig = {
         cmd-h = [ ];
         cmd-alt-h = [ ];
@@ -26,6 +64,15 @@
           	tell application "Ghostty" to activate
           end if
           tell application "System Events" to tell process "Ghostty" to click menu item "Quick Terminal" of menu "View" of menu bar 1'
+        '';
+
+        cmd-backslash = ''
+          exec-and-forget osascript -e 'if application "Brave" is not running then
+          tell application "Brave" to activate
+          else
+          tell application "Brave" to activate
+          tell application "System Events" to tell process "Brave" to click menu item "New Window" of menu "File" of menu bar 1
+          end if'
         '';
 
         alt-h = "focus left";
@@ -103,7 +150,16 @@
         alt-shift-x = "move-node-to-workspace X";
         alt-shift-y = "move-node-to-workspace Y";
         alt-shift-z = "move-node-to-workspace Z";
-      };
+      }
+      // builtins.listToAttrs (
+        map (appLinkedWorkspace: {
+          name = "alt-${pkgs.lib.toLower appLinkedWorkspace.workspace}";
+          value = [
+            ''exec-and-forget open "${appLinkedWorkspace.bundle}"''
+            "workspace ${appLinkedWorkspace.workspace}"
+          ];
+        }) appLinkedWorkspaces
+      );
     in
     {
       enable = true;
@@ -113,7 +169,7 @@
           inner.vertical = 8;
           outer.left = 8;
           outer.right = 8;
-          outer.top = 4;
+          outer.top = 2;
           outer.bottom = 6;
         };
 
@@ -129,61 +185,32 @@
         on-window-detected = [
           {
             "if" = {
-              app-id = "com.sproutcube.Shortcat";
+              window-title-regex-substring = "Bitwarden";
+              app-id = "com.kagi.kagimacOS";
             };
             run = [
               "layout floating"
             ];
+            # check-further-callbacks = true;
           }
-          {
-            "if" = {
-              app-id = "com.apple.finder";
-            };
-            run = [
-              "layout floating"
-            ];
-          }
-          {
-            "if" = {
-              app-id = "com.pattonium.Sidekick";
-            };
-            run = [
-              "layout floating"
-            ];
-          }
-          {
-            "if" = {
-              app-id = "com.apple.Preview";
-            };
-            run = [
-              "layout floating"
-            ];
-          }
-          {
-            "if" = {
-              app-id = "com.apple.iBooksX";
-            };
-            run = [
-              "layout floating"
-            ];
-          }
-          {
-            "if" = {
-              app-id = "com.apple.ActivityMonitor";
-            };
-            run = [
-              "layout floating"
-            ];
-          }
-          {
-            "if" = {
-              app-id = "com.raycast.macos";
-            };
-            run = [
-              "layout floating"
-            ];
-          }
-        ];
+        ]
+        ++ (map (appIdStr: {
+          "if" = {
+            app-id = appIdStr;
+          };
+          run = [
+            "layout floating"
+          ];
+        }) floatingApps)
+        ++ (map (appLinkedWorkspace: {
+          "if" = {
+            app-id = appLinkedWorkspace.id;
+          };
+          run = [
+            "move-node-to-workspace ${appLinkedWorkspace.workspace}"
+          ];
+
+        }) appLinkedWorkspaces);
 
         mode.main.binding = mainConfig // {
           cmd-enter = ''

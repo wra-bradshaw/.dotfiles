@@ -14,6 +14,10 @@
     settings.extra-nix-path = "nixpkgs=flake:nixpkgs";
   };
 
+  environment.etc."nix/nix.custom.conf".text = ''
+    !include ${config.sops.secrets.github.path}
+  '';
+
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;
 

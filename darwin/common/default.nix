@@ -9,6 +9,7 @@
     ./security.nix
     ./settings.nix
     ./windows.nix
+    ./../../secrets.nix
     ./../extensions
   ];
 }

@@ -11,13 +11,13 @@
     rimage
     aria2
     lldb
-    gemini-cli
+    # gemini-cli
     htop-vim
     wget
     yt-dlp
     gcc
     ngrok
-    terraform
+    # terraform
     kalker
     watchexec
     ffmpeg

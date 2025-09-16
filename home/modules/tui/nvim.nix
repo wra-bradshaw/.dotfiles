@@ -454,14 +454,25 @@
       };
       lualine = {
         enable = true;
-        settings.options = {
-          component_separators = {
-            left = "|";
-            right = "|";
+        settings = {
+          sections = {
+            lualine_c = [
+              {
+                __unkeyed-1 = "filename";
+                path = 1;
+              }
+            ];
           };
-          section_separators = {
-            left = "";
-            right = "";
+
+          options = {
+            component_separators = {
+              left = "|";
+              right = "|";
+            };
+            section_separators = {
+              left = "";
+              right = "";
+            };
           };
         };
       };
