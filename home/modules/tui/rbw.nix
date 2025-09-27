@@ -18,7 +18,7 @@ in
   programs.rbw = {
     enable = true;
     settings = {
-      email = "will@ionata.com.au";
+      email = "will.bradshaw50@gmail.com";
       pinentry = pkgs.pinentry-tty;
     };
   };

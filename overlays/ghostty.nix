@@ -8,7 +8,7 @@
 
       src = prev.fetchurl {
         url = "https://github.com/ghostty-org/ghostty/releases/download/tip/Ghostty.dmg";
-        hash = "sha256-CxZsDC3peG6M0pREdOZCvbqbGyIpsu1LHyB11KfMb8g=";
+        hash = "sha256-Tz0bqvFNlfmxhk2fh2CjwK0YlBgxs6Tc8nVVowyITjg";
       };
 
       nativeBuildInputs = [

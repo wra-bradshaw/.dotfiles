@@ -5,5 +5,6 @@
     ./wallpaper.nix
     ./ghostty.nix
     ./zotero.nix
+    ./copy-apps.nix
   ];
 }

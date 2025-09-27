@@ -213,16 +213,6 @@
           };
         };
       };
-      luaConfig.post = ''
-        require('OSC11').setup({
-        	on_dark = function()
-        		vim.cmd("colorscheme github_dark")
-        	end,
-        	on_light = function()
-        		vim.cmd("colorscheme github_light")
-        	end,
-        });
-      '';
     };
 
     opts = {
@@ -652,10 +642,20 @@
         src = pkgs.fetchFromGitHub {
           owner = "afonsofrancof";
           repo = "OSC11.nvim";
-          rev = "main";
+          rev = "919e015336b737c3c567f56de677740684a41cf5";
           hash = "sha256-s7HyMf90WdO0pyk1EQeRzOwK+5jbPDaoooK/sKroCw4=";
         };
       })
     ];
+    extraConfigLua = ''
+      require('osc11').setup({
+      	on_dark = function()
+      	vim.cmd("colorscheme github_dark")
+      end,
+      	on_light = function()
+      	vim.cmd("colorscheme github_light")
+      end,
+      });
+    '';
   };
 }

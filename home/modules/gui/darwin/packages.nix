@@ -5,12 +5,10 @@
     brewCasks.audacity
     brewCasks.vlc
     brewCasks.obsidian
-    brewCasks.calibre
     brewCasks.roblox
     brewCasks.messenger
     brewCasks.podman-desktop
     brewCasks.gimp
-    brewCasks.utm
     brewCasks.claude
     brewCasks.cursor
     brewCasks.qlab
@@ -18,6 +16,5 @@
     brewCasks.syntax-highlight
     raycast
     shortcat
-    autopip
   ];
 }
