@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 {
   programs.firefox = {
-    enable = true;
+    enable = false;
     package = pkgs.firefox;
     languagePacks = [ "en-GB" ];
     profiles.default = {

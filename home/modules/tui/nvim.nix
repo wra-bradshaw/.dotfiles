@@ -359,6 +359,9 @@
             c = [
               "clang-format"
             ];
+            cpp = [
+              "clang-format"
+            ];
             javascript = {
               __unkeyed-1 = "prettierd";
               timeout_ms = 5000;

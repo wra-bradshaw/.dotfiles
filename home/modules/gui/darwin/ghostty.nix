@@ -12,7 +12,7 @@
       auto-update = "off";
       background-blur = true;
       keybind = [
-        "super+enter=new_window"
+        "ctrl+enter=new_window"
         "super+page_up=scroll_page_up"
         "super+ctrl+equal=equalize_splits"
         "super+physical:four=goto_tab:4"

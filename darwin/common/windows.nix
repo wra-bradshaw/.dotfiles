@@ -24,29 +24,63 @@
 
       appLinkedWorkspaces = [
         {
-          id = "com.apple.iCal";
-          bundle = "/System/Applications/Calendar.app";
           workspace = "C";
+          apps = [
+            {
+              id = "com.apple.iCal";
+              bundle = "/System/Applications/Calendar.app";
+            }
+          ];
         }
         {
-          id = "com.apple.Music";
-          bundle = "/System/Applications/Music.app";
           workspace = "M";
+          apps = [
+            {
+              id = "com.apple.Music";
+              bundle = "/System/Applications/Music.app";
+            }
+          ];
         }
         {
-          id = "com.apple.Podcasts";
-          bundle = "/System/Applications/Podcasts.app";
           workspace = "P";
+          apps = [
+            {
+              bundle = "/System/Applications/Podcasts.app";
+              workspace = "P";
+            }
+          ];
         }
         {
-          id = "com.brave.Browser.app.faolnafnngnfdaknnbpnkhgohbobgegn";
-          bundle = "/Users/will/Applications/Brave Browser Apps.localized/Outlook (PWA).app";
           workspace = "O";
+          apps = [
+            {
+              id = "com.brave.Browser.app.faolnafnngnfdaknnbpnkhgohbobgegn";
+              bundle = "/Users/will/Applications/Brave Browser Apps.localized/Outlook (PWA).app";
+            }
+          ];
         }
         {
-          id = "com.brave.Browser.app.fmgjjmmmlfnkbppncabfkddbjimcfncm";
-          bundle = "/Users/will/Applications/Brave Browser Apps.localized/Gmail.app";
           workspace = "G";
+          apps = [
+            {
+              bundle = "/Users/will/Applications/Brave Browser Apps.localized/Gmail.app";
+              workspace = "G";
+            }
+          ];
+        }
+        {
+          workspace = "I";
+          apps = [
+            {
+              id = "com.apple.MobileSMS";
+              bundle = "/System/Applications/Messages.app";
+            }
+            {
+              id = "com.facebook.archon.developerID";
+              bundle = "${pkgs.brewCasks.messenger}/Applications/Messenger.app";
+            }
+          ];
+
         }
       ];
 
@@ -66,7 +100,7 @@
           tell application "System Events" to tell process "Ghostty" to click menu item "Quick Terminal" of menu "View" of menu bar 1'
         '';
 
-        cmd-backslash = ''
+        ctrl-backslash = ''
           exec-and-forget osascript -e 'if application "Brave" is not running then
           tell application "Brave" to activate
           else
@@ -152,27 +186,19 @@
         alt-shift-z = "move-node-to-workspace Z";
       }
       // builtins.listToAttrs (
-        map (appLinkedWorkspace: {
-          name = "alt-${pkgs.lib.toLower appLinkedWorkspace.workspace}";
-          value = [
-            ''exec-and-forget open "${appLinkedWorkspace.bundle}"''
-            "workspace ${appLinkedWorkspace.workspace}"
-          ];
+        map (ws: {
+          name = "alt-${pkgs.lib.toLower ws.workspace}";
+          value =
+            (map (app: ''exec-and-forget open "${app.bundle}"'') (
+              builtins.filter (a: a ? bundle) (ws.apps or [ ])
+            ))
+            ++ [ "workspace ${ws.workspace}" ];
         }) appLinkedWorkspaces
       );
     in
     {
       enable = true;
       settings = {
-        gaps = {
-          inner.horizontal = 8;
-          inner.vertical = 8;
-          outer.left = 8;
-          outer.right = 8;
-          outer.top = 2;
-          outer.bottom = 6;
-        };
-
         workspace-to-monitor-force-assignment = {
           M = "secondary";
         };
@@ -202,18 +228,20 @@
             "layout floating"
           ];
         }) floatingApps)
-        ++ (map (appLinkedWorkspace: {
-          "if" = {
-            app-id = appLinkedWorkspace.id;
-          };
-          run = [
-            "move-node-to-workspace ${appLinkedWorkspace.workspace}"
-          ];
-
-        }) appLinkedWorkspaces);
+        ++ (builtins.concatMap (
+          ws:
+          (map (app: {
+            "if" = {
+              app-id = app.id;
+            };
+            run = [
+              "move-node-to-workspace ${app.workspace or ws.workspace}"
+            ];
+          }) (builtins.filter (a: a ? id) (ws.apps or [ ])))
+        ) appLinkedWorkspaces);
 
         mode.main.binding = mainConfig // {
-          cmd-enter = ''
+          ctrl-enter = ''
             exec-and-forget osascript -e 'if application "Ghostty" is not running then
             	tell application "Ghostty" to activate
             else

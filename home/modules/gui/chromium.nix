@@ -7,6 +7,8 @@ let
     "nngceckbapebfimnlniiiahkandclblb" # bitwaden
     "dhdgffkkebhmkfjojejmpbldmpobfkfo" # tampermonkey
     "hkligngkgcpcolhcnkgccglchdafcnao" # web archives
+    "ddkjiahejlhfcafbddmgiahcphecmpfh" # ubol lite
+    "bjfgambnhccakkhmkepdoekmckoijdlc" # browser mcp
   ];
 in
 {

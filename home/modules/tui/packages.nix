@@ -6,6 +6,7 @@
     sops
     gdb
     pandoc
+    podman
     ripgrep
     uv
     rimage

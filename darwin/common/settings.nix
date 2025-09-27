@@ -36,7 +36,7 @@
   };
 
   services.colima = {
-    enable = true;
+    enable = false;
     enableDockerCompatability = true;
     groupMembers = [ "${config.username}" ];
   };
