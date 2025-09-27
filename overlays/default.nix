@@ -9,4 +9,5 @@
   (import ./ghostty.nix { })
   (import ./lldb.nix { })
   (import ./messenger.nix { })
+  (import ./socktainer.nix { })
 ]

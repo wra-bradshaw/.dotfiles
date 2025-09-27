@@ -5,7 +5,7 @@
   programs.docker-cli = {
     enable = true;
     settings = {
-      currentContext = "default";
+      currentContext = pkgs.lib.mkDefault "default";
       credsStore = "ecr-login";
     };
   };

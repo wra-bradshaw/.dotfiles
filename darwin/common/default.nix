@@ -3,6 +3,7 @@
     ./virby.nix
     ./nix.nix
     ./fonts.nix
+    ./containers.nix
     ./users.nix
     ./homebrew.nix
     ./packages.nix
