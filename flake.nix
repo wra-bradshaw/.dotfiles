@@ -47,7 +47,7 @@
         "aarch64-darwin"
       ];
 
-      lib = import ./lib.nix { inherit nixpkgs supportedSystems; };
+      forAllSupportedSystems = import ./lib/forAllSupportedSystems.nix { inherit nixpkgs supportedSystems; };
 
       overlays = import ./overlays {
         nur = inputs.nur;
@@ -109,7 +109,7 @@
       nixosSpecialArgs = { };
     in
     {
-      devShells = lib.forAllSupportedSystems (
+      devShells = forAllSupportedSystems (
         system:
         let
           pkgs = nixpkgs.legacyPackages.${system};

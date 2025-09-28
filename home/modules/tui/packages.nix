@@ -4,6 +4,7 @@
     dig
     parallel
     sops
+    docker
     gdb
     pandoc
     podman
