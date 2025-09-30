@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   system.defaults = {
     screencapture.location = "~/Downloads";
@@ -35,11 +35,8 @@
     };
   };
 
-  services.colima = {
-    enable = true;
-    enableDockerCompatability = true;
-    groupMembers = [ "${config.username}" ];
-  };
+  environment.systemPackages = [
+  ];
 
   system.keyboard = {
     enableKeyMapping = true;

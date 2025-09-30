@@ -242,6 +242,120 @@
       termguicolors = true;
     };
 
+    lsp = {
+      keymaps = [
+        {
+          key = "<leader>rn";
+          lspBufAction = "rename";
+        }
+        {
+          key = "<leader>ca";
+          lspBufAction = "code_action";
+        }
+        {
+          key = "gd";
+          lspBufAction = "definition";
+        }
+        {
+          key = "gI";
+          lspBufAction = "implementation";
+        }
+        {
+          key = "<leader>D";
+          lspBufAction = "type_definition";
+        }
+        {
+          key = "K";
+          lspBufAction = "hover";
+        }
+        {
+          key = "<C-k>";
+          lspBufAction = "signature_help";
+        }
+        {
+          key = "gD";
+          lspBufAction = "declaration";
+        }
+        {
+          key = "<leader>wa";
+          lspBufAction = "add_workspace_folder";
+        }
+        {
+          key = "<leader>wr";
+          lspBufAction = "remove_workspace_folder";
+        }
+        {
+          key = "<leader>wl";
+          lspBufAction = "list_workspace_folders";
+        }
+        {
+          key = "<C-f>";
+          lspBufAction = "format";
+        }
+        {
+          key = "[d";
+          action = config.lib.nixvim.mkRaw "function() vim.diagnostic.jump({ count=-1, float=true }) end";
+        }
+        {
+          key = "]d";
+          action = config.lib.nixvim.mkRaw "function() vim.diagnostic.jump({ count=1, float=true }) end";
+        }
+        {
+          key = "<leader>e";
+          action = config.lib.nixvim.mkRaw "function() vim.diagnostic.open_float() end";
+        }
+      ];
+      servers = {
+        templ.enable = true;
+        gopls.enable = true;
+        lua_ls.enable = true;
+        bashls.enable = true;
+        clangd.enable = true;
+        nixd.enable = true;
+        astro.enable = true;
+        sourcekit.enable = true;
+        basedpyright.enable = true;
+        tailwindcss.enable = true;
+        yamlls.enable = true;
+        html.enable = true;
+        jsonls.enable = true;
+        cssls.enable = true;
+        eslint.enable = true;
+        volar.enable = true;
+
+        ts_ls = {
+          enable = true;
+          settings = {
+            rootMarkers = [
+              "package.json"
+            ];
+            filetypes = [
+              "javascript"
+              "javascriptreact"
+              "javascript.jsx"
+              "typescript"
+              "typescriptreact"
+              "typescript.tsx"
+              "astro"
+            ];
+            extraOptions = {
+              single_file_support = false;
+            };
+          };
+        };
+        # denols = {
+        #   enable = true;
+        #   rootMarkers = [
+        #     "deno.json"
+        #     "deno.jsonc"
+        #   ];
+        # };
+        terraformls.enable = true;
+        rust_analyzer.enable = true;
+      };
+
+    };
+
     plugins = {
       which-key = {
         enable = true;
@@ -518,91 +632,6 @@
         };
       };
       treesitter-textobjects.enable = true;
-      lsp = {
-        enable = true;
-        servers = {
-          templ.enable = true;
-          gopls.enable = true;
-          lua_ls.enable = true;
-          bashls.enable = true;
-          clangd.enable = true;
-          nixd.enable = true;
-          astro.enable = true;
-          sourcekit.enable = true;
-          basedpyright.enable = true;
-          tailwindcss.enable = true;
-          yamlls.enable = true;
-
-          intelephense = {
-            enable = true;
-            package = pkgs.intelephense;
-            rootMarkers = [
-              "composer.lock"
-              ".git"
-            ];
-          };
-
-          html.enable = true;
-          jsonls.enable = true;
-          cssls.enable = true;
-          eslint.enable = true;
-          volar.enable = true;
-
-          ts_ls = {
-            enable = true;
-            rootMarkers = [
-              "package.json"
-            ];
-            filetypes = [
-              "javascript"
-              "javascriptreact"
-              "javascript.jsx"
-              "typescript"
-              "typescriptreact"
-              "typescript.tsx"
-              "astro"
-            ];
-            extraOptions = {
-              single_file_support = false;
-            };
-          };
-          # denols = {
-          #   enable = true;
-          #   rootMarkers = [
-          #     "deno.json"
-          #     "deno.jsonc"
-          #   ];
-          # };
-          terraformls.enable = true;
-          rust_analyzer = {
-            enable = true;
-            installCargo = false;
-            installRustc = false;
-          };
-        };
-        keymaps = {
-          lspBuf = {
-            "<leader>rn" = "rename";
-            "<leader>ca" = "code_action";
-            "gd" = "definition";
-            "gI" = "implementation";
-            "<leader>D" = "type_definition";
-            "K" = "hover";
-            "<C-k>" = "signature_help";
-            "gD" = "declaration";
-            "<leader>wa" = "add_workspace_folder";
-            "<leader>wr" = "remove_workspace_folder";
-            "<leader>wl" = "list_workspace_folders";
-            "<C-f>" = "format";
-          };
-          diagnostic = {
-            "[d" = "goto_prev";
-            "]d" = "goto_next";
-            "<leader>e" = "open_float";
-            "<leader>q" = "setloclist";
-          };
-        };
-      };
       fidget = {
         enable = true;
       };

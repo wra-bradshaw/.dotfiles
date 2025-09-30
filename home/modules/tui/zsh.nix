@@ -19,7 +19,12 @@
       paste = "wl-paste";
     };
 
-    oh-my-zsh.enable = true;
+    oh-my-zsh = {
+      enable = true;
+      plugins = [
+        "per-directory-history"
+      ];
+    };
 
     plugins = [
       {
