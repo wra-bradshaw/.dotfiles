@@ -2,18 +2,15 @@
 let
   extensionIds = [
     "egnjhciaieeiiohknchakcodbpgjnchh" # tab wrangler
-    "ecboojkidbdghfhifefbpdkdollfhicb" # ddg bangs
     "ekhagklcjbdpajgpjgmbionohlpdbjgc" # zotero connector
     "nngceckbapebfimnlniiiahkandclblb" # bitwaden
     "dhdgffkkebhmkfjojejmpbldmpobfkfo" # tampermonkey
     "hkligngkgcpcolhcnkgccglchdafcnao" # web archives
-    "ddkjiahejlhfcafbddmgiahcphecmpfh" # ubol lite
   ];
 in
 {
-  programs.brave = {
+  programs.helium = {
     enable = true;
-    package = pkgs.brave;
     dictionaries = [ pkgs.hunspellDictsChromium.en_GB ];
     extensions = map (id: { id = id; }) extensionIds;
   };

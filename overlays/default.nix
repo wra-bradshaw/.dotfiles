@@ -10,4 +10,6 @@
   (import ./lldb.nix { })
   (import ./messenger.nix { })
   (import ./socktainer.nix { })
+  (import ./helium.nix { })
+  (import ./macos-wallpaper.nix { })
 ]

@@ -7,7 +7,7 @@
 
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/0";
 
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager.url = "github:will-lol/home-manager/colima";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-colors.url = "github:misterio77/nix-colors";
@@ -47,7 +47,9 @@
         "aarch64-darwin"
       ];
 
-      forAllSupportedSystems = import ./lib/forAllSupportedSystems.nix { inherit nixpkgs supportedSystems; };
+      forAllSupportedSystems = import ./lib/forAllSupportedSystems.nix {
+        inherit nixpkgs supportedSystems;
+      };
 
       overlays = import ./overlays {
         nur = inputs.nur;

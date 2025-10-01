@@ -2,7 +2,9 @@
   imports = [
     ./zotero.nix
     ./open-webui.nix
-    ./docker-context.nix
-    ./colima.nix
+    ./macos-wallpaper.nix
+    ./chromium.nix
+    # ./docker-context.nix
+    # ./colima.nix
   ];
 }

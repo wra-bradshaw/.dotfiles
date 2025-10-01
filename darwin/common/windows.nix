@@ -54,8 +54,8 @@
           workspace = "O";
           apps = [
             {
-              id = "com.brave.Browser.app.faolnafnngnfdaknnbpnkhgohbobgegn";
-              bundle = "/Users/will/Applications/Brave Browser Apps.localized/Outlook (PWA).app";
+              id = "net.imput.helium.app.faolnafnngnfdaknnbpnkhgohbobgegn";
+              bundle = "/Users/will/Applications/Helium Apps.localized/Outlook (PWA).app";
             }
           ];
         }
@@ -63,7 +63,8 @@
           workspace = "G";
           apps = [
             {
-              bundle = "/Users/will/Applications/Brave Browser Apps.localized/Gmail.app";
+              id = "net.imput.helium.app.fmgjjmmmlfnkbppncabfkddbjimcfncm";
+              bundle = "/Users/will/Applications/Helium Apps.localized/Gmail.app";
               workspace = "G";
             }
           ];
@@ -93,19 +94,17 @@
         alt-slash = "layout tiles horizontal vertical";
         alt-comma = "layout accordion horizontal vertical";
 
-        cmd-shift-enter = ''
-          exec-and-forget osascript -e 'if application "Ghostty" is not running then
-          	tell application "Ghostty" to activate
-          end if
-          tell application "System Events" to tell process "Ghostty" to click menu item "Quick Terminal" of menu "View" of menu bar 1'
+        ctrl-n = ''
+          exec-and-forget osascript -e 'tell application "Finder" to activate
+          tell application "System Events" to tell process "Finder" to click menu item "New Finder Window" of menu "File" of menu bar 1'
         '';
 
         ctrl-backslash = ''
-          exec-and-forget osascript -e 'if application "Brave" is not running then
-          tell application "Brave" to activate
+          exec-and-forget osascript -e 'if application "Helium" is not running then
+          	tell application "Helium" to activate
           else
-          tell application "Brave" to activate
-          tell application "System Events" to tell process "Brave" to click menu item "New Window" of menu "File" of menu bar 1
+          	tell application "Helium" to activate
+          	tell application "System Events" to tell process "Helium" to click menu item "New Window" of menu "File" of menu bar 1
           end if'
         '';
 
