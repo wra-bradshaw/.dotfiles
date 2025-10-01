@@ -62,5 +62,5 @@ pkgs.writeShellScriptBin binName ''
     echo "Loading ${name} Docker image..."
     docker load < "$IMAGE_PATH"
   fi
-  exec docker run -ti --rm -v "$PWD:$PWD" -w "$PWD" "$IMAGE_NAME" ${binName} "$@"
+  exec docker run -ti --rm -v "$PWD:$PWD" -v "/nix/store:/nix/store" -v "tmp:/tmp" -w "$PWD" "$IMAGE_NAME" ${binName} "$@"
 ''
