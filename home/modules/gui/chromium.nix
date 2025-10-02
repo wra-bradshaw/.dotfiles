@@ -4,7 +4,6 @@ let
     "egnjhciaieeiiohknchakcodbpgjnchh" # tab wrangler
     "ekhagklcjbdpajgpjgmbionohlpdbjgc" # zotero connector
     "nngceckbapebfimnlniiiahkandclblb" # bitwaden
-    "dhdgffkkebhmkfjojejmpbldmpobfkfo" # tampermonkey
     "hkligngkgcpcolhcnkgccglchdafcnao" # web archives
   ];
 in
