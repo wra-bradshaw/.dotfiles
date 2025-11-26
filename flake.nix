@@ -7,7 +7,7 @@
 
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/0";
 
-    home-manager.url = "github:will-lol/home-manager/colima";
+    home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-colors.url = "github:misterio77/nix-colors";
@@ -25,7 +25,6 @@
     };
 
     nixvim.url = "github:nix-community/nixvim";
-    nixvim.inputs.nixpkgs.follows = "nixpkgs";
 
     xremap-flake.url = "github:xremap/nix-flake";
     xremap-flake.inputs.nixpkgs.follows = "nixpkgs";

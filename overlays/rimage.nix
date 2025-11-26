@@ -2,7 +2,7 @@
 (final: prev: {
   rimage = prev.rustPlatform.buildRustPackage (finalAttrs: {
     pname = "rimage";
-    version = "0.11.0";
+    version = "0.12.1";
 
     src = prev.fetchFromGitHub {
       owner = "SalOne22";

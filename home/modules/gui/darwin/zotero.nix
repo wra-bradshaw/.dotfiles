@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   programs.zotero = {
     enable = true;
@@ -7,7 +7,7 @@
       extensions =
         let
 
-          buildZoteroXpiAddon = pkgs.makeOverridable (
+          buildZoteroXpiAddon = lib.makeOverridable (
             {
               stdenv ? pkgs.stdenv,
               fetchurl ? pkgs.fetchurl,

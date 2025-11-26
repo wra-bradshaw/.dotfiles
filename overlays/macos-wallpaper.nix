@@ -2,7 +2,7 @@
 (final: prev: {
   macos-wallpaper = prev.stdenv.mkDerivation (finalAttrs: {
     pname = "wallpaper";
-    version = "2.3.2";
+    version = "2.3.3";
 
     src = prev.fetchzip {
       url = "https://github.com/sindresorhus/macos-wallpaper/releases/download/v${finalAttrs.version}/wallpaper.zip";

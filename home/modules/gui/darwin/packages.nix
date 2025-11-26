@@ -4,11 +4,11 @@
     brewCasks.anki
     brewCasks.audacity
     brewCasks.vlc
+    brewCasks.jan
     brewCasks.handy
     brewCasks.obsidian
     brewCasks.roblox
     brewCasks.messenger
-    brewCasks.podman-desktop
     brewCasks.gimp
     brewCasks.utm
     brewCasks.claude
@@ -16,6 +16,7 @@
     brewCasks.qlab
     brewCasks.lookaway
     brewCasks.syntax-highlight
+    brewCasks.sketch
     shortcat
   ];
 }

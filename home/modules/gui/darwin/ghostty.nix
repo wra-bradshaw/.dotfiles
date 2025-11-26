@@ -2,7 +2,7 @@
 {
   programs.ghostty = {
     enable = true;
-    package = pkgs.ghostty;
+    package = pkgs.ghostty-bin;
     clearDefaultKeybinds = true;
     settings = {
       theme = "light:GitHub Light Default,dark:GitHub Dark Default";
@@ -13,6 +13,7 @@
       background-blur = true;
       keybind = [
         "ctrl+enter=new_window"
+        "cmd+shift+p=toggle_command_palette"
         "super+page_up=scroll_page_up"
         "super+ctrl+equal=equalize_splits"
         "super+physical:four=goto_tab:4"

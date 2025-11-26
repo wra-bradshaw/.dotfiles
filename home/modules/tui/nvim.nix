@@ -3,6 +3,7 @@
   home.packages = with pkgs; [
     tree-sitter
     prettierd
+    gersemi
     nodePackages.vscode-langservers-extracted
     nixfmt-rfc-style
   ];
@@ -306,6 +307,7 @@
         }
       ];
       servers = {
+        cmake.enable = true;
         templ.enable = true;
         gopls.enable = true;
         lua_ls.enable = true;
@@ -321,11 +323,11 @@
         jsonls.enable = true;
         cssls.enable = true;
         eslint.enable = true;
-        volar.enable = true;
+        vue_ls.enable = true;
 
         ts_ls = {
           enable = true;
-          settings = {
+          config = {
             rootMarkers = [
               "package.json"
             ];
@@ -357,6 +359,8 @@
     };
 
     plugins = {
+      lspconfig.enable = true;
+
       which-key = {
         enable = true;
       };
@@ -465,6 +469,9 @@
             ];
             cpp = [
               "clang-format"
+            ];
+            cmake = [
+              "gersemi"
             ];
             javascript = {
               __unkeyed-1 = "prettierd";

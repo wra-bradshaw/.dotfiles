@@ -33,6 +33,24 @@
           ];
         }
         {
+          workspace = "A";
+          apps = [
+            {
+              id = "jan.ai.app";
+              bundle = "${pkgs.brewCasks.jan}/Applications/Jan.app";
+            }
+          ];
+        }
+        {
+          workspace = "S";
+          apps = [
+            {
+              id = "com.apple.stocks";
+              bundle = "/System/Applications/Stocks.app";
+            }
+          ];
+        }
+        {
           workspace = "M";
           apps = [
             {
@@ -94,11 +112,11 @@
         alt-slash = "layout tiles horizontal vertical";
         alt-comma = "layout accordion horizontal vertical";
 
-        ctrl-n = ''
-          exec-and-forget osascript -e 'tell application "Finder" to activate
-          tell application "System Events" to tell process "Finder" to click menu item "New Finder Window" of menu "File" of menu bar 1'
-        '';
-
+        # ctrl-n = ''
+        #   exec-and-forget osascript -e 'tell application "Finder" to activate
+        #   tell application "System Events" to tell process "Finder" to click menu item "New Finder Window" of menu "File" of menu bar 1'
+        # '';
+        #
         ctrl-backslash = ''
           exec-and-forget osascript -e 'if application "Helium" is not running then
           	tell application "Helium" to activate
@@ -199,7 +217,7 @@
       enable = true;
       settings = {
         workspace-to-monitor-force-assignment = {
-          M = "secondary";
+          E = "secondary";
         };
 
         on-focus-changed = [
