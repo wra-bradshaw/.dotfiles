@@ -1,6 +1,5 @@
 {
   imports = [
-    ./virby.nix
     ./nix.nix
     ./fonts.nix
     ./containers.nix

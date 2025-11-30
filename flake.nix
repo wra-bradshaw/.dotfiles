@@ -3,11 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    virby.url = "github:quinneden/virby-nix-darwin";
 
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/0";
 
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager.url = "path:/Users/will/Documents/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-colors.url = "github:misterio77/nix-colors";
@@ -25,9 +24,6 @@
     };
 
     nixvim.url = "github:nix-community/nixvim";
-
-    xremap-flake.url = "github:xremap/nix-flake";
-    xremap-flake.inputs.nixpkgs.follows = "nixpkgs";
 
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
@@ -88,7 +84,6 @@
 
       darwinModules = [
         inputs.sops-nix.darwinModules.sops
-        inputs.virby.darwinModules.default
         {
           nixpkgs.overlays = overlays;
         }
@@ -214,97 +209,14 @@
       };
 
       nixosConfigurations = {
-        docker = nixpkgs.lib.nixosSystem {
-          system = "aarch64-linux";
+        server = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
           specialArgs = nixosSpecialArgs;
           modules = [
-
-          ];
-
+            ./nixos/server
+          ]
+          ++ nixosModules;
         };
-        # desktop = nixpkgs.lib.nixosSystem {
-        #   system = "x86_64-linux";
-        #   specialArgs = nixosSpecialArgs;
-        #   modules = [
-        #     ./nixos/desktop
-        #     inputs.home-manager.nixosModules.home-manager
-        #     (
-        #       { config, ... }:
-        #       {
-        #         home-manager = {
-        #           useUserPackages = true;
-        #           useGlobalPkgs = true;
-        #           sharedModules = homeSharedModulesLinux;
-        #           extraSpecialArgs = homeManagerExtraSpecialArgs // homeManagerExtraSpecialArgsLinux;
-        #           users.${config.username}.imports = [
-        #             ./home/hosts/desktop
-        #             (
-        #               { pkgs, ... }:
-        #               {
-        #                 options.username =
-        #                   with pkgs.lib;
-        #                   mkOption {
-        #                     type = types.str;
-        #                     default = config.username;
-        #                     description = "The username of the user";
-        #                   };
-        #               }
-        #             )
-        #           ]
-        #           ++ homeManagerModulesLinux;
-        #         };
-        #       }
-        #     )
-        #   ]
-        #   ++ nixosModules;
-        # };
-        #
-        # server = nixpkgs.lib.nixosSystem {
-        #   system = "x86_64-linux";
-        #   specialArgs = nixosSpecialArgs;
-        #   modules = [
-        #     ./nixos/server
-        #     # microvm.nixosModules.microvm
-        #   ]
-        #   ++ nixosModules;
-        # };
-        #
-        # laptop = nixpkgs.lib.nixosSystem {
-        #   system = "x86_64-linux";
-        #   specialArgs = nixosSpecialArgs;
-        #   modules = [
-        #     ./nixos/laptop
-        #     inputs.home-manager.nixosModules.home-manager
-        #     (
-        #       { config, ... }:
-        #       {
-        #         home-manager = {
-        #           useUserPackages = true;
-        #           useGlobalPkgs = true;
-        #           sharedModules = homeSharedModulesLinux;
-        #           extraSpecialArgs = homeManagerExtraSpecialArgs // homeManagerExtraSpecialArgsLinux;
-        #           users.${config.username}.imports = [
-        #             ./home/hosts/laptop
-        #             (
-        #               { pkgs, ... }:
-        #               {
-        #                 options.username =
-        #                   with pkgs.lib;
-        #                   mkOption {
-        #                     type = types.str;
-        #                     default = config.username;
-        #                     description = "The username of the user";
-        #                   };
-        #               }
-        #             )
-        #           ]
-        #           ++ homeManagerModulesLinux;
-        #         };
-        #       }
-        #     )
-        #   ]
-        #   ++ nixosModules;
-        # };
       };
     };
 }

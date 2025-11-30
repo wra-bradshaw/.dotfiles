@@ -17,6 +17,7 @@
     brewCasks.lookaway
     brewCasks.syntax-highlight
     brewCasks.sketch
+    brewCasks.balenaetcher
     shortcat
   ];
 }
