@@ -4,9 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
-    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/0";
-
-    home-manager.url = "path:/Users/will/Documents/home-manager";
+    home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-colors.url = "github:misterio77/nix-colors";

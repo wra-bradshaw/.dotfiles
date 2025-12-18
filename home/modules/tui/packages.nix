@@ -4,6 +4,7 @@
     dig
     parallel
     sops
+    bun
     docker
     gdb
     pandoc

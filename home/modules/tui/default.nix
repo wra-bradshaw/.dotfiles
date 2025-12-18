@@ -9,7 +9,7 @@
     ./packages.nix
     ./git.nix
     ./nvim.nix
-    ./mitmproxy.nix
+    # ./mitmproxy.nix
     ./password.nix
     ./fzf.nix
     ./zsh.nix

@@ -5,25 +5,81 @@
 }:
 {
   programs.zed-editor = {
-    enable = false;
+    enable = true;
     extensions = [
       "nix"
       "toml"
       "lua"
       "basher"
+      "html"
+      "dockerfile"
+      "sql"
+      "php"
     ];
-    extraPackages = [ pkgs.nixd ];
+
+    extraPackages = with pkgs; [
+      nixd
+      prettierd
+      shfmt
+      shellcheck
+      nixfmt-rfc-style
+      pint
+      gersemi
+
+      cmake-language-server
+      templ
+      gopls
+      lua-language-server
+      bash-language-server
+      clang-tools
+      astro-language-server
+      basedpyright
+      tailwindcss-language-server
+      yaml-language-server
+      vscode-langservers-extracted
+      vue-language-server
+      typescript-language-server
+      terraform-ls
+      rust-analyzer
+    ];
 
     userSettings = {
       vim_mode = true;
       vim = {
         enable_vim_sneak = true;
       };
-      theme = "Dracula";
-      # had to force here due to conflicts
+
+      theme = "Github Theme";
+
+      features = {
+        edit_prediction_provider = "zed";
+      };
+      edit_predictions = {
+        mode = "subtle";
+      };
+      assistant = {
+        enabled = false;
+        version = "2";
+        default_open_ai_model = null;
+        default_model = {
+          provider = "zed.dev";
+          model = "claude-3-5-sonnet-latest";
+        };
+      };
+
       ui_font_size = lib.mkForce 12;
       buffer_font_size = lib.mkForce 14;
       relative_line_numbers = true;
+      vertical_scroll_margin = 8;
+      cursor_line = "all";
+      tab_size = 2;
+
+      gutter = {
+        line_numbers = true;
+      };
+
+      format_on_save = "on";
+
       file_finder = {
         modal_width = "medium";
       };
@@ -37,10 +93,6 @@
         enabled = true;
         coloring = "indent_aware";
       };
-      # centered_layout = {
-      #   left_padding = "0.15";
-      #   right_padding = "0.15";
-      # };
       inlay_hints = {
         enabled = true;
       };
@@ -59,14 +111,10 @@
         dock = "left";
       };
 
-      assistant = {
-        enabled = false;
-        version = "2";
-        default_open_ai_model = null;
-
-        default_model = {
-          provider = "zed.dev";
-          model = "claude-3-5-sonnet-latest";
+      agent_servers = {
+        OpenCode = {
+          command = "${lib.getExe pkgs.opencode}";
+          args = [ "acp" ];
         };
       };
 
@@ -77,6 +125,7 @@
 
       hour_format = "hour12";
       auto_update = false;
+
       terminal = {
         alternate_scroll = "off";
         blinking = "off";
@@ -95,120 +144,280 @@
         };
         env = {
           EDITOR = "zed --wait";
-          TERM = "ghostty"; # or kitty etc
+          TERM = "ghostty";
         };
         font_family = "FiraCode Nerd Font Mono";
-        font_features = null;
         line_height = "comfortable";
-        option_as_meta = false;
-        button = false;
         shell = "system";
         toolbar = {
           title = true;
         };
         working_directory = "current_project_directory";
       };
-      # File syntax highlighting
+
       file_types = {
         JSON = [
           "json"
           "jsonc"
           "*.code-snippets"
         ];
-      };
-      languages = {
-        Markdown = {
-          formatter = "prettier";
-        };
-        JSON = {
-          formatter = "prettier";
-        };
-        TOML = {
-          formatter = "taplo";
-        };
+        Templ = [ "templ" ];
       };
 
       lsp = {
-        nix = {
-          binary = {
-            path_lookup = true;
-          };
-        };
-
-        "rust-analyzer" = {
-          # Quote the LSP name
-          binary = {
-            # run `which rust-analyzer`
-            path = "/nix/store/3i6z4bh7ffyj99drw554nsmnspyizky6-rust-default-1.87.0-nightly-2025-02-18/bin/rust-analyzer";
-          };
-          settings = {
-            diagnostics = {
-              enable = true;
-              styleLints = {
-                enable = true;
-              }; # Corrected styleLints access
-            };
-            checkOnSave = true;
+        rust-analyzer = {
+          initialization_options = {
             check = {
               command = "clippy";
-              features = "all";
             };
-            cargo = {
-              buildScripts = {
-                enable = true;
-              }; # Corrected buildScripts access
-              features = "all";
-            };
-            inlayHints = {
-              bindingModeHints = {
-                enable = true;
-              }; # Corrected access
-              closureStyle = "rust_analyzer";
-              closureReturnTypeHints = {
-                enable = "always";
-              }; # Corrected access
-              discriminantHints = {
-                enable = "always";
-              }; # Corrected access
-              expressionAdjustmentHints = {
-                enable = "always";
-              }; # Corrected access
-              implicitDrops = {
-                enable = true;
-              };
-              lifetimeElisionHints = {
-                enable = "always";
-              }; # Corrected access
-              rangeExclusiveHints = {
-                enable = true;
-              };
-            };
-            procMacro = {
+          };
+        };
+        basedpyright = {
+          binary = {
+            path = "basedpyright-langserver";
+            arguments = [ "--stdio" ];
+          };
+        };
+        clangd = {
+          binary = {
+            path = "clangd";
+            arguments = [ "--background-index" ];
+          };
+        };
+        eslint = {
+          settings = {
+            codeActionOnSave = {
               enable = true;
+              mode = "all";
             };
-            rustc = {
-              source = "discover";
-            };
-            files = {
-              excludeDirs = [
-                ".cargo"
-                ".direnv"
-                ".git"
-                "node_modules"
-                "target"
+            run = "onType";
+            validate = "on";
+          };
+        };
+      };
+
+      languages = {
+        JavaScript = {
+          formatter = {
+            external = {
+              command = "prettierd";
+              arguments = [
+                "--stdin-filepath"
+                "{buffer_path}"
               ];
             };
           };
         };
-
-        settings = {
-          # This is for other LSP servers, keep it separate
-          dialyzerEnabled = true;
+        TypeScript = {
+          formatter = {
+            external = {
+              command = "prettierd";
+              arguments = [
+                "--stdin-filepath"
+                "{buffer_path}"
+              ];
+            };
+          };
+        };
+        TSX = {
+          formatter = {
+            external = {
+              command = "prettierd";
+              arguments = [
+                "--stdin-filepath"
+                "{buffer_path}"
+              ];
+            };
+          };
+        };
+        Vue = {
+          formatter = {
+            external = {
+              command = "prettierd";
+              arguments = [
+                "--stdin-filepath"
+                "{buffer_path}"
+              ];
+            };
+          };
+        };
+        Astro = {
+          formatter = {
+            external = {
+              command = "prettierd";
+              arguments = [
+                "--stdin-filepath"
+                "{buffer_path}"
+              ];
+            };
+          };
+        };
+        CSS = {
+          formatter = {
+            external = {
+              command = "prettierd";
+              arguments = [
+                "--stdin-filepath"
+                "{buffer_path}"
+              ];
+            };
+          };
+        };
+        HTML = {
+          formatter = {
+            external = {
+              command = "prettierd";
+              arguments = [
+                "--stdin-filepath"
+                "{buffer_path}"
+              ];
+            };
+          };
+        };
+        JSON = {
+          formatter = {
+            external = {
+              command = "prettierd";
+              arguments = [
+                "--stdin-filepath"
+                "{buffer_path}"
+              ];
+            };
+          };
+        };
+        Markdown = {
+          formatter = {
+            external = {
+              command = "prettierd";
+              arguments = [
+                "--stdin-filepath"
+                "{buffer_path}"
+              ];
+            };
+          };
+        };
+        Nix = {
+          formatter = {
+            external = {
+              command = "nixfmt";
+              arguments = [
+                "--stdin"
+                "{buffer_path}"
+              ];
+            };
+          };
+        };
+        Shell = {
+          formatter = {
+            external = {
+              command = "shfmt";
+              arguments = [
+                "-i"
+                "2"
+                "-ci"
+                "-filename"
+                "{buffer_path}"
+              ];
+            };
+          };
+        };
+        PHP = {
+          formatter = {
+            external = {
+              command = "pint";
+              arguments = [ "{buffer_path}" ];
+            };
+          };
+        };
+        CMake = {
+          formatter = {
+            external = {
+              command = "gersemi";
+              arguments = [ "-" ];
+            };
+          };
+        };
+        TOML = {
+          formatter = "taplo";
+        };
+        Go = {
+          code_actions_on_format = {
+            "source.organizeImports" = true;
+          };
         };
       };
     };
 
     userKeymaps = [
+      # ---------------------------------------------------------
+      # TELESCOPE / NAVIGATION REPLICATION
+      # ---------------------------------------------------------
+      {
+        context = "Editor && vim_mode == normal";
+        bindings = {
+          # <leader>sf -> Find Files
+          "space s f" = "file_finder::Toggle";
+          # <leader>gf -> Git Files (Alias to standard finder)
+          "space g f" = "file_finder::Toggle";
+          # <leader>sg -> Live Grep
+          "space s g" = "pane::DeploySearch";
+
+          # <leader><space> -> Buffers (SWITCHER)
+          # This triggers the MRU tab switcher explained above
+          "space space" = "tab_switcher::Toggle";
+
+          # <leader>? -> Oldfiles
+          "space ?" = "projects::OpenRecent";
+          # <leader>ds -> Document Symbols
+          "space d s" = "outline::Toggle";
+        };
+      }
+
+      # ---------------------------------------------------------
+      # LSP / CODING
+      # ---------------------------------------------------------
+      {
+        context = "Editor && vim_mode == normal";
+        bindings = {
+          "space r n" = "editor::Rename";
+          "space c a" = "editor::ToggleCodeActions";
+          "ctrl-f" = "editor::Format";
+
+          "g d" = "editor::GoToDefinition";
+          "g D" = "editor::GoToDefinitionSplit";
+          "g I" = "editor::GoToImplementation";
+          "K" = "editor::Hover";
+          "ctrl-k" = "editor::SignatureHelp";
+
+          "[ d" = "editor::GoToPrevDiagnostic";
+          "] d" = "editor::GoToDiagnostic";
+          "space e" = "editor::Hover";
+        };
+      }
+
+      # ---------------------------------------------------------
+      # EDITING / MOVEMENT
+      # ---------------------------------------------------------
+      {
+        context = "Editor && vim_mode == visual";
+        bindings = {
+          "J" = "editor::MoveLineDown";
+          "K" = "editor::MoveLineUp";
+        };
+      }
+      {
+        context = "Editor && vim_mode == insert";
+        bindings = {
+          "ctrl-l" = "editor::Tab";
+          "ctrl-h" = "editor::TabPrev";
+          "j j" = "vim::NormalBefore";
+          "j k" = "vim::NormalBefore";
+        };
+      }
+
+      # ---------------------------------------------------------
+      # DEFAULT / MISC
+      # ---------------------------------------------------------
       {
         context = "Editor && (vim_mode == normal || vim_mode == visual)";
         bindings = {
@@ -219,12 +428,6 @@
           "space c z" = "workspace::ToggleCenteredLayout";
           "space m p" = "markdown::OpenPreview";
           "space m P" = "markdown::OpenPreviewToTheSide";
-          "space f p" = "projects::OpenRecent";
-          "space f m" = "editor::Format";
-          "space f M" = "editor::FormatSelections";
-          "space s w" = "pane::DeploySearch";
-          "space a c" = "assistant::ToggleFocus";
-          "g f" = "editor::OpenExcerpts";
         };
       }
       {
@@ -232,103 +435,10 @@
         bindings = {
           "ctrl-h" = "workspace::ActivatePaneLeft";
           "ctrl-l" = "workspace::ActivatePaneRight";
-          "ctrl-k" = "workspace::ActivatePaneUp";
           "ctrl-j" = "workspace::ActivatePaneDown";
-          "space c a" = "editor::ToggleCodeActions";
-          "space ." = "editor::ToggleCodeActions";
-          "space c r" = "editor::Rename";
-          "g d" = "editor::GoToDefinition";
-          "g D" = "editor::GoToDefinitionSplit";
-          "g i" = "editor::GoToImplementation";
-          "g I" = "editor::GoToImplementationSplit";
-          "g t" = "editor::GoToTypeDefinition";
-          "g T" = "editor::GoToTypeDefinitionSplit";
-          "g r" = "editor::FindAllReferences";
-          "] d" = "editor::GoToDiagnostic";
-          "[ d" = "editor::GoToPrevDiagnostic";
-          # TODO: Go to next/prev error
-          "] e" = "editor::GoToDiagnostic";
-          "[ e" = "editor::GoToPrevDiagnostic";
-          # Symbol search
-          "s s" = "outline::Toggle";
-          "s S" = "project_symbols::Toggle";
-          # Diagnostic
-          "space x x" = "diagnostics::Deploy";
-
-          # +Git
-          # Git prev/next hunk
-          "] h" = "editor::GoToHunk";
-          "[ h" = "editor::GoToPrevHunk";
-
-          # Buffers
-          # Switch between buffers
-          "shift-h" = "pane::ActivatePrevItem";
-          "shift-l" = "pane::ActivateNextItem";
-          # Close active panel
-          "shift-q" = "pane::CloseActiveItem";
-          "ctrl-q" = "pane::CloseActiveItem";
-          "space b d" = "pane::CloseActiveItem";
-          # Close other items
-          "space b o" = "pane::CloseInactiveItems";
-          # Save file
           "ctrl-s" = "workspace::Save";
-          # File finder
-          "space space" = "file_finder::Toggle";
-          # Project search
-          "space /" = "pane::DeploySearch";
-          # TODO: Open other files
-          # Show project panel with current file
-          "space e" = "pane::RevealInProjectPanel";
         };
       }
-      {
-        context = "EmptyPane || SharedScreen";
-        bindings = {
-          # Open file finder
-          "space space" = "file_finder::Toggle";
-          # Open recent projects
-          "space f p" = "projects::OpenRecent";
-        };
-      }
-      {
-        context = "Editor && vim_mode == visual && !VimWaiting && !menu";
-        bindings = {
-          "g c" = "editor::ToggleComments";
-        };
-      }
-      # Better escape
-      {
-        context = "Editor && vim_mode == insert && !menu";
-        bindings = {
-          "j j" = "vim::NormalBefore"; # remap jj in insert mode to escape
-          "j k" = "vim::NormalBefore"; # remap jk in insert mode to escape
-        };
-      }
-      # Rename
-      {
-        context = "Editor && vim_operator == c";
-        bindings = {
-          "c" = "vim::CurrentLine";
-          "a" = "editor::ToggleCodeActions"; # zed specific
-        };
-      }
-      # Toggle Terminal
-      {
-        context = "Workspace";
-        bindings = {
-          "ctrl-\\" = "terminal_panel::ToggleFocus";
-        };
-      }
-      {
-        context = "Terminal";
-        bindings = {
-          "ctrl-h" = "workspace::ActivatePaneLeft";
-          "ctrl-l" = "workspace::ActivatePaneRight";
-          "ctrl-k" = "workspace::ActivatePaneUp";
-          "ctrl-j" = "workspace::ActivatePaneDown";
-        };
-      }
-      # File panel (netrw)
       {
         context = "ProjectPanel && not_editing";
         bindings = {
@@ -339,30 +449,16 @@
           "x" = "project_panel::Cut";
           "c" = "project_panel::Copy";
           "p" = "project_panel::Paste";
-          # Close project panel as project file panel on the right
-          "q" = "workspace::ToggleRightDock";
           "space e" = "workspace::ToggleRightDock";
-          # Navigate between panel
+        };
+      }
+      {
+        context = "Terminal";
+        bindings = {
           "ctrl-h" = "workspace::ActivatePaneLeft";
           "ctrl-l" = "workspace::ActivatePaneRight";
           "ctrl-k" = "workspace::ActivatePaneUp";
           "ctrl-j" = "workspace::ActivatePaneDown";
-        };
-      }
-      # Panel navigation
-      {
-        context = "Dock";
-        bindings = {
-          "ctrl-w h" = "workspace::ActivatePaneLeft";
-          "ctrl-w l" = "workspace::ActivatePaneRight";
-          "ctrl-w k" = "workspace::ActivatePaneUp";
-          "ctrl-w j" = "workspace::ActivatePaneDown";
-        };
-      }
-      {
-        context = "Workspace";
-        bindings = {
-          "ctrl-b" = "workspace::ToggleRightDock";
         };
       }
     ];
