@@ -3,6 +3,7 @@
   home.packages = with pkgs; [
     dig
     parallel
+    devcontainer
     sops
     bun
     docker

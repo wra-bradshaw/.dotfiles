@@ -123,7 +123,7 @@
                 pushd ~/.dotfiles
                 sudo ${
                   inputs.nix-darwin.packages.${system}.darwin-rebuild
-                }/bin/darwin-rebuild switch --show-trace --flake ".#$1"
+                }/bin/darwin-rebuild switch --print-build-logs --show-trace --flake ".#$1"
                 popd
               '')
 

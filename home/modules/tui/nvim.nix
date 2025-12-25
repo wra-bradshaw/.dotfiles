@@ -318,33 +318,23 @@
         sourcekit.enable = true;
         basedpyright.enable = true;
         tailwindcss.enable = true;
-        yamlls.enable = true;
+        yamlls = {
+          enable = true;
+          config = {
+            filetypes = [
+              "yaml"
+              "yaml.docker-compose"
+              "yaml.gitlab"
+              "yaml.helm-values"
+              "markdown"
+            ];
+          };
+        };
         html.enable = true;
         jsonls.enable = true;
         cssls.enable = true;
         eslint.enable = true;
         vue_ls.enable = true;
-
-        ts_ls = {
-          enable = true;
-          config = {
-            rootMarkers = [
-              "package.json"
-            ];
-            filetypes = [
-              "javascript"
-              "javascriptreact"
-              "javascript.jsx"
-              "typescript"
-              "typescriptreact"
-              "typescript.tsx"
-              "astro"
-            ];
-            extraOptions = {
-              single_file_support = false;
-            };
-          };
-        };
         # denols = {
         #   enable = true;
         #   rootMarkers = [
@@ -360,6 +350,9 @@
 
     plugins = {
       lspconfig.enable = true;
+      typescript-tools = {
+        enable = true;
+      };
 
       which-key = {
         enable = true;

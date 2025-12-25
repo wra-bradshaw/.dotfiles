@@ -2,6 +2,7 @@
 [
   (nur.overlays.default)
   (brew-nix.overlays.default)
+  (import ./zed-editor.nix { })
   (import ./shortcat.nix { })
   (import ./rimage.nix { })
   (import ./autopip.nix { })

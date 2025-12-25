@@ -6,16 +6,24 @@
 {
   programs.zed-editor = {
     enable = true;
+    package = pkgs.brewCasks."zed@preview";
     extensions = [
       "nix"
       "toml"
+      "tombi"
       "lua"
       "basher"
       "html"
+      "astro"
+      "neocmake"
+      "vue"
       "dockerfile"
       "sql"
       "php"
+      "git-firefly"
     ];
+    mutableUserSettings = false;
+    mutableUserKeymaps = false;
 
     extraPackages = with pkgs; [
       nixd
@@ -23,8 +31,9 @@
       shfmt
       shellcheck
       nixfmt-rfc-style
-      pint
+      nil
       gersemi
+      tombi
 
       cmake-language-server
       templ
@@ -46,10 +55,16 @@
     userSettings = {
       vim_mode = true;
       vim = {
-        enable_vim_sneak = true;
+        use_smartcase_find = true;
       };
+      auto_signature_help = true;
 
-      theme = "Github Theme";
+      theme = {
+        light = "One Light";
+        dark = "One Dark";
+        mode = "system";
+
+      };
 
       features = {
         edit_prediction_provider = "zed";
@@ -57,21 +72,10 @@
       edit_predictions = {
         mode = "subtle";
       };
-      assistant = {
-        enabled = false;
-        version = "2";
-        default_open_ai_model = null;
-        default_model = {
-          provider = "zed.dev";
-          model = "claude-3-5-sonnet-latest";
-        };
-      };
-
       ui_font_size = lib.mkForce 12;
-      buffer_font_size = lib.mkForce 14;
-      relative_line_numbers = true;
+      buffer_font_size = lib.mkForce 12;
+      relative_line_numbers = "enabled";
       vertical_scroll_margin = 8;
-      cursor_line = "all";
       tab_size = 2;
 
       gutter = {
@@ -80,9 +84,6 @@
 
       format_on_save = "on";
 
-      file_finder = {
-        modal_width = "medium";
-      };
       tab_bar = {
         show = true;
       };
@@ -96,7 +97,6 @@
       inlay_hints = {
         enabled = true;
       };
-      inactive_opacity = "0.5";
       auto_install_extensions = true;
       outline_panel = {
         dock = "right";
@@ -107,12 +107,9 @@
       notification_panel = {
         dock = "left";
       };
-      chat_panel = {
-        dock = "left";
-      };
-
       agent_servers = {
         OpenCode = {
+          type = "custom";
           command = "${lib.getExe pkgs.opencode}";
           args = [ "acp" ];
         };
@@ -123,7 +120,6 @@
         npm_path = lib.getExe' pkgs.nodejs_22 "npm";
       };
 
-      hour_format = "hour12";
       auto_update = false;
 
       terminal = {
@@ -300,14 +296,10 @@
           formatter = {
             external = {
               command = "nixfmt";
-              arguments = [
-                "--stdin"
-                "{buffer_path}"
-              ];
             };
           };
         };
-        Shell = {
+        "Shell Script" = {
           formatter = {
             external = {
               command = "shfmt";
@@ -337,9 +329,6 @@
             };
           };
         };
-        TOML = {
-          formatter = "taplo";
-        };
         Go = {
           code_actions_on_format = {
             "source.organizeImports" = true;
@@ -349,6 +338,18 @@
     };
 
     userKeymaps = [
+      {
+        bindings = {
+          "cmd-shift-g" = "git_panel::ToggleFocus";
+        };
+      }
+      {
+        context = "vim_mode == normal || vim_mode == visual";
+        bindings = {
+          s = "vim::PushSneak";
+          shift-s = "vim::PushSneakBackward";
+        };
+      }
       # ---------------------------------------------------------
       # TELESCOPE / NAVIGATION REPLICATION
       # ---------------------------------------------------------
@@ -387,9 +388,8 @@
           "g D" = "editor::GoToDefinitionSplit";
           "g I" = "editor::GoToImplementation";
           "K" = "editor::Hover";
-          "ctrl-k" = "editor::SignatureHelp";
 
-          "[ d" = "editor::GoToPrevDiagnostic";
+          "[ d" = "editor::GoToPreviousDiagnostic";
           "] d" = "editor::GoToDiagnostic";
           "space e" = "editor::Hover";
         };
@@ -409,7 +409,7 @@
         context = "Editor && vim_mode == insert";
         bindings = {
           "ctrl-l" = "editor::Tab";
-          "ctrl-h" = "editor::TabPrev";
+          "ctrl-h" = "editor::Outdent";
           "j j" = "vim::NormalBefore";
           "j k" = "vim::NormalBefore";
         };
