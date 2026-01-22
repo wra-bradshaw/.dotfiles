@@ -12,4 +12,5 @@
   (import ./socktainer.nix { })
   (import ./helium.nix { })
   (import ./macos-wallpaper.nix { })
+  (import ./glide.nix { })
 ]

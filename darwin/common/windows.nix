@@ -94,10 +94,6 @@
               id = "com.apple.MobileSMS";
               bundle = "/System/Applications/Messages.app";
             }
-            {
-              id = "com.facebook.archon.developerID";
-              bundle = "${pkgs.brewCasks.messenger}/Applications/Messenger.app";
-            }
           ];
 
         }
@@ -214,7 +210,7 @@
       );
     in
     {
-      enable = true;
+      enable = false;
       settings = {
         workspace-to-monitor-force-assignment = {
           E = "secondary";

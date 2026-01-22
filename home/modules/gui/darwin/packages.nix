@@ -8,7 +8,6 @@
     brewCasks.handy
     brewCasks.obsidian
     brewCasks.roblox
-    brewCasks.messenger
     brewCasks.gimp
     brewCasks.utm
     brewCasks.claude

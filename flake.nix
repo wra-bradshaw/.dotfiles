@@ -23,6 +23,8 @@
 
     nixvim.url = "github:nix-community/nixvim";
 
+    komorebi-for-mac.url = "github:KomoCorp/komorebi-for-mac";
+
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
