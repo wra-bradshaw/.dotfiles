@@ -4,6 +4,16 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
+    paneru = {
+      url = "github:karinushka/paneru";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    neru = {
+      url = "github:y3owk1n/neru";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -49,15 +59,19 @@
       overlays = import ./overlays {
         nur = inputs.nur;
         brew-nix = inputs.brew-nix;
+        komorebi-for-mac = inputs.komorebi-for-mac;
+        neru = inputs.neru;
       };
 
       homeManagerModules = [
         inputs.nixvim.homeModules.nixvim
         inputs.nix-colors.homeManagerModules.default
+        inputs.sops-nix.homeManagerModules.sops
       ];
 
       homeManagerModulesDarwin = [
-        inputs.sops-nix.homeManagerModules.sops
+        inputs.paneru.homeModules.paneru
+        inputs.neru.homeManagerModules.default
       ]
       ++ homeManagerModules;
 
@@ -84,6 +98,7 @@
 
       darwinModules = [
         inputs.sops-nix.darwinModules.sops
+        inputs.komorebi-for-mac.darwinModules.default
         {
           nixpkgs.overlays = overlays;
         }

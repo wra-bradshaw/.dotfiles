@@ -1,7 +1,7 @@
 { ... }:
 {
   services.glide-wm = {
-    enable = true;
+    enable = false;
     config = ''
       # This is the default configuration. A .glide.toml file in your home directory
       # can override these settings.

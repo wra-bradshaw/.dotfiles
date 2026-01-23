@@ -8,9 +8,7 @@
       theme = "light:GitHub Light Default,dark:GitHub Dark Default";
       font-family = "FiraCode Nerd Font";
       custom-shader = "${./ghostty_shader.glsl}";
-      background-opacity = 0.9;
       auto-update = "off";
-      background-blur = true;
       keybind = [
         "ctrl+enter=new_window"
         "cmd+shift+p=toggle_command_palette"

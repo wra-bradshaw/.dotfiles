@@ -210,7 +210,7 @@
       );
     in
     {
-      enable = false;
+      enable = true;
       settings = {
         workspace-to-monitor-force-assignment = {
           E = "secondary";

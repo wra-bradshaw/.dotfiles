@@ -1,7 +1,15 @@
-{ nur, brew-nix, ... }:
+{
+  nur,
+  brew-nix,
+  komorebi-for-mac,
+  neru,
+  ...
+}:
 [
+  (komorebi-for-mac.overlays.default)
   (nur.overlays.default)
   (brew-nix.overlays.default)
+  (neru.overlays.default)
   (import ./zed-editor.nix { })
   (import ./shortcat.nix { })
   (import ./rimage.nix { })

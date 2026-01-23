@@ -15,6 +15,7 @@
 
     CustomUserPreferences = {
       "com.apple.finder".NewWindowTargetPath = "file:///Users/${config.username}/";
+      NSGlobalDomain."SLSMenuBarUseBlurredAppearance" = false;
     };
 
     finder = {
@@ -22,6 +23,7 @@
     };
 
     NSGlobalDomain = {
+      NSWindowShouldDragOnGesture = true;
       ApplePressAndHoldEnabled = false;
       AppleICUForce24HourTime = true; # use 24 hr time
       AppleShowAllFiles = true; # show hidden files
@@ -32,6 +34,7 @@
       NSWindowResizeTime = 0.1;
       "com.apple.mouse.tapBehavior" = 1; # enable tap to click
       AppleInterfaceStyleSwitchesAutomatically = true;
+      _HIHideMenuBar = false;
     };
   };
 

@@ -1,5 +1,6 @@
 {
   imports = [
+    ./sops.nix
     ./direnv.nix
     ./aichat.nix
     ./opencode.nix

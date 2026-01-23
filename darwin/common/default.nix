@@ -4,6 +4,7 @@
     ./fonts.nix
     ./containers.nix
     ./users.nix
+    ./komorebi.nix
     ./homebrew.nix
     ./packages.nix
     ./security.nix
