@@ -24,10 +24,12 @@ in
         ProgramArguments = [
           "${pkgs.macos-wallpaper}/bin/wallpaper"
           "set"
-          (builtins.toString cfg.image)
+          (toString cfg.image)
         ];
         RunAtLoad = true;
         KeepAlive = false;
+        StandardErrorPath = "/tmp/wallpaper.err.log";
+        StandardOutPath = "/tmp/wallpaper.out.log";
       };
     };
   };

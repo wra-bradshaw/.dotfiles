@@ -19,7 +19,6 @@
         "com.apple.Preview"
         "com.pattonium.Sidekick"
         "com.apple.finder"
-        "com.sproutcube.Shortcat"
       ];
 
       appLinkedWorkspaces = [
