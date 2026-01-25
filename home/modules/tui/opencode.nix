@@ -10,7 +10,13 @@
         webfetch = "allow";
         external_directory = "ask";
         doom_loop = "ask";
-        bash = "ask";
+        bash = {
+          "*" = "ask";
+          "ls *" = "allow";
+          "grep *" = "allow";
+          "bun run build" = "allow";
+
+        };
       };
     };
   };
