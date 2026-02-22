@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   services.neru = {
-    enable = true;
+    enable = false;
     package = pkgs.neru-source;
     config = ''
       # ============================================================================

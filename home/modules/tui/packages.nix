@@ -7,7 +7,6 @@
     sops
     bun
     docker
-    gdb
     pandoc
     podman
     ripgrep
