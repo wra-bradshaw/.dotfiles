@@ -7,14 +7,6 @@
 
   programs.awscli = {
     enable = true;
-    package = (
-      pkgs.awscli2.overrideAttrs (old: {
-        makeWrapperArgs = (old.makeWrapperArgs or [ ]) ++ [
-          "--unset"
-          "PYTHONPATH"
-        ];
-      })
-    );
     settings = {
       "profile personal-william-bradshaw" = {
         sso_session = "personal";

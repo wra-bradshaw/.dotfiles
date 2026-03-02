@@ -1,8 +1,12 @@
 { pkgs, ... }:
 {
   services.neru = {
-    enable = false;
-    package = pkgs.neru-source;
+    enable = true;
+    package = pkgs.neru-source.override {
+      buildGoModule = pkgs.buildGoModule.override {
+        go = pkgs.go_1_26;
+      };
+    };
     config = ''
       # ============================================================================
       # General Settings

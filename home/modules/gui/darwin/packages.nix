@@ -17,5 +17,6 @@
     brewCasks.syntax-highlight
     brewCasks.sketch
     brewCasks.balenaetcher
+    brewCasks.codex-app
   ];
 }
