@@ -307,6 +307,7 @@
         }
       ];
       servers = {
+        kotlin_language_server.enable = true;
         cmake.enable = true;
         templ.enable = true;
         gopls.enable = true;
@@ -349,6 +350,7 @@
     };
 
     plugins = {
+      java.enable = true;
       lspconfig.enable = true;
       typescript-tools = {
         enable = true;
@@ -673,6 +675,15 @@
           repo = "OSC11.nvim";
           rev = "919e015336b737c3c567f56de677740684a41cf5";
           hash = "sha256-s7HyMf90WdO0pyk1EQeRzOwK+5jbPDaoooK/sKroCw4=";
+        };
+      })
+      (pkgs.vimUtils.buildVimPlugin {
+        name = "spring-boot.nvim";
+        src = pkgs.fetchFromGitHub {
+          owner = "JavaHello";
+          repo = "spring-boot.nvim";
+          rev = "5d206bdfeb0865ea97bfbc18f9e08e2f26ac4707";
+          hash = "sha256-ioGlxjZIqtNlPedwI/HX3xA3HOWJ50WmWFyYIQPHDrg=";
         };
       })
     ];
