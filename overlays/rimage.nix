@@ -2,16 +2,16 @@
 (final: prev: {
   rimage = prev.rustPlatform.buildRustPackage (finalAttrs: {
     pname = "rimage";
-    version = "0.12.1";
+    version = "0.12.3";
 
     src = prev.fetchFromGitHub {
       owner = "SalOne22";
       repo = "rimage";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-ujoWQcOeX0WpzHHaxEu/39s7LtAqC9QRsrhioLs+few=";
+      hash = "sha256-I7nOvxRORdZeolBABt5u94Ij0PI/AiLi4wbN+C02haQ=";
     };
 
-    cargoHash = "sha256-tsASNZaRZblzah+FqA8/82WeZ7yDpbokaVs9Mo7mI6w=";
+    cargoHash = "sha256-kfOzzVkxHDqVrhX6vZF18f9hAXK9SKwezJphH0QGE4E=";
 
     cargoBuildFlags = [
       "--features"
