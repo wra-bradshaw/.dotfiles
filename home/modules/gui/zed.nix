@@ -95,7 +95,7 @@
         coloring = "indent_aware";
       };
       inlay_hints = {
-        enabled = true;
+        enabled = false;
       };
       auto_install_extensions = true;
       outline_panel = {
