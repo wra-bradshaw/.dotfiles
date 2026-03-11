@@ -3,3 +3,4 @@ result
 secret.txt
 .direnv/*
 .direnv
+.DS_Store

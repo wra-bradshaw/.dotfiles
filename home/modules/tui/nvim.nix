@@ -350,7 +350,12 @@
     };
 
     plugins = {
-      java.enable = true;
+      dap.enable = true;
+      nui.enable = true;
+      java = {
+        enable = true;
+        autoLoad = true;
+      };
       lspconfig.enable = true;
       typescript-tools = {
         enable = true;
