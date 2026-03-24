@@ -4,7 +4,7 @@
     enable = true;
     settings = {
       theme = "system";
-      plugin = [ "opencode-gemini-auth" ];
+      plugin = [ ];
       permission = {
         edit = "ask";
         webfetch = "allow";

@@ -10,5 +10,6 @@
     brewCasks.lookaway
     brewCasks.syntax-highlight
     brewCasks.codex-app
+    brewCasks.intellij-idea
   ];
 }

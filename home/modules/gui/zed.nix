@@ -70,7 +70,7 @@
         edit_prediction_provider = "zed";
       };
       edit_predictions = {
-        mode = "subtle";
+        mode = "eager";
       };
       ui_font_size = lib.mkForce 12;
       buffer_font_size = lib.mkForce 12;
