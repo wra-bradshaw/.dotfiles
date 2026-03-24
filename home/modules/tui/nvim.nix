@@ -4,6 +4,8 @@
     tree-sitter
     prettierd
     gersemi
+    libxmlxx5
+    google-java-format
     nodePackages.vscode-langservers-extracted
     nixfmt-rfc-style
   ];
@@ -335,6 +337,7 @@
         jsonls.enable = true;
         cssls.enable = true;
         eslint.enable = true;
+        jdtls.enable = true;
         vue_ls.enable = true;
         # denols = {
         #   enable = true;
@@ -469,6 +472,12 @@
             ];
             cpp = [
               "clang-format"
+            ];
+            xml = [
+              "xmllint"
+            ];
+            java = [
+              "google-java-format"
             ];
             cmake = [
               "gersemi"

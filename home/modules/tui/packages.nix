@@ -2,6 +2,7 @@
 {
   home.packages = with pkgs; [
     dig
+    gh
     parallel
     sops
     bun
@@ -10,7 +11,6 @@
     podman
     ripgrep
     uv
-    rimage
     aria2
     lldb
     htop-vim
@@ -29,7 +29,6 @@
     ripgrep
     jq
     yq-go
-    devenv
     mariadb
     fnm
     shellcheck
