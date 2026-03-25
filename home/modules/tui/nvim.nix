@@ -4,6 +4,7 @@
     tree-sitter
     prettierd
     gersemi
+    ruff
     libxmlxx5
     google-java-format
     nodePackages.vscode-langservers-extracted
@@ -311,6 +312,7 @@
       servers = {
         kotlin_language_server.enable = true;
         cmake.enable = true;
+        ruff.enable = true;
         templ.enable = true;
         gopls.enable = true;
         lua_ls.enable = true;
@@ -466,6 +468,9 @@
               "shellcheck"
               "shellharden"
               "shfmt"
+            ];
+            py = [
+              "ruff"
             ];
             c = [
               "clang-format"
