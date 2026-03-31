@@ -1,5 +1,6 @@
 { config, pkgs, ... }:
 {
+  home-manager.backupCommand = "${pkgs.trash-cli}/bin/trash";
   system.defaults = {
     screencapture.location = "~/Downloads";
 

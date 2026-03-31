@@ -9,6 +9,7 @@
       font-family = "FiraCode Nerd Font";
       custom-shader = "${./ghostty_shader.glsl}";
       auto-update = "off";
+      window-save-state = "never";
       keybind = [
         "ctrl+enter=new_window"
         "cmd+shift+p=toggle_command_palette"

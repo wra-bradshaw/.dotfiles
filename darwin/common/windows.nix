@@ -1,5 +1,30 @@
 { pkgs, ... }:
 {
+  services.skhd = {
+    enable = true;
+    skhdConfig = ''
+      ctrl - 0x2A [
+      	"Helium" : /usr/bin/osascript \
+      		-e 'if application "Helium" is not running then' \
+      		-e 'tell application "Helium" to activate' \
+      		-e 'else' \
+      		-e 'tell application "Helium" to activate' \
+      		-e 'tell application "System Events" to tell process "Helium" to click menu item "New Window" of menu "File" of menu bar 1' \
+      		-e 'end if'
+      	* : /usr/bin/open -na "Helium"
+      ]
+      ctrl - return [
+      	"Ghostty" ~
+      	* : /usr/bin/open -na "Ghostty"
+      ]
+    '';
+  };
+
+  launchd.user.agents.skhd.serviceConfig = {
+    StandardOutPath = "/tmp/skhd.stdout.log";
+    StandardErrorPath = "/tmp/skhd.stderr.log";
+  };
+
   services.aerospace =
     let
       focusScript = pkgs.writeShellScriptBin "focus-script" ''
@@ -209,7 +234,7 @@
       );
     in
     {
-      enable = true;
+      enable = false;
       settings = {
         workspace-to-monitor-force-assignment = {
           E = "secondary";
