@@ -5,6 +5,7 @@
     ./macos-wallpaper.nix
     ./chromium.nix
     ./glide.nix
+    ./omniwm.nix
     # ./docker-context.nix
     # ./colima.nix
   ];

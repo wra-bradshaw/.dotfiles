@@ -21,4 +21,5 @@
   (import ./helium.nix { })
   (import ./macos-wallpaper.nix { })
   (import ./glide.nix { })
+  (import ./omniwm.nix { })
 ]
