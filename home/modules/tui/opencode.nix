@@ -2,8 +2,8 @@
 {
   programs.opencode = {
     enable = true;
+    tui.theme = "system";
     settings = {
-      theme = "system";
       plugin = [ ];
       permission = {
         edit = "ask";
