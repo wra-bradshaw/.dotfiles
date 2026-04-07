@@ -310,6 +310,7 @@
         }
       ];
       servers = {
+        texlab.enable = true;
         kotlin_language_server.enable = true;
         cmake.enable = true;
         ruff.enable = true;

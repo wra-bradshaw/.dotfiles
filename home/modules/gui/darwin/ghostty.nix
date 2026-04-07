@@ -10,6 +10,7 @@
       custom-shader = "${./ghostty_shader.glsl}";
       auto-update = "off";
       window-save-state = "never";
+      quit-after-last-window-closed = true;
       keybind = [
         "ctrl+enter=new_window"
         "cmd+shift+p=toggle_command_palette"
