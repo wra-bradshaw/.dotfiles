@@ -8,6 +8,7 @@
       user.email = "will.bradshaw50@gmail.com";
       user.name = "will";
       signing = {
+        format = "ssh";
         signByDefault = true;
         key = "${config.sops.secrets."sshkey/private".path}";
       };
