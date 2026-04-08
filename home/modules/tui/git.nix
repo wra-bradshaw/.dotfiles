@@ -4,17 +4,16 @@
 
   programs.git = {
     enable = true;
+    signing = {
+      format = "ssh";
+      signByDefault = true;
+      key = "${config.sops.secrets."sshkey/private".path}";
+    };
     settings = {
       user.email = "will.bradshaw50@gmail.com";
       user.name = "will";
-      signing = {
-        format = "ssh";
-        signByDefault = true;
-        key = "${config.sops.secrets."sshkey/private".path}";
-      };
       credential.helper = "${pkgs.git-credential-manager}/bin/git-credential-manager";
       init.defaultBranch = "main";
-      gpg.format = "ssh";
       url."ssh://git@github.com/".insteadOf = "https://github.com/";
     };
   };
