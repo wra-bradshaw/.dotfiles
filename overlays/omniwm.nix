@@ -2,11 +2,11 @@
 (final: prev: {
   omniwm = prev.stdenv.mkDerivation (finalAttrs: {
     pname = "omniwm";
-    version = "0.4.7";
+    version = "0.4.7.4";
 
     src = prev.fetchurl {
       url = "https://github.com/BarutSRB/OmniWM/releases/download/v${finalAttrs.version}/OmniWM-v${finalAttrs.version}.zip";
-      hash = "sha256-P6SBQ5LglXdkcsmKm2tPeun+ux0D3z+gMxWpljCOzVQ=";
+      hash = "sha256-6POMtHn5R1CQcz29QORrJaEuBxMPe7aYTtn0VWpQXIo=";
     };
 
     nativeBuildInputs = [

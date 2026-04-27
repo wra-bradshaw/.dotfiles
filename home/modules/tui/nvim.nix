@@ -4,10 +4,11 @@
     tree-sitter
     prettierd
     gersemi
+    typstyle
     ruff
     libxmlxx5
     google-java-format
-    nodePackages.vscode-langservers-extracted
+    vscode-langservers-extracted
     nixfmt-rfc-style
   ];
 
@@ -46,6 +47,21 @@
     };
 
     autoCmd = [
+      {
+        event = "OptionSet";
+        pattern = "background";
+        callback = {
+          __raw = ''
+            function()
+              if vim.o.background == "light" then
+                vim.cmd("colorscheme github_light")
+              else
+                vim.cmd("colorscheme github_dark")
+              end
+            end
+          '';
+        };
+      }
       {
         event = "BufWritePre";
         callback.__raw = ''
@@ -190,7 +206,7 @@
       }
     ];
 
-    colorscheme = "github_light";
+    colorscheme = null;
 
     colorschemes.github-theme = {
       enable = true;
@@ -310,6 +326,7 @@
         }
       ];
       servers = {
+        tinymist.enable = true;
         texlab.enable = true;
         kotlin_language_server.enable = true;
         cmake.enable = true;
@@ -356,6 +373,7 @@
     };
 
     plugins = {
+      spring-boot.enable = true;
       dap.enable = true;
       nui.enable = true;
       java = {
@@ -465,6 +483,9 @@
           '';
           notify_on_error = true;
           formatters_by_ft = {
+            typst = [
+              "typstyle"
+            ];
             bash = [
               "shellcheck"
               "shellharden"
@@ -688,34 +709,6 @@
     extraPlugins = [
       pkgs.vimPlugins.vim-rhubarb
       pkgs.vimPlugins.plenary-nvim
-      (pkgs.vimUtils.buildVimPlugin {
-        name = "osc11";
-        src = pkgs.fetchFromGitHub {
-          owner = "afonsofrancof";
-          repo = "OSC11.nvim";
-          rev = "919e015336b737c3c567f56de677740684a41cf5";
-          hash = "sha256-s7HyMf90WdO0pyk1EQeRzOwK+5jbPDaoooK/sKroCw4=";
-        };
-      })
-      (pkgs.vimUtils.buildVimPlugin {
-        name = "spring-boot.nvim";
-        src = pkgs.fetchFromGitHub {
-          owner = "JavaHello";
-          repo = "spring-boot.nvim";
-          rev = "5d206bdfeb0865ea97bfbc18f9e08e2f26ac4707";
-          hash = "sha256-ioGlxjZIqtNlPedwI/HX3xA3HOWJ50WmWFyYIQPHDrg=";
-        };
-      })
     ];
-    extraConfigLua = ''
-      require('osc11').setup({
-      	on_dark = function()
-      	vim.cmd("colorscheme github_dark")
-      end,
-      	on_light = function()
-      	vim.cmd("colorscheme github_light")
-      end,
-      });
-    '';
   };
 }

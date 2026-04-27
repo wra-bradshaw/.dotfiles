@@ -72,7 +72,6 @@
       		fi
       }
 
-      eval "$(fnm env --use-on-cd --shell zsh)"
       eval "$(sops completion zsh)"
     '';
   };
