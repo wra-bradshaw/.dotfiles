@@ -2,7 +2,7 @@
   description = "System Config";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/d6f179c";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     nix-darwin = {
       url = "github:LnL7/nix-darwin";

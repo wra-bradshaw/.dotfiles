@@ -3,6 +3,8 @@
   home.packages = with pkgs; [
     dig
     gh
+    nodejs-slim
+    nodejs-slim.npm
     corepack
     parallel
     sops
@@ -31,7 +33,6 @@
     jq
     yq-go
     mariadb
-    fnm
     shellcheck
     shfmt
     (pkgs.buildGoModule (finalAttrs: {

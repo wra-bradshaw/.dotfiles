@@ -22,4 +22,5 @@
   (import ./macos-wallpaper.nix { })
   (import ./glide.nix { })
   (import ./omniwm.nix { })
+  (import ./direnv.nix { })
 ]
