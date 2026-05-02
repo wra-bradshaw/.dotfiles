@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
+    rift
     brewCasks.anki
     brewCasks.audacity
     brewCasks.vlc
