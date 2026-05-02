@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   services.skhd = {
-    enable = true;
+    enable = false;
     skhdConfig = ''
       ctrl - 0x2A [
       	"Helium" : /usr/bin/osascript \
@@ -11,11 +11,11 @@
       		-e 'tell application "Helium" to activate' \
       		-e 'tell application "System Events" to tell process "Helium" to click menu item "New Window" of menu "File" of menu bar 1' \
       		-e 'end if'
-      	* : /usr/bin/open -na "Helium"
+      	* : /usr/bin/open -na ~/Applications/Home\ Manager\ Apps/Helium.app
       ]
       ctrl - return [
       	"Ghostty" ~
-      	* : /usr/bin/open -na "Ghostty"
+      	* : /usr/bin/open -na ~/Applications/Home\ Manager\ Apps/Ghostty.app
       ]
     '';
   };

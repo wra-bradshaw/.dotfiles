@@ -1,7 +1,7 @@
 { ... }:
 {
   services.omniwm = {
-    enable = true;
+    enable = false;
 
     settings = {
       "borderColorAlpha" = 1.0;

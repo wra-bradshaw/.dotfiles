@@ -12,7 +12,7 @@ in
     services.rift = {
       enable = lib.mkEnableOption "Rift window manager";
 
-      package = lib.mkPackageOption pkgs.custom "rift" { };
+      package = lib.mkPackageOption pkgs "rift" { };
 
       config = lib.mkOption {
         type = lib.types.lines;
@@ -72,7 +72,7 @@ in
       inherit (cfg.launchd) enable;
       config = {
         ProgramArguments = [
-          "${cfg.package}/Applications/Rift.app/Contents/MacOS/Rift"
+          "${lib.getExe' cfg.package "rift"}"
           "--config"
           "${config.xdg.configHome}/rift/config.toml"
         ];
