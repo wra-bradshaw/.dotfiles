@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   services.skhd = {
-    enable = false;
+    enable = true;
     skhdConfig = ''
       ctrl - 0x2A [
       	"Helium" : /usr/bin/osascript \

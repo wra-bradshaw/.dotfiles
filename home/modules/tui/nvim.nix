@@ -252,6 +252,7 @@
       mouse = "a";
       clipboard = "unnamedplus";
       breakindent = true;
+      spell = true;
       spelllang = "en_gb";
       undofile = true;
       ignorecase = true; # case insensitive searching
@@ -326,6 +327,17 @@
         }
       ];
       servers = {
+        harper_ls = {
+          enable = true;
+          config = {
+            spell_check = true;
+            sentence_capitalization = true;
+            repeated_words = true;
+            long_sentences = true;
+            dialect = "Australian";
+          };
+
+        };
         tinymist.enable = true;
         texlab.enable = true;
         kotlin_language_server.enable = true;
@@ -349,7 +361,6 @@
               "yaml.docker-compose"
               "yaml.gitlab"
               "yaml.helm-values"
-              "markdown"
             ];
           };
         };
@@ -373,6 +384,7 @@
     };
 
     plugins = {
+      blink-cmp-words.enable = true;
       spring-boot.enable = true;
       dap.enable = true;
       nui.enable = true;
@@ -416,9 +428,52 @@
           };
 
           sources = {
+            default = [
+              "lsp"
+              "path"
+              "buffer"
+            ];
             providers = {
               buffer = {
                 score_offset = -7;
+              };
+              thesaurus = {
+                name = "blink-cmp-words";
+                module = "blink-cmp-words.thesaurus";
+                async = true;
+                timeout_ms = 100;
+                min_keyword_length = 5;
+                opts = {
+                  score_offset = -100;
+                  max_items = 5;
+                  definition_pointers = [
+                    "!"
+                    "&"
+                    "^"
+                  ];
+                  similarity_pointers = [
+                    "&"
+                    "^"
+                  ];
+                  similarity_depth = 1;
+                };
+              };
+              dictionary = {
+                name = "blink-cmp-words";
+                module = "blink-cmp-words.dictionary";
+                async = true;
+                timeout_ms = 100;
+                min_keyword_length = 4;
+                opts = {
+                  dictionary_search_threshold = 3;
+                  score_offset = -100;
+                  max_items = 5;
+                  definition_pointers = [
+                    "!"
+                    "&"
+                    "^"
+                  ];
+                };
               };
             };
           };
@@ -710,5 +765,51 @@
       pkgs.vimPlugins.vim-rhubarb
       pkgs.vimPlugins.plenary-nvim
     ];
+
+    extraConfigLua = ''
+      -- Profiling helpers for diagnosing slow plugins
+      local profile_file = nil
+      vim.api.nvim_create_user_command("ProfileStart", function()
+        profile_file = "/tmp/nvim-profile-" .. os.time() .. ".log"
+        vim.cmd("profile start " .. profile_file)
+        vim.cmd("profile func *")
+        vim.cmd("profile file *")
+        vim.notify("Profiling started: " .. profile_file)
+      end, { desc = "Start nvim profiling" })
+
+      vim.api.nvim_create_user_command("ProfileStop", function()
+        vim.cmd("profile dump")
+        vim.cmd("profile stop")
+        vim.notify("Profiling stopped: " .. (profile_file or "unknown"))
+      end, { desc = "Stop nvim profiling and dump" })
+
+      -- Toggle blink-cmp-words sources for quick A/B testing
+      local blink_sources_disabled = false
+      vim.api.nvim_create_user_command("BlinkWordsToggle", function()
+        local ok, blink = pcall(require, "blink.cmp")
+        if not ok then
+          vim.notify("blink.cmp not available")
+          return
+        end
+        blink_sources_disabled = not blink_sources_disabled
+        if blink_sources_disabled then
+          -- Temporarily override sources to exclude dictionary/thesaurus
+          require("blink.cmp").setup({
+            sources = {
+              default = { "lsp", "path", "buffer" },
+            },
+          })
+          vim.notify("blink-cmp-words sources DISABLED")
+        else
+          -- Re-enable original sources (won't fully restore nix config, but close enough)
+          require("blink.cmp").setup({
+            sources = {
+              default = { "lsp", "path", "buffer", "dictionary", "thesaurus" },
+            },
+          })
+          vim.notify("blink-cmp-words sources ENABLED")
+        end
+      end, { desc = "Toggle blink-cmp-words sources" })
+    '';
   };
 }

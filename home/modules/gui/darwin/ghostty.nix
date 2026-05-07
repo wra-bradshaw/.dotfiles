@@ -27,7 +27,7 @@
         "super+alt+right=goto_split:right"
         "shift+up=adjust_selection:up"
         "super+down=jump_to_prompt:1"
-        "super+t=new_tab"
+        "super+t=unbind"
         "super+c=copy_to_clipboard"
         "super+shift+right_bracket=next_tab"
         "super+physical:one=goto_tab:1"
