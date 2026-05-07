@@ -39,11 +39,18 @@
         in
         [
           (buildZoteroXpiAddon {
+            pname = "beaver";
+            version = "0.19.0";
+            addonId = "beaver@jlegewie.com";
+            url = "https://github.com/jlegewie/beaver-zotero/releases/download/v0.19.0/beaver.xpi";
+            hash = "sha256-56DlVCAbkdWxvqtGnfjyriyJO6YjSS4DC/S5xHLVwJI=";
+          })
+          (buildZoteroXpiAddon {
             pname = "zotero-better-bibtex";
-            version = "7.0.19";
+            version = "9.0.23";
             addonId = "zotero-better-bibtex@retorque.re";
-            url = "https://github.com/retorquere/zotero-better-bibtex/releases/download/v7.0.19/zotero-better-bibtex-7.0.19.xpi";
-            hash = "sha256-Dp71waix6VamzDjZDLm3CBc+ZwAEQRKqt8pOTFqB1No=";
+            url = "https://github.com/retorquere/zotero-better-bibtex/releases/download/v9.0.23/zotero-better-bibtex-9.0.23.xpi";
+            hash = "sha256-CX6gwKn/1kyJQpWtN1LcBqmz8HuIBqhK7fnW/PQ1cXw=";
           })
         ];
     };

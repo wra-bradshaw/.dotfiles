@@ -1,7 +1,26 @@
-{ ... }:
+{ pkgs, ... }:
+let
+  newAppWindowScript =
+    appName: processName:
+    pkgs.writeShellScript "new-${processName}-window" ''
+      set -euo pipefail
+
+      if pgrep -x ${processName} > /dev/null; then
+        frontmost_app=$(/usr/bin/osascript -e 'tell application "System Events" to name of first application process whose frontmost is true')
+
+        if [ "$frontmost_app" != "${appName}" ]; then
+          /usr/bin/osascript -e 'tell application "${appName}" to activate'
+        fi
+
+        /usr/bin/osascript -e 'tell application "System Events" to tell process "${appName}" to click menu item "New Window" of menu "File" of menu bar 1'
+      else
+        /usr/bin/open -na "$HOME/Applications/Home Manager Apps/${appName}.app"
+      fi
+    '';
+in
 {
   services.rift = {
-    enable = true;
+    enable = false;
     config = ''
       # rift config
 
@@ -105,8 +124,8 @@
       comb1 = "Alt + Shift"
 
       [keys]
-      "Ctrl + Backslash" = { exec = ["/bin/bash", "-c", "if pgrep -x Helium > /dev/null; then osascript -e 'tell application \"Helium\" to activate' -e 'tell application \"System Events\" to tell process \"Helium\" to click menu item \"New Window\" of menu \"File\" of menu bar 1'; else open -na ~/Applications/Home\\ Manager\\ Apps/Helium.app; fi"] }
-      "Ctrl + Return" = { exec = ["/bin/bash", "-c", "open -na ~/Applications/Home\\ Manager\\ Apps/Ghostty.app"] }
+      "Ctrl + Backslash" = { exec = ["${newAppWindowScript "Helium" "Helium"}"] }
+      "Ctrl + Return" = { exec = ["${newAppWindowScript "Ghostty" "ghostty"}"] }
 
       # --- Focus Window (Alt + hjkl) ---
       "Alt + H" = { move_focus = "left" }
@@ -174,12 +193,10 @@
       "Alt + Slash" = "toggle_orientation"
       "Alt + Ctrl + E" = "unjoin_windows"
 
-      "Alt + Enter" = { "exec" = ["/bin/bash", "-c", "open -a \"/System/Applications/Utilities/Terminal.app\""] }
-
       "Alt + Shift + D" = "debug"
       "Alt + Ctrl + S" = "serialize"
       "Alt + Ctrl + Q" = "save_and_exit"
-      		'';
+    '';
 
   };
 
