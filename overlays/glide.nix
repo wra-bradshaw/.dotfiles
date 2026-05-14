@@ -2,7 +2,7 @@
 (final: prev: {
   glide =
     let
-      rev = "6823bda9576c8f2c7fc4dcdb4d2772c002f9352d";
+      rev = "7d1f2c16be8f4beea96942c5823331a55233b36f";
       shortHash = prev.lib.substring 0 7 rev;
       pversion = "main-${shortHash}";
     in
@@ -14,10 +14,10 @@
         owner = "glide-wm";
         repo = "glide";
         inherit rev;
-        sha256 = "sha256-BNka6vDXQQMTo2KLtdug4LkSZs4ccuaiVnC//3754PI=";
+        sha256 = "sha256-p9unwYgNzhQVvQKTnc3/EhG9te6X4lzCMEUC+bNrfiE=";
       };
 
-      cargoHash = "sha256-oDLpHbaYIi9/XhBR7pW2Zj3vQmV1I1JWXPJC7vKbZ5k=";
+      cargoHash = "sha256-E0SrvvAfJmIVYjZv9htxR/VoQyO0MdDFSWZ04tO0g1Y=";
 
       nativeBuildInputs = prev.lib.optionals prev.stdenv.hostPlatform.isDarwin [
         prev.imagemagick

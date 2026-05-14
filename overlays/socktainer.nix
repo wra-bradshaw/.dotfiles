@@ -2,10 +2,10 @@
 (final: prev: {
   socktainer = prev.stdenv.mkDerivation (finalAttrs: {
     pname = "socktainer";
-    version = "0.2.0";
+    version = "0.12.0";
     src = prev.fetchurl {
       url = "https://github.com/socktainer/socktainer/releases/download/v${finalAttrs.version}/socktainer";
-      hash = "sha256-LphrgL0dRXYuASxZgxjlZLKHx0wJBmqYzyW8jb5fTGI=";
+      hash = "sha256-monlqaAmScUAcxnV5Q4LikHmylyWzEAiqsBbcbE/2ns=";
     };
     dontUnpack = true;
     dontBuild = true;

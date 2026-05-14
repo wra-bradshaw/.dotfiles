@@ -1,7 +1,7 @@
 { ... }:
 {
   services.paneru = {
-    enable = false;
+    enable = true;
     settings = {
       options = {
         focus_follows_mouse = true;
@@ -13,25 +13,74 @@
           0.66
           0.75
         ];
-        swipe_gesture_fingers = 4;
-        animation_speed = 50;
-        continuous_swipe = false;
+        animation_speed = 20;
+      };
+      windows = {
+        ghostty = {
+          title = ".*";
+          bundle_id = "com.mitchellh.ghostty";
+          width = 0.66;
+        };
+        helium = {
+          title = ".*";
+          bundle_id = "net.imput.helium";
+          width = 0.66;
+        };
+        bitwarden = {
+          title = "Bitwarden";
+          bundle_id = "net.imput.helium";
+          floating = true;
+        };
+        system_prefs = {
+          title = ".*";
+          bundle_id = "com.apple.systempreferences";
+          floating = true;
+        };
+        activity_monitor = {
+          title = ".*";
+          bundle_id = "com.apple.ActivityMonitor";
+          floating = true;
+        };
+        iphone_mirroing = {
+          title = ".*";
+          bundle_id = "com.apple.iphonesimulator";
+          floating = true;
+        };
+        photo_booth = {
+          title = ".*";
+          bundle_id = "com.apple.PhotoBooth";
+          floating = true;
+        };
+        calculator = {
+          title = ".*";
+          bundle_id = "com.apple.calculator";
+          floating = true;
+        };
+      };
+      swipe = {
+        continuous = false;
+        gesture.fingers_count = 3;
       };
       bindings = {
-        window_focus_west = "cmd - h";
-        window_focus_east = "cmd - l";
-        window_focus_north = "cmd - k";
-        window_focus_south = "cmd - j";
-        window_swap_west = "alt - h";
-        window_swap_east = "alt - l";
-        window_swap_first = "alt + shift - h";
-        window_swap_last = "alt + shift - l";
+        window_focus_west = "alt - h";
+        window_focus_east = "alt - l";
+        window_focus_north = "alt - k";
+        window_focus_south = "alt - j";
+        window_swap_west = "alt + shift - h";
+        window_swap_east = "alt + shift - l";
+        window_swap_north = "alt + shift - k";
+        window_swap_south = "alt + shift - j";
         window_center = "alt - c";
-        window_resize = "alt - r";
-        window_fullwidth = "alt - f";
-        window_manage = "ctrl + alt - t";
-        window_stack = "alt - ]";
-        window_unstack = "alt + shift - ]";
+        window_grow = "alt - .";
+        window_shrink = "alt - ,";
+        window_fullwidth = "alt + shift - f";
+        window_manage = "alt - f";
+        window_stack = "alt - [";
+        window_unstack = "alt - ]";
+        window_virtual_north = "cmd + shift - k";
+        window_virtual_south = "cmd + shift - j";
+        window_virtualmove_north = "cmd + alt - k";
+        window_virtualmove_south = "cmd + alt - j";
         quit = "ctrl + alt - q";
       };
     };
