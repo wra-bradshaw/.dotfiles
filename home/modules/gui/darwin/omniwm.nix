@@ -1,7 +1,7 @@
 { ... }:
 {
   services.omniwm = {
-    enable = true;
+    enable = false;
 
     settings = {
     };
