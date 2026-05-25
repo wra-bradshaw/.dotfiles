@@ -1,5 +1,6 @@
 {
   imports = [
+    ./pi.nix
     ./sops.nix
     ./direnv.nix
     ./aichat.nix
