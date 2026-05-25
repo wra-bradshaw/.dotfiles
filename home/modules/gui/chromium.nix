@@ -5,6 +5,7 @@ let
     "ekhagklcjbdpajgpjgmbionohlpdbjgc" # zotero connector
     "nngceckbapebfimnlniiiahkandclblb" # bitwaden
     "hkligngkgcpcolhcnkgccglchdafcnao" # web archives
+    "oboonakemofpalcgghocfoadofidjkkk" # keepassxc
   ];
 in
 {

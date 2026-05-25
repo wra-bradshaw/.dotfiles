@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
+    fd
     python3
     dig
     gh
@@ -19,7 +20,6 @@
     lldb
     htop-vim
     wget
-    yt-dlp
     gcc
     ngrok
     # terraform

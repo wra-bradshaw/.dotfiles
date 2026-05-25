@@ -9,9 +9,10 @@
         preset_column_widths = [
           0.25
           0.33
-          0.5
+          0.50
           0.66
           0.75
+          1.00
         ];
         animation_speed = 20;
       };
@@ -82,6 +83,16 @@
         window_virtualmove_north = "cmd + alt - k";
         window_virtualmove_south = "cmd + alt - j";
         quit = "ctrl + alt - q";
+        window_virtualnum_1 = "alt - 1";
+        window_virtualnum_2 = "alt - 2";
+        window_virtualnum_3 = "alt - 3";
+        window_virtualnum_4 = "alt - 4";
+        window_virtualnum_5 = "alt - 5";
+        window_virtualmovenum_1 = "alt + shift - 1";
+        window_virtualmovenum_2 = "alt + shift - 2";
+        window_virtualmovenum_3 = "alt + shift - 3";
+        window_virtualmovenum_4 = "alt + shift - 4";
+        window_virtualmovenum_5 = "alt + shift - 5";
       };
     };
   };

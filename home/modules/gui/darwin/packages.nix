@@ -2,6 +2,7 @@
 {
   home.packages = with pkgs; [
     rift
+    opencode-desktop
     brewCasks.anki
     brewCasks.audacity
     brewCasks.vlc
