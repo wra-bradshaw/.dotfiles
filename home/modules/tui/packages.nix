@@ -36,6 +36,7 @@
     mariadb
     shellcheck
     shfmt
+    annas-mcp
     (pkgs.buildGoModule (finalAttrs: {
       pname = "podsync";
       version = "2.8.0";
