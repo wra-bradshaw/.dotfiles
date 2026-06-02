@@ -3,25 +3,25 @@
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
-    matchBlocks = {
+    settings = {
       "*" = {
-        identityFile = "${config.sops.secrets."sshkey/private".path}";
+        IdentityFile = "${config.sops.secrets."sshkey/private".path}";
       };
       "ssh.github.com" = {
-        forwardAgent = true;
-        port = 443;
-        addKeysToAgent = "yes";
+        ForwardAgent = true;
+        Port = 443;
+        AddKeysToAgent = "yes";
       };
       "github.com" = {
-        hostname = "ssh.github.com";
-        forwardAgent = true;
-        port = 443;
-        addKeysToAgent = "yes";
+        HostName = "ssh.github.com";
+        ForwardAgent = true;
+        Port = 443;
+        AddKeysToAgent = "yes";
       };
       "stage" = {
-        hostname = "q.dev.ionata.com";
-        forwardAgent = true;
-        addKeysToAgent = "yes";
+        HostName = "q.dev.ionata.com";
+        ForwardAgent = true;
+        AddKeysToAgent = "yes";
       };
     };
   };

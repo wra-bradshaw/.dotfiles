@@ -12,6 +12,7 @@
   (neru.overlays.default)
   (import ./zed-editor.nix { })
   (import ./apfel-llm.nix { })
+  (import ./annas-mcp.nix { })
   (import ./rift.nix { })
   (import ./shortcat.nix { })
   (import ./rimage.nix { })
