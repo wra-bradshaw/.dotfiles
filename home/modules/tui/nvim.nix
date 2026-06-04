@@ -236,6 +236,7 @@
     };
 
     opts = {
+      smoothscroll = true;
       completeopt = [
         "menu"
         "menuone"
