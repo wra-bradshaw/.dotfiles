@@ -7,7 +7,6 @@
     ./glide.nix
     ./rift.nix
     ./omniwm.nix
-    ./pi-coding-agent.nix
     # ./docker-context.nix
     # ./colima.nix
   ];
