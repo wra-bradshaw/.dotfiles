@@ -6,7 +6,6 @@
 {
   programs.zed-editor = {
     enable = true;
-    package = pkgs.brewCasks."zed@preview";
     extensions = [
       "nix"
       "toml"

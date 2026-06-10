@@ -10,7 +10,6 @@
   (nur.overlays.default)
   (brew-nix.overlays.default)
   (neru.overlays.default)
-  (import ./zed-editor.nix { })
   (import ./apfel-llm.nix { })
   (import ./annas-mcp.nix { })
   (import ./rift.nix { })
