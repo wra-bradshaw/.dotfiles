@@ -7,11 +7,9 @@
         focus_follows_mouse = true;
         mouse_follows_focus = true;
         preset_column_widths = [
-          0.25
           0.33
           0.50
           0.66
-          0.75
           1.00
         ];
         animation_speed = 20;
@@ -35,6 +33,11 @@
         system_prefs = {
           title = ".*";
           bundle_id = "com.apple.systempreferences";
+          floating = true;
+        };
+        finder = {
+          title = ".*";
+          bundle_id = "com.apple.finder";
           floating = true;
         };
         activity_monitor = {
