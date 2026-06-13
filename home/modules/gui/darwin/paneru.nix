@@ -15,6 +15,24 @@
         animation_speed = 20;
       };
       windows = {
+        music = {
+          title = ".*";
+          bundle_id = "com.apple.Music";
+          grid = "12:12:3:1:6:4";
+          floating = true;
+        };
+        gmail = {
+          title = ".*";
+          bundle_id = "net.imput.helium.app.fmgjjmmmlfnkbppncabfkddbjimcfncm";
+          grid = "12:12:2:1:8:10";
+          floating = true;
+        };
+        outlook = {
+          title = ".*";
+          bundle_id = "net.imput.helium.app.faolnafnngnfdaknnbpnkhgohbobgegn";
+          grid = "12:12:2:1:8:10";
+          floating = true;
+        };
         ghostty = {
           title = ".*";
           bundle_id = "com.mitchellh.ghostty";
@@ -29,25 +47,29 @@
           title = "Bitwarden";
           bundle_id = "net.imput.helium";
           floating = true;
+          grid = "12:12:5:2:4:6";
         };
         system_prefs = {
           title = ".*";
           bundle_id = "com.apple.systempreferences";
           floating = true;
+          grid = "12:12:3:2:6:6";
         };
         finder = {
           title = ".*";
           bundle_id = "com.apple.finder";
           floating = true;
+          grid = "12:12:3:2:6:6";
         };
         activity_monitor = {
           title = ".*";
           bundle_id = "com.apple.ActivityMonitor";
           floating = true;
+          grid = "12:12:3:2:6:6";
         };
         iphone_mirroing = {
           title = ".*";
-          bundle_id = "com.apple.iphonesimulator";
+          bundle_id = "com.apple.ScreenContinuity";
           floating = true;
         };
         photo_booth = {
@@ -79,6 +101,7 @@
         window_shrink = "alt - ,";
         window_fullwidth = "alt + shift - f";
         window_manage = "alt - f";
+        window_togglefloatlayer = "alt - space";
         window_stack = "alt - [";
         window_unstack = "alt - ]";
         window_virtual_north = "cmd + shift - k";

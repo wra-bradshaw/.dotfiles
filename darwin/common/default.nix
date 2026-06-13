@@ -10,6 +10,7 @@
     ./security.nix
     ./settings.nix
     ./windows.nix
+    ./app-overlays.nix
     ./../../secrets.nix
     ./../extensions
   ];
