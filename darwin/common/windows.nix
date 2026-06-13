@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   services.skhd = {
     enable = true;
@@ -21,6 +26,12 @@
   };
 
   launchd.user.agents.skhd.serviceConfig = {
+    ProgramArguments = lib.mkForce [
+      "${config.services.skhd.package}/bin/skhd"
+      "-V"
+      "-c"
+      "/etc/skhdrc"
+    ];
     StandardOutPath = "/tmp/skhd.stdout.log";
     StandardErrorPath = "/tmp/skhd.stderr.log";
   };
