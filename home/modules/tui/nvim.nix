@@ -18,6 +18,7 @@
 
   programs.nixvim = {
     enable = true;
+    nixpkgs.useGlobalPackages = true;
     viAlias = true;
     vimAlias = true;
 
@@ -352,7 +353,7 @@
         nixd.enable = true;
         astro.enable = true;
         sourcekit.enable = true;
-        basedpyright.enable = true;
+        ty.enable = true;
         tailwindcss.enable = true;
         yamlls = {
           enable = true;
