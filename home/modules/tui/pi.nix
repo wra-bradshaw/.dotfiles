@@ -1,7 +1,7 @@
 { ... }:
 {
-  programs.pi-coding-agent = {
-    enable = true;
-
-  };
+  # programs.pi-coding-agent = {
+  #   enable = true;
+  #
+  # };
 }

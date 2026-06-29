@@ -46,4 +46,9 @@
     enableKeyMapping = true;
     remapCapsLockToControl = true;
   };
+
+  networking.dns = [
+    "9.9.9.9"
+    "149.112.112.112"
+  ];
 }

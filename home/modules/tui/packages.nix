@@ -4,10 +4,12 @@
     fd
     python3
     dig
+    timewarrior
     gh
     nodejs-slim
     nodejs-slim.npm
-    corepack
+    pnpm
+    yarn
     parallel
     sops
     bun

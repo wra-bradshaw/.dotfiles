@@ -41,8 +41,8 @@
       # See https://github.com/y3owk1n/neru/blob/main/docs/CLI.md
       [hotkeys]
       "Primary+Shift+Space" = "hints"
-      "Primary+Shift+C" = "grid"
-      "Primary+Shift+G" = "recursive_grid"
+      "Primary+Shift+G" = "grid"
+      "Primary+Shift+C" = "recursive_grid"
       "Primary+Shift+S" = "scroll"
 
       # Hint mode

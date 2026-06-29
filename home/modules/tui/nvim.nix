@@ -10,6 +10,7 @@
     google-java-format
     vscode-langservers-extracted
     nixfmt-rfc-style
+    tex-fmt
   ];
 
   home.sessionVariables = {
@@ -553,6 +554,9 @@
             ];
             c = [
               "clang-format"
+            ];
+            latex = [
+              "tex-fmt"
             ];
             cpp = [
               "clang-format"
