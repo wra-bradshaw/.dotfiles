@@ -3,6 +3,7 @@
   brew-nix,
   komorebi-for-mac,
   neru,
+  staging,
   ...
 }:
 [
@@ -25,4 +26,6 @@
   (import ./glide.nix { })
   (import ./omniwm.nix { })
   (import ./direnv.nix { })
+  (import ./opencode.nix { })
+  (import ./nodejs.nix { staging = staging; })
 ]

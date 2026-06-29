@@ -17,4 +17,5 @@
   sops.secrets."dufs/hash" = { };
   sops.secrets."pihole" = { };
   sops.secrets."openrouter" = { };
+  sops.secrets."cloudflare" = { };
 }
