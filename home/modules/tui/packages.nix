@@ -24,7 +24,8 @@
     wget
     gcc
     ngrok
-    # terraform
+    terraform
+    antigravity-cli
     kalker
     watchexec
     ffmpeg
