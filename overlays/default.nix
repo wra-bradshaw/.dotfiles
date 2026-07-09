@@ -3,7 +3,6 @@
   brew-nix,
   komorebi-for-mac,
   neru,
-  staging,
   ...
 }:
 [
@@ -27,5 +26,4 @@
   (import ./omniwm.nix { })
   (import ./direnv.nix { })
   (import ./opencode.nix { })
-  (import ./nodejs.nix { staging = staging; })
 ]

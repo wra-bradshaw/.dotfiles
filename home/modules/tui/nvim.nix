@@ -11,6 +11,7 @@
     vscode-langservers-extracted
     nixfmt-rfc-style
     tex-fmt
+    rustfmt
   ];
 
   home.sessionVariables = {
@@ -569,6 +570,9 @@
             ];
             cmake = [
               "gersemi"
+            ];
+            rust = [
+              "rustfmt"
             ];
             javascript = {
               __unkeyed-1 = "prettierd";

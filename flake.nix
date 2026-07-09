@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/0.1";
-    staging.url = "github:NixOS/nixpkgs/9cadaf6932b7c926e468f777549d57f04a7212da";
 
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
@@ -76,7 +75,6 @@
         brew-nix = inputs.brew-nix;
         komorebi-for-mac = inputs.komorebi-for-mac;
         neru = inputs.neru;
-        staging = inputs.staging;
       };
 
       homeManagerModules = [

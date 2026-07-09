@@ -47,6 +47,12 @@
     remapCapsLockToControl = true;
   };
 
+  networking.knownNetworkServices = [
+    "USB 10/100/1000 LAN"
+    "Wi-Fi"
+    "iPhone USB"
+  ];
+
   networking.dns = [
     "9.9.9.9"
     "149.112.112.112"
