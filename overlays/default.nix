@@ -26,4 +26,6 @@
   (import ./omniwm.nix { })
   (import ./direnv.nix { })
   (import ./opencode.nix { })
+  (import ./codex.nix { })
+  (import ./pi-coding-agent.nix)
 ]

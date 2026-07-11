@@ -373,7 +373,7 @@
         cssls.enable = true;
         eslint.enable = true;
         jdtls.enable = true;
-        vue_ls.enable = true;
+        # vue_ls.enable = true;
         # denols = {
         #   enable = true;
         #   rootMarkers = [

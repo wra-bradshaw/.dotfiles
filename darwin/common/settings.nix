@@ -1,5 +1,7 @@
 { config, pkgs, ... }:
 {
+  documentation.enable = false;
+  system.tools.darwin-uninstaller.enable = false;
   home-manager.backupCommand = "${pkgs.trash-cli}/bin/trash";
   system.defaults = {
     screencapture.location = "~/Downloads";
