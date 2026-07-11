@@ -45,7 +45,7 @@
       tailwindcss-language-server
       yaml-language-server
       vscode-langservers-extracted
-      vue-language-server
+      # vue-language-server
       typescript-language-server
       terraform-ls
       rust-analyzer

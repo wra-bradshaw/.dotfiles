@@ -8,7 +8,7 @@
     brewCasks.lookaway
     brewCasks.syntax-highlight
     brewCasks.firefox
-    brewCasks.codex-app
+    brewCasks.codex
     brewCasks.intellij-idea
     brewCasks.sketch
   ];

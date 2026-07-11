@@ -15,7 +15,6 @@
     bun
     docker
     pandoc
-    podman
     ripgrep
     uv
     aria2

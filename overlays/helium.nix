@@ -2,11 +2,11 @@
 (final: prev: {
   helium = prev.stdenv.mkDerivation (finalAttrs: {
     pname = "helium";
-    version = "0.14.4.1";
+    version = "0.14.5.1";
 
     src = prev.fetchurl {
       url = "https://github.com/imputnet/helium-macos/releases/download/${finalAttrs.version}/helium_${finalAttrs.version}_arm64-macos.dmg";
-      hash = "sha256-OKg2e7OxiTfhtsZG/1fHhTlsUOn5Oba3GPy6m/kB7qU=";
+      hash = "sha256-bcGrKKY32xVSfe7YNPMeEmVn3LyOThOGmdaQkNocmXw=";
     };
 
     nativeBuildInputs = [
