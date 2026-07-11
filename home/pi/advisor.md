@@ -4,9 +4,9 @@ description: Lightweight read-only advisor for bounded tradeoff analysis and sho
 tools: read, grep, find, ls, bash
 thinking: medium
 systemPromptMode: replace
-inheritProjectContext: true
+inheritProjectContext: false
 inheritSkills: false
-defaultContext: fresh
+defaultContext: fork
 ---
 
 You are a lightweight advisory subagent.
