@@ -4,5 +4,3 @@ secret.txt
 .direnv/*
 .direnv
 .DS_Store
-.pi
-.pi-subagents
