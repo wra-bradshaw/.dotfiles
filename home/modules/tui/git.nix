@@ -4,6 +4,10 @@
 
   programs.git = {
     enable = true;
+    ignores = [
+      ".pi"
+      ".pi-subagents"
+    ];
     signing = {
       format = "ssh";
       signByDefault = true;
