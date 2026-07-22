@@ -342,6 +342,8 @@
           };
 
         };
+        svelte.enable = true;
+        vtsls.enable = true;
         tinymist.enable = true;
         texlab.enable = true;
         kotlin_language_server.enable = true;
@@ -397,10 +399,6 @@
         autoLoad = true;
       };
       lspconfig.enable = true;
-      typescript-tools = {
-        enable = true;
-      };
-
       which-key = {
         enable = true;
       };
