@@ -8,6 +8,7 @@
   services.skhd = {
     enable = true;
     skhdConfig = ''
+      alt - s : ${pkgs.snap}/bin/snap capture
       ctrl - 0x2A [
       	"Helium" : /usr/bin/osascript \
       		-e 'if application "Helium" is not running then' \

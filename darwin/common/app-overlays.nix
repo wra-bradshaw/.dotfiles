@@ -14,6 +14,10 @@
         bundleId = "net.imput.helium.app.faolnafnngnfdaknnbpnkhgohbobgegn";
         hotkey = "alt - o";
       };
+      calendar = {
+        bundleId = "com.apple.iCal";
+        hotkey = "alt - c";
+      };
     };
   };
 }

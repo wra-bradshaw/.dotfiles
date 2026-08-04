@@ -33,10 +33,21 @@
           grid = "12:12:2:1:8:10";
           floating = true;
         };
+        calendar = {
+          title = ".*";
+          bundle_id = "com.apple.iCal";
+          grid = "12:12:2:1:8:10";
+          floating = true;
+        };
         ghostty = {
           title = ".*";
           bundle_id = "com.mitchellh.ghostty";
           width = 0.66;
+        };
+        harvest = {
+          title = ".*";
+          bundle_id = "com.getharvest.harvestxapp";
+          floating = true;
         };
         helium = {
           title = ".*";
@@ -96,7 +107,6 @@
         window_swap_east = "alt + shift - l";
         window_swap_north = "alt + shift - k";
         window_swap_south = "alt + shift - j";
-        window_center = "alt - c";
         window_grow = "alt - .";
         window_shrink = "alt - ,";
         window_fullwidth = "alt + shift - f";
