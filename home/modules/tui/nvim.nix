@@ -12,6 +12,7 @@
     nixfmt-rfc-style
     tex-fmt
     rustfmt
+    python314Packages.jupytext
   ];
 
   home.sessionVariables = {
@@ -390,6 +391,7 @@
     };
 
     plugins = {
+      jupytext.enable = true;
       blink-cmp-words.enable = true;
       spring-boot.enable = true;
       dap.enable = true;
@@ -532,7 +534,11 @@
         settings = {
           format_on_save = ''
             function(bufnr)
-              if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+              if
+                vim.g.disable_autoformat
+                or vim.b[bufnr].disable_autoformat
+                or is_marimo_notebook(bufnr)
+              then
                 return
               end
               return { timeout_ms = 500 }
@@ -775,6 +781,19 @@
     ];
 
     extraConfigLua = ''
+      function is_marimo_notebook(bufnr)
+        local lines = vim.api.nvim_buf_get_lines(bufnr, 0, 20, false)
+        local has_import = false
+        local has_app = false
+
+        for _, line in ipairs(lines) do
+          has_import = has_import or line:match("^%s*import%s+marimo%s*$") ~= nil
+          has_app = has_app or line:match("marimo%.App%s*%(") ~= nil
+        end
+
+        return has_import and has_app
+      end
+
       -- Profiling helpers for diagnosing slow plugins
       local profile_file = nil
       vim.api.nvim_create_user_command("ProfileStart", function()

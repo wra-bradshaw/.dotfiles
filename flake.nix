@@ -2,7 +2,12 @@
   description = "System Config";
 
   inputs = {
-    nixpkgs.url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/0.1";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+
+    snap = {
+      url = "github:wra-bradshaw/snap";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
@@ -76,6 +81,7 @@
         brew-nix = inputs.brew-nix;
         komorebi-for-mac = inputs.komorebi-for-mac;
         neru = inputs.neru;
+        snap = inputs.snap;
       };
 
       homeManagerModules = [

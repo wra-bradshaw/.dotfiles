@@ -4,5 +4,6 @@
     container
     apfel-llm
     codex
+    snap
   ];
 }

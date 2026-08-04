@@ -3,6 +3,7 @@
   home.packages = with pkgs; [
     fd
     python3
+    ty
     dig
     timewarrior
     gh

@@ -8,8 +8,11 @@
     brewCasks.lookaway
     brewCasks.syntax-highlight
     brewCasks.firefox
-    brewCasks.codex
     brewCasks.intellij-idea
     brewCasks.sketch
+    brewCasks.chatgpt
+    brewCasks.harvest
+    brewCasks.mysqlworkbench
+    brewCasks."t3-code@nightly"
   ];
 }

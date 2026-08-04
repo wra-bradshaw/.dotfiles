@@ -3,6 +3,7 @@
   brew-nix,
   komorebi-for-mac,
   neru,
+  snap,
   ...
 }:
 [
@@ -28,4 +29,6 @@
   (import ./opencode.nix { })
   (import ./codex.nix { })
   (import ./pi-coding-agent.nix)
+  (import ./modrinth.nix { })
+  (import ./snap.nix { inherit snap; })
 ]
