@@ -21,9 +21,7 @@
     htop-vim
     wget
     gcc
-    ngrok
     terraform
-    antigravity-cli
     kalker
     watchexec
     ffmpeg

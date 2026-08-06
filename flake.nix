@@ -49,8 +49,7 @@
 
   outputs =
     inputs:
-    inputs.nixos-unified.lib.mkFlake {
-      inherit inputs;
-      root = ./.;
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [ ./modules/flake/toplevel.nix ];
     };
 }

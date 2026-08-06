@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+_: {
   services.neru = {
     enable = true;
     config = ''

@@ -1,11 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-
-{
+_: {
   targets.darwin.copyApps = {
     enable = true;
   };

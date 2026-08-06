@@ -1,6 +1,11 @@
 { ... }:
 {
-  imports = [ ../../modules/system/darwin.nix ];
+  imports = [
+    ../../modules/darwin/system.nix
+    ../../darwin/common
+  ];
+
+  username = "will";
 
   nixpkgs.hostPlatform = "aarch64-darwin";
   networking = {

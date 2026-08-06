@@ -29,7 +29,7 @@
       prettierd
       shfmt
       shellcheck
-      nixfmt-rfc-style
+      nixfmt
       nil
       gersemi
       tombi

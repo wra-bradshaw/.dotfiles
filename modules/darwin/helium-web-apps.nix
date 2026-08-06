@@ -78,13 +78,23 @@ in
     );
   };
 
-  config = lib.mkIf (webApps != { }) {
-    # This fragment runs before nix-darwin's defaults phase.
-    system.activationScripts.etc.text = lib.mkAfter ''
-      mkdir -p "/Library/Managed Preferences"
-      install -m 0644 ${policyFile} "/Library/Managed Preferences/net.imput.helium.plist"
-    '';
+  config = {
+    # This fragment runs before nix-darwin's defaults phase and removes stale
+    # policy when the last declarative web app is disabled.
+    system.activationScripts.etc.text = lib.mkAfter (
+      if webApps != { } then
+        ''
+          mkdir -p "/Library/Managed Preferences"
+          install -m 0644 ${policyFile} "/Library/Managed Preferences/net.imput.helium.plist"
+        ''
+      else
+        ''
+          rm -f "/Library/Managed Preferences/net.imput.helium.plist"
+        ''
+    );
 
-    system.activationScripts.postActivation.text = lib.mkAfter diagnostic;
+    system.activationScripts.postActivation.text = lib.mkAfter (
+      lib.optionalString (webApps != { }) diagnostic
+    );
   };
 }

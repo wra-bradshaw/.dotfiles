@@ -1,5 +1,5 @@
-{ ... }:
-(final: prev: {
+_:
+(_final: prev: {
   annas-mcp = prev.buildGoModule (finalAttrs: {
     pname = "annas-mcp";
     version = "0.0.5";

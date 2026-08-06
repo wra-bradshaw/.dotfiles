@@ -12,7 +12,7 @@ in
   programs.helium = {
     enable = true;
     dictionaries = [ pkgs.hunspellDictsChromium.en_GB ];
-    extensions = map (id: { id = id; }) extensionIds;
+    extensions = map (id: { inherit id; }) extensionIds;
   };
 
   # home.file = pkgs.lib.optionalAttrs (pkgs.stdenv.isDarwin) builtins.listToAttrs (

@@ -1,8 +1,10 @@
 { pkgs, ... }:
 {
-  programs.direnv.enable = true;
-  programs.direnv.enableZshIntegration = true;
-  programs.direnv.nix-direnv.enable = true;
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true;
+  };
   home.packages = [
     (pkgs.writeShellScriptBin "mkPrj" ''
       mkdir "$1"
