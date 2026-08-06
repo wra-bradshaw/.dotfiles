@@ -11,7 +11,7 @@
     cli = {
       aarch64-darwin = {
         target = "aarch64-apple-darwin";
-        hash = lib.fakeHash;
+        hash = "sha256-oL44WXLzjQLoH5tA3h+ELa+DVGNvwpVma4Yw0valrsY=";
       };
     };
 
