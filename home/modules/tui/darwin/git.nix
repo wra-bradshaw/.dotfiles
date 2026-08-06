@@ -1,1 +1,5 @@
-{ programs.git.settings = { credential.credentialStore = "keychain"; }; }
+{
+  programs.git.settings = {
+    credential.credentialStore = "keychain";
+  };
+}

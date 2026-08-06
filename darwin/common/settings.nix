@@ -14,6 +14,8 @@
       mru-spaces = false;
       mineffect = "scale";
       expose-group-apps = true;
+      tilesize = 60;
+      wvous-br-corner = 14;
     };
 
     CustomUserPreferences = {
@@ -23,6 +25,9 @@
 
     finder = {
       FXDefaultSearchScope = "SCcf";
+      FXPreferredViewStyle = "Nlsv";
+      ShowPathbar = true;
+      ShowStatusBar = true;
     };
 
     NSGlobalDomain = {
@@ -40,6 +45,13 @@
       _HIHideMenuBar = false;
     };
   };
+
+  time.timeZone = "Australia/Melbourne";
+  networking.applicationFirewall = {
+    enable = true;
+    enableStealthMode = true;
+  };
+  services.openssh.enable = true;
 
   environment.systemPackages = [
   ];

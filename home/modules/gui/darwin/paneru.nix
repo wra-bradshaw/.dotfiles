@@ -1,4 +1,7 @@
-{ ... }:
+{ osConfig, ... }:
+let
+  heliumApps = osConfig.programs.helium.webApps;
+in
 {
   services.paneru = {
     enable = true;
@@ -23,13 +26,13 @@
         };
         gmail = {
           title = ".*";
-          bundle_id = "net.imput.helium.app.fmgjjmmmlfnkbppncabfkddbjimcfncm";
+          bundle_id = heliumApps.gmail.expectedBundleId;
           grid = "12:12:2:1:8:10";
           floating = true;
         };
         outlook = {
           title = ".*";
-          bundle_id = "net.imput.helium.app.faolnafnngnfdaknnbpnkhgohbobgegn";
+          bundle_id = heliumApps.outlook.expectedBundleId;
           grid = "12:12:2:1:8:10";
           floating = true;
         };

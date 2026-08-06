@@ -1,1 +1,1 @@
-{ programs.git.extraConfig = { credential.credentialStore = "gpg"; }; }
+{ programs.git.settings.credential.credentialStore = "gpg"; }

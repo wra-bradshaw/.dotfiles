@@ -1,14 +1,14 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    rift
     brewCasks.anki
     brewCasks.audacity
+    brewCasks.discord
     brewCasks.jan
     brewCasks.lookaway
     brewCasks.syntax-highlight
     brewCasks.firefox
-    brewCasks.intellij-idea
+    brewCasks.roblox
     brewCasks.sketch
     brewCasks.chatgpt
     brewCasks.harvest

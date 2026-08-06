@@ -7,11 +7,12 @@
 }:
 let
   crossPkgs = import nixpkgs { system = "aarch64-linux"; };
-  mkDockerLinuxWrapper = import ../../../../lib/mkDockerLinuxWrapper.nix;
+  mkNerdctlLinuxWrapper = import ../../../../lib/mkNerdctlLinuxWrapper.nix;
 in
 {
   home.packages = [
-    (mkDockerLinuxWrapper {
+    (mkNerdctlLinuxWrapper {
+      inherit lib;
       inherit pkgs;
       inherit crossPkgs;
       binName = "valgrind";

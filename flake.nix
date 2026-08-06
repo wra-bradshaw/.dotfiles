@@ -1,222 +1,56 @@
 {
-  description = "System Config";
+  description = "Will's macOS and NixOS systems";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
-    snap = {
-      url = "github:wra-bradshaw/snap";
-      inputs.nixpkgs.follows = "nixpkgs";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    nixos-unified = {
+      url = "github:srid/nixos-unified";
     };
 
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     home-manager = {
       url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
-
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
     };
-
-    paneru = {
-      url = "github:karinushka/paneru";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    neru = {
-      url = "github:y3owk1n/neru";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nix-colors.url = "github:misterio77/nix-colors";
-
-    nur = {
-      url = "github:nix-community/NUR";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     brew-nix = {
       url = "github:BatteredBunny/brew-nix";
       inputs.brew-api.follows = "brew-api";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     brew-api = {
       url = "github:BatteredBunny/brew-api";
       flake = false;
     };
-
-    komorebi-for-mac = {
-      url = "github:LGUG2Z/komorebi-for-mac";
+    paneru = {
+      url = "github:karinushka/paneru";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
+    neru = {
+      url = "github:y3owk1n/neru";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.3.0";
+    snap = {
+      url = "github:wra-bradshaw/snap";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
-    { self, nixpkgs, ... }@inputs:
-    let
-      supportedSystems = [
-        "x86_64-linux"
-        "aarch64-darwin"
-      ];
-
-      forAllSupportedSystems = import ./lib/forAllSupportedSystems.nix {
-        inherit nixpkgs supportedSystems;
-      };
-
-      overlays = import ./overlays {
-        nur = inputs.nur;
-        brew-nix = inputs.brew-nix;
-        komorebi-for-mac = inputs.komorebi-for-mac;
-        neru = inputs.neru;
-        snap = inputs.snap;
-      };
-
-      homeManagerModules = [
-        inputs.nixvim.homeModules.nixvim
-        inputs.nix-colors.homeManagerModules.default
-        inputs.sops-nix.homeManagerModules.sops
-      ];
-
-      homeManagerModulesDarwin = [
-        inputs.paneru.homeModules.paneru
-        inputs.neru.homeManagerModules.default
-      ]
-      ++ homeManagerModules;
-
-      homeManagerModulesLinux = [
-        inputs.xremap-flake.homeManagerModules.default
-        inputs.nix-flatpak.homeManagerModules.nix-flatpak
-      ]
-      ++ homeManagerModules;
-
-      homeSharedModulesLinux = [ inputs.sops-nix.homeManagerModules.sops ];
-
-      homeManagerExtraSpecialArgs = {
-        nixpkgs = nixpkgs;
-        nix-colors = inputs.nix-colors;
-      };
-
-      homeManagerExtraSpecialArgsLinux = {
-        xremap-flake = inputs.xremap-flake;
-      };
-
-      homeManagerExtraSpecialArgsDarwin = {
-        sops-nix = inputs.sops-nix;
-      };
-
-      darwinModules = [
-        inputs.sops-nix.darwinModules.sops
-        inputs.komorebi-for-mac.darwinModules.default
-        {
-          nixpkgs.overlays = overlays;
-        }
-        ./nixpkgs.nix
-      ];
-
-      darwinSpecialArgs = { };
-
-      nixosModules = [
-        {
-          nixpkgs.overlays = overlays;
-        }
-        inputs.sops-nix.nixosModules.sops
-        inputs.nur.modules.nixos.default
-        inputs.nix-flatpak.nixosModules.nix-flatpak
-        ./nixpkgs.nix
-      ];
-
-      nixosSpecialArgs = { };
-    in
-    {
-      devShells = forAllSupportedSystems (
-        system:
-        let
-          pkgs = nixpkgs.legacyPackages.${system};
-        in
-        {
-          default = pkgs.mkShell {
-            packages = [
-              (pkgs.writeShellScriptBin "apply-nixos" ''
-                set -euox pipefail
-                pushd ~/.dotfiles
-                sudo nixos-rebuild switch --log-format internal-json -v --upgrade --flake .#$1 |& ${pkgs.nix-output-monitor}/bin/nom --json
-                popd
-              '')
-
-              (pkgs.writeShellScriptBin "apply-darwin" ''
-                set -euox pipefail
-                pushd ~/.dotfiles
-                sudo ${
-                  inputs.nix-darwin.packages.${system}.darwin-rebuild
-                }/bin/darwin-rebuild switch --print-build-logs --show-trace --flake ".#$1"
-                popd
-              '')
-
-            ];
-          };
-        }
-      );
-
-      darwinConfigurations = {
-        macbookair = inputs.nix-darwin.lib.darwinSystem {
-          system = "aarch64-darwin";
-          specialArgs = darwinSpecialArgs;
-          modules = [
-            ./darwin/macbookair
-            inputs.home-manager.darwinModules.home-manager
-            (
-              { config, ... }:
-              {
-                home-manager = {
-                  useUserPackages = true;
-                  useGlobalPkgs = true;
-                  extraSpecialArgs = homeManagerExtraSpecialArgs // homeManagerExtraSpecialArgsDarwin;
-                  users.${config.username}.imports = [
-                    ./home/hosts/macbookair
-                    (
-                      { pkgs, ... }:
-                      {
-                        options.username =
-                          with pkgs.lib;
-                          mkOption {
-                            type = types.str;
-                            default = config.username;
-                            description = "The username of the user";
-                          };
-                      }
-                    )
-                  ]
-                  ++ homeManagerModulesDarwin;
-                };
-              }
-            )
-          ]
-          ++ darwinModules;
-        };
-      };
-
-      nixosConfigurations = {
-        server = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = nixosSpecialArgs;
-          modules = [
-            ./nixos/server
-          ]
-          ++ nixosModules;
-        };
-      };
+    inputs:
+    inputs.nixos-unified.lib.mkFlake {
+      inherit inputs;
+      root = ./.;
     };
 }

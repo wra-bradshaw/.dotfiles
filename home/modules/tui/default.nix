@@ -1,12 +1,10 @@
 {
   imports = [
     ./pi.nix
-    ./sops.nix
+    ./rbw.nix
     ./direnv.nix
-    ./aichat.nix
     ./opencode.nix
-    ./codex.nix
-    ./docker.nix
+    ./nerdctl.nix
     ./spell.nix
     ./packages.nix
     ./git.nix
@@ -18,7 +16,6 @@
     ./zellij.nix
     ./lazygit.nix
     ./nix.nix
-    ./rbw.nix
     ./ssh.nix
     ./aws.nix
   ];
