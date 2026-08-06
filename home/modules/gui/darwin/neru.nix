@@ -13,7 +13,6 @@
       # See https://github.com/y3owk1n/neru/blob/main/docs/CONFIGURATION.md#general-settings
       [general]
       excluded_apps = []                           # Bundle IDs to ignore (e.g. "com.apple.Terminal")
-      accessibility_check_on_start = true          # Verify AX permissions on launch
       kb_layout_to_use = ""                        # Force a keyboard layout InputSourceID (empty = auto)
       passthrough_unbounded_keys = false           # Let unbound Cmd/Ctrl/Alt shortcuts reach macOS
       should_exit_after_passthrough = false        # Exit the current mode after a shortcut is passed through
@@ -51,7 +50,6 @@
       enabled = true
       hint_characters = "asdfghjkl"               # Characters used for hint labels
       max_depth = 50                              # Max accessibility tree depth (0 = unlimited)
-      parallel_threshold = 20                     # Min children to trigger parallel tree building
       include_menubar_hints = false
       additional_menubar_hints_targets = [
           "com.apple.TextInputMenuAgent",
@@ -63,21 +61,21 @@
       include_stage_manager_hints = false
       detect_mission_control = false
       clickable_roles = [
-          "AXButton",
-          "AXComboBox",
-          "AXCheckBox",
-          "AXRadioButton",
-          "AXLink",
-          "AXPopUpButton",
-          "AXTextField",
-          "AXSlider",
-          "AXTabButton",
-          "AXSwitch",
-          "AXDisclosureTriangle",
-          "AXTextArea",
-          "AXMenuItem",
-          "AXCell",
-          "AXRow",
+          "button",
+          "combo_box",
+          "checkbox",
+          "radio",
+          "link",
+          "popup_button",
+          "text_field",
+          "slider",
+          "tab",
+          "switch",
+          "disclosure",
+          "text_area",
+          "menu_item",
+          "cell",
+          "row",
       ]
       ignore_clickable_check = false
 
@@ -90,18 +88,12 @@
       "Return" = "action left_click"
       "Shift+Return" = "action right_click"
       "Shift+M" = "action middle_click"
-      "Shift+I" = "action mouse_down"
-      "Shift+U" = "action mouse_up"
+      "Shift+I" = "action left_click --state down"
+      "Shift+U" = "action left_click --state up"
       "Up" = "action move_mouse_relative --dx=0 --dy=-10"
       "Down" = "action move_mouse_relative --dx=0 --dy=10"
       "Left" = "action move_mouse_relative --dx=-10 --dy=0"
       "Right" = "action move_mouse_relative --dx=10 --dy=0"
-
-      [hints.additional_ax_support]
-      enable = false                              # Enable enhanced AX for Electron/Chromium/Firefox apps
-      additional_electron_bundles = []
-      additional_chromium_bundles = []
-      additional_firefox_bundles = []
 
       [hints.ui]
       font_size = 10
@@ -142,8 +134,8 @@
       "Return" = "action left_click"
       "Shift+Return" = "action right_click"
       "Shift+M" = "action middle_click"
-      "Shift+I" = "action mouse_down"
-      "Shift+U" = "action mouse_up"
+      "Shift+I" = "action left_click --state down"
+      "Shift+U" = "action left_click --state up"
       "Up" = "action move_mouse_relative --dx=0 --dy=-10"
       "Down" = "action move_mouse_relative --dx=0 --dy=10"
       "Left" = "action move_mouse_relative --dx=-10 --dy=0"
@@ -177,8 +169,8 @@
       "Return" = "action left_click"
       "Shift+Return" = "action right_click"
       "Shift+M" = "action middle_click"
-      "Shift+I" = "action mouse_down"
-      "Shift+U" = "action mouse_up"
+      "Shift+I" = "action left_click --state down"
+      "Shift+U" = "action left_click --state up"
       "Up" = "action move_mouse_relative --dx=0 --dy=-10"
       "Down" = "action move_mouse_relative --dx=0 --dy=10"
       "Left" = "action move_mouse_relative --dx=-10 --dy=0"
@@ -199,11 +191,10 @@
 
       # Virtual pointer
       # See https://github.com/y3owk1n/neru/blob/main/docs/CONFIGURATION.md#virtual-pointer
-      [virtual_pointer]
-      enabled = true
-
       [virtual_pointer.ui]
-      size = 3
+      char = "●"
+      font_size = 8
+      font_family = ""
 
       # Scroll mode
       # See https://github.com/y3owk1n/neru/blob/main/docs/CONFIGURATION.md#scroll-mode
@@ -227,8 +218,8 @@
       "Return" = "action left_click"
       "Shift+Return" = "action right_click"
       "Shift+M" = "action middle_click"
-      "Shift+I" = "action mouse_down"
-      "Shift+U" = "action mouse_up"
+      "Shift+I" = "action left_click --state down"
+      "Shift+U" = "action left_click --state up"
       "Up" = "action move_mouse_relative --dx=0 --dy=-10"
       "Down" = "action move_mouse_relative --dx=0 --dy=10"
       "Left" = "action move_mouse_relative --dx=-10 --dy=0"
@@ -306,7 +297,6 @@
       [logging]
       log_level = "info"                          # debug, info, warn, error
       log_file = ""                               # Custom log path (empty = default location)
-      structured_logging = true                   # JSON format
       disable_file_logging = true                 # Console only (no file)
       max_file_size = 10                          # MB before rotation
       max_backups = 5                             # Old log files to keep

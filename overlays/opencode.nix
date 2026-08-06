@@ -5,7 +5,8 @@
   let
     inherit (final) lib stdenv fetchurl;
 
-    version = "1.17.9";
+    # OpenCode v2 is currently published under the `next` npm dist-tag.
+    version = "0.0.0-next-16893";
 
     supportedSystems = [
       "x86_64-linux"
@@ -17,26 +18,22 @@
     releaseForSystem = {
       "x86_64-linux" = {
         target = "linux-x64";
-        ext = "tar.gz";
-        hash = lib.fakeHash;
+        hash = "sha256-7aIyijwufTmDmyxPv4vrIRJ7Og1I+Ic3F8L1PDcc/34=";
       };
 
       "aarch64-linux" = {
         target = "linux-arm64";
-        ext = "tar.gz";
-        hash = lib.fakeHash;
+        hash = "sha256-eUpnMvevGzNAcne12xlKpVl+HaXeI7obSuFjVOb0GTM=";
       };
 
       "x86_64-darwin" = {
         target = "darwin-x64";
-        ext = "zip";
-        hash = lib.fakeHash;
+        hash = "sha256-lL33tD3DU6l7EG5m0hE8g1bO0DcQMvh2bkyjVmBNpXQ=";
       };
 
       "aarch64-darwin" = {
         target = "darwin-arm64";
-        ext = "zip";
-        hash = "sha256-kT2BOojKT2IJucSOVIvTdu700edMK7ETqpGqlseE0zI=";
+        hash = "sha256-Xb7RRrj82ojc9JPG+sbBWY0eDDs/u54z6Ewy8W3KfcM=";
       };
     };
 
@@ -51,17 +48,15 @@
       inherit version;
 
       src = fetchurl {
-        url = "https://github.com/anomalyco/opencode/releases/download/v${version}/opencode-${release.target}.${release.ext}";
+        url = "https://registry.npmjs.org/@opencode-ai/cli-${release.target}/-/cli-${release.target}-${version}.tgz";
         hash = release.hash;
       };
 
-      dontUnpack = true;
       dontStrip = true;
 
       nativeBuildInputs = [
         final.makeWrapper
       ]
-      ++ lib.optionals (release.ext == "zip") [ final.unzip ]
       ++ lib.optionals stdenv.hostPlatform.isLinux [
         final.autoPatchelfHook
       ];
@@ -76,22 +71,10 @@
       installPhase = ''
         runHook preInstall
 
-        mkdir -p "$out/bin" unpacked
-        cd unpacked
-
-        ${
-          if release.ext == "tar.gz" then
-            ''
-              tar -xzf "$src"
-            ''
-          else
-            ''
-              unzip -q "$src"
-            ''
-        }
-
-        install -m755 opencode "$out/bin/.opencode-unwrapped"
+        mkdir -p "$out/bin"
+        install -m755 bin/opencode2 "$out/bin/.opencode-unwrapped"
         makeWrapper "$out/bin/.opencode-unwrapped" "$out/bin/opencode"
+        makeWrapper "$out/bin/.opencode-unwrapped" "$out/bin/opencode2"
 
         runHook postInstall
       '';

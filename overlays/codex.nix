@@ -5,13 +5,13 @@
   let
     inherit (prev) lib stdenv fetchurl;
 
-    version = "0.145.0";
-    tag = "rust-v0.145.0";
+    version = "0.146.1";
+    tag = "rust-v0.146.1";
 
     cli = {
       aarch64-darwin = {
         target = "aarch64-apple-darwin";
-        hash = "sha256-7Ok3Fp1MnpENYIJqbqSueEihbAiUA9Ei5w59pKxBujQ=";
+        hash = lib.fakeHash;
       };
     };
 
