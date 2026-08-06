@@ -4,6 +4,7 @@
     container
     apfel-llm
     codex
+    ngrok
     snap
   ];
 }

@@ -5,8 +5,7 @@
   ...
 }:
 let
-  flakeDir = "${config.home.homeDirectory}/.dotfiles";
-  instanceName = "nixos";
+  cfg = config.programs.nixos-vm;
   template = (pkgs.formats.yaml { }).generate "lima-nixos.yaml" {
     vmType = "vz";
     os = "Linux";
@@ -51,8 +50,10 @@ let
       set -euo pipefail
       export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 
-      instance=${lib.escapeShellArg instanceName}
-      flake_dir=${lib.escapeShellArg flakeDir}
+      instance=${lib.escapeShellArg cfg.instanceName}
+      flake_dir=${lib.escapeShellArg cfg.flakeDirectory}
+      configuration=${lib.escapeShellArg cfg.configuration}
+      guest_flake_dir=${lib.escapeShellArg cfg.guestFlakeDirectory}
 
       exists() {
         limactl list "$instance" --format '{{.Name}}' 2>/dev/null | grep -qx "$instance"
@@ -65,7 +66,7 @@ let
         fi
 
         image_out=$(nix build \
-          "$flake_dir#nixosConfigurations.willnixos.config.system.build.images.lima" \
+          "$flake_dir#nixosConfigurations.$configuration.config.system.build.images.lima" \
           --no-link --print-out-paths)
         image=$(find "$image_out" -type f -name '*.qcow2' -print -quit)
         if [ -z "$image" ]; then
@@ -98,7 +99,7 @@ let
           create
           limactl start --tty=false "$instance"
           limactl shell "$instance" -- \
-            sudo nixos-rebuild switch --flake /mnt/host/.dotfiles#willnixos
+            sudo nixos-rebuild switch --flake "$guest_flake_dir#$configuration"
           ;;
         recreate)
           if exists; then
@@ -122,6 +123,37 @@ let
   };
 in
 {
-  home.packages = [ nixosVm ];
-  xdg.configFile."lima/nixos.template.yaml".source = template;
+  options.programs.nixos-vm = {
+    enable = lib.mkEnableOption "the NixOS Lima VM helper";
+    package = lib.mkOption {
+      type = lib.types.package;
+      readOnly = true;
+      default = nixosVm;
+      description = "Generated nixos-vm command.";
+    };
+    instanceName = lib.mkOption {
+      type = lib.types.str;
+      default = "nixos";
+      description = "Lima instance name.";
+    };
+    configuration = lib.mkOption {
+      type = lib.types.str;
+      description = "NixOS flake configuration name.";
+    };
+    flakeDirectory = lib.mkOption {
+      type = lib.types.str;
+      default = "${config.home.homeDirectory}/.dotfiles";
+      description = "Host path to the dotfiles flake.";
+    };
+    guestFlakeDirectory = lib.mkOption {
+      type = lib.types.str;
+      default = "/mnt/host/.dotfiles";
+      description = "Path to the dotfiles flake inside the VM.";
+    };
+  };
+
+  config = lib.mkIf cfg.enable {
+    home.packages = [ cfg.package ];
+    xdg.configFile."lima/${cfg.instanceName}.template.yaml".source = template;
+  };
 }

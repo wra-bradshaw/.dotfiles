@@ -1,0 +1,23 @@
+name: Check
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/determinate-nix-action@v3
+      - name: Evaluate every supported system
+        run: nix flake check --no-build --all-systems
+      - name: Check formatting
+        run: nix run nixpkgs#nixfmt -- --check $(find . -name '*.nix' -type f)
+      - name: Check for dead Nix code
+        run: nix run nixpkgs#deadnix -- --fail .
+      - name: Lint Nix code
+        run: nix run nixpkgs#statix -- check .

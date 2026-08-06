@@ -2,7 +2,6 @@
   config,
   flake,
   lib,
-  pkgs,
   ...
 }:
 let
@@ -11,13 +10,18 @@ in
 {
   imports = [
     inputs.home-manager.darwinModules.home-manager
-    ../../darwin/common
   ];
 
   options.username = lib.mkOption {
     type = lib.types.str;
     default = "will";
     description = "Primary user";
+  };
+
+  options.userHome = lib.mkOption {
+    type = lib.types.str;
+    default = "/Users/${config.username}";
+    description = "Home directory of the primary user";
   };
 
   config = {
@@ -33,16 +37,22 @@ in
       backupFileExtension = "home-manager-backup";
       extraSpecialArgs = {
         inherit flake;
-        nixpkgs = inputs.nixpkgs;
-        nix-colors = inputs.nix-colors;
+        inherit (inputs) nixpkgs;
+        inherit (inputs) nix-colors;
       };
-      users.${config.username}.imports = [
-        inputs.nixvim.homeModules.nixvim
-        inputs.nix-colors.homeManagerModules.default
-        inputs.paneru.homeModules.paneru
-        inputs.neru.homeManagerModules.default
-        ../../home/profiles/darwin
-      ];
+      users.${config.username} = {
+        home = {
+          inherit (config) username;
+          homeDirectory = config.userHome;
+        };
+        imports = [
+          inputs.nixvim.homeModules.nixvim
+          inputs.nix-colors.homeManagerModules.default
+          inputs.paneru.homeModules.paneru
+          inputs.neru.homeManagerModules.default
+          ../../home/profiles/darwin
+        ];
+      };
     };
   };
 }

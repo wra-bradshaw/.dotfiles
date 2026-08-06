@@ -1,5 +1,4 @@
-{ }:
-final: prev:
+_: final: _prev:
 
 let
   inherit (final) lib stdenv fetchurl;

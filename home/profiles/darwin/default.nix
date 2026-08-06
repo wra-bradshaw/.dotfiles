@@ -1,13 +1,12 @@
 { config, pkgs, ... }:
 {
   imports = [
-    ../../modules/tui
-    ../../modules/tui/darwin
+    ../../modules/cli
+    ../../modules/cli/darwin
     ../../modules/gui
     ../../modules/gui/darwin
     ./home.nix
     ./packages.nix
-    ../../extensions
   ];
 
   services.lima = {
@@ -40,6 +39,11 @@
         };
       };
     };
+  };
+
+  programs.nixos-vm = {
+    enable = true;
+    configuration = "willnixos";
   };
 
   home.packages = [

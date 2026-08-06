@@ -1,5 +1,6 @@
 result
 .opencode
+.pi-subagents
 secret.txt
 .direnv/*
 .direnv

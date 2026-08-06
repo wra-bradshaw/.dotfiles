@@ -49,14 +49,14 @@ in
     };
   };
 
-  home.file.".pi/agent/agents/advisor.md".source = ../../pi/advisor.md;
-  home.file.".pi/agent/extensions/main-only-advisor-policy.ts".source =
-    ../../pi/main-only-advisor-policy.ts;
-
-  home.file.".pi/agent/extensions/subagent/config.json".text = builtins.toJSON {
-    turnBudget = {
-      maxTurns = 100;
-      graceTurns = 5;
+  home.file = {
+    ".pi/agent/agents/advisor.md".source = ../../pi/advisor.md;
+    ".pi/agent/extensions/main-only-advisor-policy.ts".source = ../../pi/main-only-advisor-policy.ts;
+    ".pi/agent/extensions/subagent/config.json".text = builtins.toJSON {
+      turnBudget = {
+        maxTurns = 100;
+        graceTurns = 5;
+      };
     };
   };
 }

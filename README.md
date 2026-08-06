@@ -5,12 +5,24 @@ Two systems, built with flake-parts and nixos-unified:
 - `darwinConfigurations.willmb`: Apple Silicon MacBook
 - `nixosConfigurations.willnixos`: Apple Silicon NixOS VM with Niri
 
+## Layout
+
+- `configurations/` contains host identity, hardware, filesystems, and VM image details.
+- `modules/{darwin,nixos}/` contains reusable system capabilities and role modules.
+- `darwin/common/` is the shared macOS workstation profile.
+- `home/profiles/` composes user roles from `home/modules/{cli,gui}/` capabilities.
+- `overlays/` contains pinned packages and the small set of package-set additions.
+
+Hosts, exported modules, and overlays are wired explicitly in
+`modules/flake/toplevel.nix`; adding a file does not silently add a flake output.
+
 ## Commands
 
 ```sh
 nix develop
 nix fmt
 nix flake check
+nix flake check --no-build --all-systems
 nix run .#activate
 ```
 

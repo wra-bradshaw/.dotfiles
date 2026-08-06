@@ -1,4 +1,14 @@
 { pkgs, config, ... }:
+let
+  pythonWithJupyterWorkaround = pkgs.python314.override {
+    packageOverrides = _: pythonPrev: {
+      jupyter-server = pythonPrev.jupyter-server.overridePythonAttrs {
+        # Keep the upstream sandbox test workaround local to jupytext's Python.
+        doCheck = false;
+      };
+    };
+  };
+in
 {
   home.packages = with pkgs; [
     tree-sitter
@@ -9,10 +19,10 @@
     libxmlxx5
     google-java-format
     vscode-langservers-extracted
-    nixfmt-rfc-style
+    nixfmt
     tex-fmt
     rustfmt
-    python314Packages.jupytext
+    pythonWithJupyterWorkaround.pkgs.jupytext
   ];
 
   home.sessionVariables = {

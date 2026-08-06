@@ -1,5 +1,5 @@
-{ ... }:
-(final: prev: {
+_:
+(_final: prev: {
   apfel-llm = prev.stdenv.mkDerivation (finalAttrs: {
     pname = "apfel";
     version = "1.3.3";
