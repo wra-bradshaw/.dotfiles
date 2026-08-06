@@ -12,9 +12,7 @@
     pnpm
     yarn
     parallel
-    sops
     bun
-    docker
     pandoc
     ripgrep
     uv

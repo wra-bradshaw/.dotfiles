@@ -1,3 +1,7 @@
+{ config, ... }:
+let
+  heliumApps = config.programs.helium.webApps;
+in
 {
   services.appOverlays = {
     enable = true;
@@ -7,11 +11,11 @@
         hotkey = "alt - m";
       };
       gmail = {
-        bundleId = "net.imput.helium.app.fmgjjmmmlfnkbppncabfkddbjimcfncm";
+        bundleId = heliumApps.gmail.expectedBundleId;
         hotkey = "alt - g";
       };
       outlook = {
-        bundleId = "net.imput.helium.app.faolnafnngnfdaknnbpnkhgohbobgegn";
+        bundleId = heliumApps.outlook.expectedBundleId;
         hotkey = "alt - o";
       };
       calendar = {

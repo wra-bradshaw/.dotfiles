@@ -1,6 +1,6 @@
 {
   imports = [
     ./app-overlays.nix
-    ./socktainer.nix
+    ./helium-web-apps.nix
   ];
 }

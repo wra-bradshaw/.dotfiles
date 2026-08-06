@@ -1,1 +1,0 @@
-{ nixpkgs, supportedSystems }: f: nixpkgs.lib.genAttrs supportedSystems f

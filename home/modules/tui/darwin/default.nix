@@ -2,7 +2,8 @@
   imports = [
     ./git.nix
     ./lldb.nix
-    ./docker.nix
+    ./lima.nix
+    ./nixos-vm.nix
     ./packages.nix
     ./valgrind.nix
   ];

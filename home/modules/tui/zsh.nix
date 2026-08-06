@@ -72,7 +72,6 @@
       		fi
       }
 
-      eval "$(sops completion zsh)"
     '';
   };
 }
