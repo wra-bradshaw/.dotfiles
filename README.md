@@ -30,12 +30,13 @@ nix run .#activate
 
 ## Containers
 
-The macOS configuration manages a Lima VZ instance named `default`. It starts at
-login and runs rootless containerd. Use nerdctl directly:
+The macOS configuration manages a Lima VZ instance named `docker`. It starts at
+login and runs rootless Docker Engine. Home Manager configures the `lima-docker`
+context for the standard Docker CLI:
 
 ```sh
-nerdctl run --rm hello-world
-nerdctl compose up
+docker run --rm hello-world
+docker compose up
 ```
 
 The host home is writable in this development VM so bind mounts beneath

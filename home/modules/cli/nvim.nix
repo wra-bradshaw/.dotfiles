@@ -6,6 +6,14 @@ let
         # Keep the upstream sandbox test workaround local to jupytext's Python.
         doCheck = false;
       };
+      jupyterlab-server = pythonPrev.jupyterlab-server.overridePythonAttrs {
+        # test_watch_helper can exhaust PTYs in the Nix build sandbox.
+        doCheck = false;
+      };
+      notebook = pythonPrev.notebook.overridePythonAttrs {
+        # Socket finalizers trigger PytestUnraisableExceptionWarning in the sandbox.
+        doCheck = false;
+      };
     };
   };
 in

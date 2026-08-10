@@ -29,7 +29,7 @@ in
       credential.helper = "${pkgs.git-credential-manager}/bin/git-credential-manager";
       init.defaultBranch = "main";
       gpg.ssh.defaultKeyCommand = "${signingKeyCommand}";
-      url."ssh://git@github.com/".insteadOf = "https://github.com/";
+      url."ssh://git@github.com/".pushInsteadOf = "https://github.com/";
     };
   };
 

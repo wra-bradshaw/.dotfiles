@@ -5,6 +5,8 @@
     apfel-llm
     codex
     ngrok
+    openconnect
     snap
+    claude-code
   ];
 }
