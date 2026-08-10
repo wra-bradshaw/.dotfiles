@@ -4,7 +4,7 @@ let
   inherit (final) lib stdenv fetchurl;
 
   # OpenCode v2 is currently published under the `beta` npm dist-tag.
-  version = "0.0.0-beta-202608060818";
+  version = "0.0.0-beta-202608072055";
 
   releaseForSystem = {
     "x86_64-linux" = {
@@ -21,7 +21,7 @@ let
     };
     "aarch64-darwin" = {
       target = "darwin-arm64";
-      hash = "sha512-ttAtYU3cDqocQGWA0NtE5gh335u2ep1qbp96Xk9e/2p3DZbaPQP+WWKllDJ3jtZ4SQlfIN1ncYQUHZ5d2bCXfQ==";
+      hash = "sha512-I23QO4Jl12JgMVD5SQGGPKMTJOv7QsCrYhg60ro8I9jl5c+CFpAkUel7+B4vEH59rq+DObPh23ClfkGQuqoogw==";
     };
   };
 

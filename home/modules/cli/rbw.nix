@@ -27,7 +27,8 @@ in
 
   home.activation.rbwSshAgentSocket = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin (
     lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      /bin/launchctl setenv SSH_AUTH_SOCK "${rbwSshSocket}"
+      user_tmp=$(/usr/bin/getconf DARWIN_USER_TEMP_DIR)
+      /bin/launchctl setenv SSH_AUTH_SOCK "''${user_tmp%/}/rbw-$(id -u)/ssh-agent-socket"
     ''
   );
 }

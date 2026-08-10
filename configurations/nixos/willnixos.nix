@@ -10,6 +10,19 @@ let
   hostMount = "/mnt/host";
   mountHash = builtins.hashString "sha256" "${hostHome}:${hostMount}";
   mountTag = "lima-${builtins.substring 0 16 mountHash}";
+  # Determinate's native Linux builder exposes Darwin's case-hacked store
+  # paths to Linux builds. Normalize this entry until the builder translates
+  # those paths itself.
+  linuxTerminfo = pkgs.runCommand "linux-terminfo" { } ''
+    if [[ -e ${pkgs.ncurses}/share/terminfo/l/linux ]]; then
+      cp ${pkgs.ncurses}/share/terminfo/l/linux "$out"
+    elif [[ -e ${pkgs.ncurses}/share/terminfo/l~nix~case~hack~1/linux ]]; then
+      cp ${pkgs.ncurses}/share/terminfo/l~nix~case~hack~1/linux "$out"
+    else
+      echo "could not find the linux terminfo entry in ${pkgs.ncurses}" >&2
+      exit 1
+    fi
+  '';
 in
 {
   imports = [
@@ -18,11 +31,20 @@ in
   ];
 
   nixpkgs.hostPlatform = "aarch64-linux";
+  nixpkgs.overlays = [
+    (_: prev: {
+      terraform = prev.terraform.overrideAttrs {
+        # Terraform's test suite exhausts the native Linux builder's /build.
+        doCheck = false;
+      };
+    })
+  ];
   networking.hostName = "willnixos";
   username = "will";
   system.stateVersion = "26.05";
 
   boot = {
+    initrd.systemd.contents."/etc/terminfo/l/linux".source = lib.mkForce linuxTerminfo;
     initrd.availableKernelModules = [
       "virtio_pci"
       "virtio_blk"

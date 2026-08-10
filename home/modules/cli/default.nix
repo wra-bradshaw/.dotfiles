@@ -4,7 +4,7 @@
     ./rbw.nix
     ./direnv.nix
     ./opencode.nix
-    ./nerdctl.nix
+    ./docker.nix
     ./spell.nix
     ./packages.nix
     ./git.nix
@@ -18,5 +18,6 @@
     ./nix.nix
     ./ssh.nix
     ./aws.nix
+    ./nix-your-shell.nix
   ];
 }

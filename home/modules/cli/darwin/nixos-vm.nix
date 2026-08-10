@@ -43,7 +43,6 @@ let
       pkgs.findutils
       pkgs.gnugrep
       pkgs.lima
-      pkgs.nix
       pkgs.gnused
     ];
     text = ''
@@ -54,6 +53,11 @@ let
       flake_dir=${lib.escapeShellArg cfg.flakeDirectory}
       configuration=${lib.escapeShellArg cfg.configuration}
       guest_flake_dir=${lib.escapeShellArg cfg.guestFlakeDirectory}
+
+      if ! command -v nix >/dev/null 2>&1; then
+        echo "nix was not found in PATH" >&2
+        exit 1
+      fi
 
       exists() {
         limactl list "$instance" --format '{{.Name}}' 2>/dev/null | grep -qx "$instance"
