@@ -26,7 +26,7 @@ in
 
       npmCommand = [ "${pkgs.nodejs}/bin/npm" ];
       packages = [
-        "npm:pi-subagents@0.34.0"
+        "npm:pi-subagents@0.50.0"
       ];
 
       subagents = {

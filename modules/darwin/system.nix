@@ -49,7 +49,6 @@ in
           inputs.nixvim.homeModules.nixvim
           inputs.nix-colors.homeManagerModules.default
           inputs.paneru.homeModules.paneru
-          inputs.neru.homeManagerModules.default
           ../../home/profiles/darwin
         ];
       };

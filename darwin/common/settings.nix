@@ -21,6 +21,14 @@
 
       CustomUserPreferences = {
         "com.apple.finder".NewWindowTargetPath = "file:///Users/${config.username}/";
+        "com.apple.universalaccess" = {
+          closeViewPanningMode = 0;
+          closeViewScrollWheelModifiersInt = 1048576;
+          closeViewScrollWheelToggle = true;
+          closeViewZoomMode = 0;
+        };
+        "com.apple.AppleMultitouchTrackpad".HIDScrollZoomModifierMask = 1048576;
+        "com.apple.driver.AppleBluetoothMultitouch.trackpad".HIDScrollZoomModifierMask = 1048576;
         NSGlobalDomain."SLSMenuBarUseBlurredAppearance" = false;
       };
 

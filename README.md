@@ -31,7 +31,7 @@ nix run .#activate
 ## Containers
 
 The macOS configuration manages a Lima VZ instance named `docker`. It starts at
-login and runs rootless Docker Engine. Home Manager configures the `lima-docker`
+login and runs rootful Docker Engine. Home Manager configures the `lima-docker`
 context for the standard Docker CLI:
 
 ```sh
