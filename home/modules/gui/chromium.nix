@@ -15,7 +15,7 @@ in
     extensions = map (id: { inherit id; }) extensionIds;
   };
 
-  # home.file = pkgs.lib.optionalAttrs (pkgs.stdenv.isDarwin) builtins.listToAttrs (
+  # home.file = pkgs.lib.optionalAttrs (pkgs.stdenv.hostPlatform.isDarwin) builtins.listToAttrs (
   #   map (id: {
   #     name = "Library/Application Support/Google/Chrome/External Extensions/${id}.json";
   #     value = {

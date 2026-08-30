@@ -21,7 +21,7 @@ in
       currentContext = contextName;
     };
     contexts.${contextName} = {
-      Metadata.Description = "Rootless Docker Engine managed by Lima";
+      Metadata.Description = "Rootful Docker Engine managed by Lima";
       Endpoints.docker.Host = "unix://${dockerSocket}";
     };
   };

@@ -23,6 +23,7 @@
     darwinModules = {
       app-overlays = ../darwin/app-overlays.nix;
       helium-web-apps = ../darwin/helium-web-apps.nix;
+      solar-wallpaper = ../darwin/solar-wallpaper.nix;
       system = ../darwin/system.nix;
     };
     nixosModules = {

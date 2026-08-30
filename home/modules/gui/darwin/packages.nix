@@ -11,7 +11,6 @@
     brewCasks.roblox
     brewCasks.sketch
     brewCasks.chatgpt
-    brewCasks.harvest
     brewCasks.mysqlworkbench
     brewCasks."t3-code@nightly"
   ];

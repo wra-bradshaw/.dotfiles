@@ -36,5 +36,6 @@
     shellcheck
     shfmt
     annas-mcp
+    antigravity-cli
   ];
 }

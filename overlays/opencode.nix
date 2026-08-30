@@ -4,24 +4,24 @@ let
   inherit (final) lib stdenv fetchurl;
 
   # OpenCode v2 is currently published under the `beta` npm dist-tag.
-  version = "0.0.0-beta-202608072055";
+  version = "0.0.0-beta-202608110357";
 
   releaseForSystem = {
     "x86_64-linux" = {
       target = "linux-x64";
-      hash = "sha512-hgvV06p8x51KTOI9mqT05J0CiuYBcirW+XYcdNeX9beFwjrriGKUY6tOrkD1wQgvwEkLhlIX9gkL33NSSnwEJQ==";
+      hash = "sha512-X614zHM4+iWOYn9ppU69vDYrgP6FAMQT51SRwz9QURFtdlaL27VWt1cCOEvC3qkseg0KRWjYfLInpje2WFJeLw==";
     };
     "aarch64-linux" = {
       target = "linux-arm64";
-      hash = "sha512-9D+m7js5DxzGdQyuxejp1XG6IoqW7K5bcY8VoqeHPaNOO0mTvs9iI2pXnHg1Kxwi4ali9BGXy2NaT/Vi9QYteA==";
+      hash = "sha512-qE4/PrlFfJ2sW6ZSFugpLcM5G3RkeWCGbYp7y91NMSwnqWVhDonlu8/ohNZKfgeQ72WleIoC01xOh+Wl5FXqAA==";
     };
     "x86_64-darwin" = {
       target = "darwin-x64";
-      hash = "sha512-z446F7Sq2pw1IGKnTBxZeQmrXuyuUh/YwOTEcjawqVWqOg3xKUGyiqgg4SCssUz+d3TgPCWOZXU3UtyNyfuoAA==";
+      hash = "sha512-BLoGLGDG0XCcZo4rEILfS4aajriwT7jtxRszG+jqWd/xiaAPP4s6N68OufDZ9JxolGTq3W0jYxBxZIuP5VaCLg==";
     };
     "aarch64-darwin" = {
       target = "darwin-arm64";
-      hash = "sha512-I23QO4Jl12JgMVD5SQGGPKMTJOv7QsCrYhg60ro8I9jl5c+CFpAkUel7+B4vEH59rq+DObPh23ClfkGQuqoogw==";
+      hash = "sha512-O3bHK9wUwgPWF+9RbI22hpDzItia2vhUy3wQIy6Q72+gaY+IBfXfcOZECqMrEvM6QOSFt7b6NOjcFxN2ykObSQ==";
     };
   };
 

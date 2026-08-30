@@ -7,6 +7,8 @@
 
   username = "will";
 
+  services.solarWallpaper.enable = true;
+
   nixpkgs.hostPlatform = "aarch64-darwin";
   networking = {
     computerName = "willmb";

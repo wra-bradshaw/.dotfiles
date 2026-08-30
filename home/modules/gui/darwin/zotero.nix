@@ -40,17 +40,17 @@
         [
           (buildZoteroXpiAddon {
             pname = "beaver";
-            version = "0.19.0";
+            version = "0.23.1";
             addonId = "beaver@jlegewie.com";
-            url = "https://github.com/jlegewie/beaver-zotero/releases/download/v0.19.0/beaver.xpi";
-            hash = "sha256-56DlVCAbkdWxvqtGnfjyriyJO6YjSS4DC/S5xHLVwJI=";
+            url = "https://github.com/jlegewie/beaver-zotero/releases/download/v0.23.1/beaver.xpi";
+            hash = "sha256-wgelSy7VmQGP39r3coBtj1xyNTwwpzR89MPgh7yGrwg=";
           })
           (buildZoteroXpiAddon {
             pname = "zotero-better-bibtex";
-            version = "9.0.23";
+            version = "9.0.55";
             addonId = "zotero-better-bibtex@retorque.re";
-            url = "https://github.com/retorquere/zotero-better-bibtex/releases/download/v9.0.23/zotero-better-bibtex-9.0.23.xpi";
-            hash = "sha256-CX6gwKn/1kyJQpWtN1LcBqmz8HuIBqhK7fnW/PQ1cXw=";
+            url = "https://github.com/retorquere/zotero-better-bibtex/releases/download/v9.0.55/zotero-better-bibtex-9.0.55.xpi";
+            hash = "sha256-LZFOuxdMLFkOz/dBppA/GXkGW0J0DzAdk47Cy2wD5NY=";
           })
         ];
     };

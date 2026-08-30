@@ -166,7 +166,7 @@ let
       };
 
       configDir =
-        if pkgs.stdenv.isDarwin then
+        if pkgs.stdenv.hostPlatform.isDarwin then
           "Library/Application Support/" + (darwinDirs."${browser}" or browser)
         else
           "${config.xdg.configHome}/" + (linuxDirs."${browser}" or browser);
