@@ -1,12 +1,4 @@
 { pkgs, ... }:
-let
-  provider = "openai-codex";
-
-  solModelId = "gpt-5.6-sol";
-  lunaModelId = "gpt-5.6-luna";
-
-  solModel = "${provider}/${solModelId}";
-in
 {
   programs.pi-coding-agent = {
     enable = true;
@@ -20,43 +12,18 @@ in
     ];
 
     settings = {
-      defaultProvider = provider;
-      defaultModel = lunaModelId;
-      defaultThinkingLevel = "medium";
+      defaultProvider = "opencode-go";
+      defaultModel = "muse-spark-1.3-contributor";
+      defaultThinkingLevel = "xhigh";
 
       npmCommand = [ "${pkgs.nodejs}/bin/npm" ];
       packages = [
-        "npm:pi-subagents@0.50.0"
+        "npm:@quintinshaw/pi-dynamic-workflows@3.10.0"
       ];
-
-      subagents = {
-        defaultModel = "${provider}/${lunaModelId}";
-
-        agentOverrides = {
-          advisor.model = solModel;
-          advisor.thinking = "medium";
-
-          scout.disabled = true;
-          planner.disabled = true;
-          worker.disabled = true;
-          reviewer.disabled = true;
-          context-builder.disabled = true;
-          researcher.disabled = true;
-          delegate.disabled = true;
-          oracle.disabled = true;
-        };
-      };
     };
   };
 
   home.file = {
-    ".pi/agent/agents/advisor.md".source = ../../pi/advisor.md;
-    ".pi/agent/extensions/main-only-advisor-policy.ts".source = ../../pi/main-only-advisor-policy.ts;
-    ".pi/agent/extensions/subagent/config.json".text = builtins.toJSON {
-      turnBudget = {
-        maxTurns = 100;
-        graceTurns = 5;
-      };
-    };
+    ".agents/skills/anki-connect/SKILL.md".source = ../../pi/skills/anki-connect/SKILL.md;
   };
 }
