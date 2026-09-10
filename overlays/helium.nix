@@ -1,6 +1,6 @@
 _: _final: prev:
 let
-  version = "0.16.2.1";
+  version = "0.16.6.1";
 in
 {
   helium =
@@ -10,7 +10,7 @@ in
         inherit version;
         src = prev.fetchurl {
           url = "https://github.com/imputnet/helium-macos/releases/download/${version}/helium_${version}_arm64-macos.dmg";
-          hash = "sha256-aoi566LGNGht1XhyyZCla7kl7lk0WzTq33aBMkKhyu8=";
+          hash = "sha256-N3tVzdYFTIyzxr6aG2sAjYyTYrXvhKoenc+JPvfL5Lg=";
         };
         nativeBuildInputs = [
           prev._7zz

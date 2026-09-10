@@ -4,6 +4,7 @@
     ./rbw.nix
     ./direnv.nix
     ./opencode.nix
+    ./opencode-serve.nix
     ./docker.nix
     ./spell.nix
     ./packages.nix
