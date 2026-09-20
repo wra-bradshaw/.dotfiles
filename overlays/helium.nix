@@ -19,10 +19,19 @@ in
         unpackPhase = "7zz x -snld $src";
         dontPatchShebangs = true;
         dontStrip = true;
-        sourceRoot = "Helium.app";
+        sourceRoot = ".";
         installPhase = ''
-          mkdir -p "$out/Applications/Helium.app"
-          cp -R . "$out/Applications/Helium.app"
+          mkdir -p "$out/Applications"
+          if [ -d "Helium.app" ]; then
+            cp -R "Helium.app" "$out/Applications/Helium.app"
+          elif [ -d "Helium/Helium.app" ]; then
+            cp -R "Helium/Helium.app" "$out/Applications/Helium.app"
+          else
+            echo "Could not find Helium.app, contents:"
+            ls -R | head -100
+            exit 1
+          fi
+          mkdir -p "$out/bin"
           makeWrapper "$out/Applications/Helium.app/Contents/MacOS/Helium" "$out/bin/helium"
         '';
         meta.mainProgram = "helium";
