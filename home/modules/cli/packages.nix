@@ -1,7 +1,9 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
+    pgweb
     fd
+    harlequin
     python3
     ty
     dig
