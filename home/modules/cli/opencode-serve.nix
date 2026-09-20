@@ -44,6 +44,13 @@ in
 
     package = lib.mkPackageOption pkgs "opencode" { };
 
+    installPackage = lib.mkOption {
+      type = lib.types.bool;
+      default = !config.programs.opencode.enable;
+      defaultText = lib.literalExpression "! config.programs.opencode.enable";
+      description = "Whether to add package to home.packages. Disable when programs.opencode already provides it to avoid buildEnv bin/opencode collision (wrapped vs raw). The service uses an absolute store path, so it works either way.";
+    };
+
     port = lib.mkOption {
       type = lib.types.port;
       default = 4096;
@@ -101,7 +108,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ cfg.package ];
+    home.packages = lib.mkIf cfg.installPackage [ cfg.package ];
 
     assertions = [
       {
