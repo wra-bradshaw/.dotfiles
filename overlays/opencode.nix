@@ -3,25 +3,24 @@ _: final: _prev:
 let
   inherit (final) lib stdenv fetchurl;
 
-  # OpenCode v2 is currently published under the `beta` npm dist-tag.
-  version = "0.0.0-dev-202609100309";
+  version = "0.0.0-dev-20040";
 
   releaseForSystem = {
     "x86_64-linux" = {
       target = "linux-x64";
-      hash = "sha512-X614zHM4+iWOYn9ppU69vDYrgP6FAMQT51SRwz9QURFtdlaL27VWt1cCOEvC3qkseg0KRWjYfLInpje2WFJeLw==";
+      hash = "sha512-wJdiVGTZ9AFWLnZ20Wxzg0DAt982Jj1S6cv/vypwNOjQU75cMvP9kxRBd6MgqCqHLeTAoZiJYuwKA0ogTFsSaA==";
     };
     "aarch64-linux" = {
       target = "linux-arm64";
-      hash = "sha512-qE4/PrlFfJ2sW6ZSFugpLcM5G3RkeWCGbYp7y91NMSwnqWVhDonlu8/ohNZKfgeQ72WleIoC01xOh+Wl5FXqAA==";
+      hash = "sha512-bQMhfZtjWiU7+aa4Vz7jN2IYjivAG9tRfZ2QcltRbJrRgBxVSDtMOyx57oMeKJEPRBKCkGMJ3BNIiaE8jxwa7g==";
     };
     "x86_64-darwin" = {
       target = "darwin-x64";
-      hash = "sha512-BLoGLGDG0XCcZo4rEILfS4aajriwT7jtxRszG+jqWd/xiaAPP4s6N68OufDZ9JxolGTq3W0jYxBxZIuP5VaCLg==";
+      hash = "sha512-V4eqpGswRMHnkU1KEu8TdoHCyj0tbb0IUKQbbOeHmuCiZnKJETt2AhIbJ4RK0RKAsUmZ8DskLXhxMoFWDVqhuA==";
     };
     "aarch64-darwin" = {
       target = "darwin-arm64";
-      hash = "sha512-mDgtzeYidRVjDxTFLF+9rvSr+j0NiPVATPOSTk70QtYI13qASMgd1ykUXZ4I7STQqmPUHlcJvutvCCjH+YJ7mA==";
+      hash = "sha512-0eH3PUXlTqEnPaO6ZBepD2bYmGuZ3rLEm1cXQ03fthsk2QeEpHZ00blNWFrq7jfMKL89TgE8yj1hYt5rJkNCaw==";
     };
   };
 
@@ -35,7 +34,7 @@ in
     inherit version;
 
     src = fetchurl {
-      url = "https://registry.npmjs.org/opencode-${release.target}/-/opencode-${release.target}-${version}.tgz";
+      url = "https://registry.npmjs.org/@opencode/cli-${release.target}/-/cli-${release.target}-${version}.tgz";
       inherit (release) hash;
     };
 

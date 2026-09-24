@@ -10,12 +10,15 @@
     extraPackages = with pkgs; [
       nodejs
     ];
-    tui.theme = "system";
+    tui = {
+      theme = "system";
+      plugin = [ "@prevalentware/opencode-goal-plugin" ];
+    };
     context = ''
       Math renders only as \(...\) inline and $$ on own lines for blocks. Never $...$ or single-line $$...$$.
     '';
     settings = {
-      plugin = [ ];
+      plugin = [ "@prevalentware/opencode-goal-plugin" ];
       mcp = {
         chrome-devtools = {
           type = "local";
