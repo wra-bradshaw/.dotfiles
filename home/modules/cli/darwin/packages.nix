@@ -7,6 +7,7 @@
     ngrok
     openconnect
     snap
+    ical
     claude-code
   ];
 }
