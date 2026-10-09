@@ -15,7 +15,7 @@
       plugin = [ "@prevalentware/opencode-goal-plugin" ];
     };
     context = ''
-      Math renders only as \(...\) inline and $$ on own lines for blocks. Never $...$ or single-line $$...$$.
+      Always write math in LaTeX. Inline math is written inline in `\( ... \)`. Display/block level math is written in `$$ ... $$` on _its own new line_.
     '';
     settings = {
       plugin = [ "@prevalentware/opencode-goal-plugin" ];
