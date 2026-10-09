@@ -3,7 +3,7 @@ _: final: _prev:
 let
   inherit (final) lib stdenv fetchurl;
 
-  version = "0.0.0-dev-20040";
+  version = "0.0.0-dev-20769";
 
   releaseForSystem = {
     "x86_64-linux" = {
@@ -20,7 +20,7 @@ let
     };
     "aarch64-darwin" = {
       target = "darwin-arm64";
-      hash = "sha512-0eH3PUXlTqEnPaO6ZBepD2bYmGuZ3rLEm1cXQ03fthsk2QeEpHZ00blNWFrq7jfMKL89TgE8yj1hYt5rJkNCaw==";
+      hash = "sha512-/IeuHZsHGehzQd9pSPrbFu9aL8v9lMqY/nVmUcrAYgxV4QvDbqKFThT82kATAgsCTxGEJAVMOPFB+6VZ4ZhBeg==";
     };
   };
 
