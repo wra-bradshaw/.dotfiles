@@ -27,6 +27,17 @@ in
   config = {
     nixpkgs.overlays = [
       inputs.brew-nix.overlays.default
+      (_: prev: {
+        brewCasks = prev.brewCasks // {
+          steam = prev.brewCasks.steam.overrideAttrs (old: {
+            src = old.src.overrideAttrs (_: {
+              # Homebrew marks Steam's mutable installer :no_check; pin the current
+              # installer so Nix can verify the fixed-output fetch.
+              outputHash = "sha256-4av7qqe+Pg9IoODUwxMjPgWGGx0mrzKDDdyDi+iPJpE=";
+            });
+          });
+        };
+      })
       inputs.neru.overlays.default
       (import ../../overlays/active.nix { inherit inputs; })
     ];
