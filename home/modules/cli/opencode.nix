@@ -4,6 +4,13 @@
   lib,
   ...
 }:
+let
+  heliumUserDataDir =
+    if pkgs.stdenv.hostPlatform.isDarwin then
+      "${config.home.homeDirectory}/Library/Application Support/net.imput.helium"
+    else
+      "${config.home.homeDirectory}/.config/helium";
+in
 {
   programs.opencode = {
     enable = true;
@@ -26,6 +33,8 @@
             "npx"
             "-y"
             "chrome-devtools-mcp@latest"
+            "--autoConnect"
+            "--userDataDir=${heliumUserDataDir}"
           ];
           enabled = true;
         };

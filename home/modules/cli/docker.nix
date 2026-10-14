@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }:
@@ -11,14 +12,23 @@ in
   home.packages = [
     pkgs.amazon-ecr-credential-helper
     pkgs.docker-client
+  ]
+  ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
+    pkgs.docker-credential-helpers
   ];
 
   programs.docker-cli = {
     enable = true;
     configDir = ".docker";
     settings = {
-      credsStore = "ecr-login";
       currentContext = contextName;
+      credHelpers = {
+        "301436506805.dkr.ecr.ap-southeast-2.amazonaws.com" = "ecr-login";
+        "public.ecr.aws" = "ecr-login";
+      };
+    }
+    // lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
+      credsStore = "osxkeychain";
     };
     contexts.${contextName} = {
       Metadata.Description = "Rootful Docker Engine managed by Lima";

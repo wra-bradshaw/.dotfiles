@@ -5,26 +5,46 @@ let
   workVpn = pkgs.writeShellApplication {
     name = "work-vpn";
     text = ''
-      set -o pipefail
+      usage() {
+        cat <<'EOF'
+      Usage: work-vpn [connect|disconnect]
 
-      ${pkgs.gpauth}/bin/gpauth ${portal} --browser remote |
-        /usr/bin/sudo ${pkgs.gpclient}/bin/gpclient connect ${portal} \
-          --cookie-on-stdin
-    '';
-  };
+      With no command, connect to the work VPN.
+      Use "disconnect" to end the VPN session, or "help" to show this message.
+      EOF
+      }
 
-  workVpnDisconnect = pkgs.writeShellApplication {
-    name = "work-vpn-disconnect";
-    text = ''
-      /usr/bin/sudo ${pkgs.gpclient}/bin/gpclient disconnect
+      if [ "$#" -gt 1 ]; then
+        echo "work-vpn: expected one command" >&2
+        usage >&2
+        exit 2
+      fi
+
+      command="''${1:-connect}"
+      case "$command" in
+        connect)
+          cookieCache="$HOME/.config/gpclient/cookie.json"
+          echo "Trying the saved VPN login; if needed, sign in at the URL below and paste the callback." >&2
+
+          /usr/bin/sudo ${pkgs.gpclient}/bin/gpclient connect ${portal} \
+            --browser remote \
+            --cookie-cache "$cookieCache"
+          ;;
+        disconnect)
+          /usr/bin/sudo ${pkgs.gpclient}/bin/gpclient disconnect
+          ;;
+        help|-h|--help)
+          usage
+          ;;
+        *)
+          echo "work-vpn: unknown command: $command" >&2
+          usage >&2
+          exit 2
+          ;;
+      esac
     '';
   };
 in
 {
-  home.packages = [
-    pkgs.gpclient
-    pkgs.gpauth
-    workVpn
-    workVpnDisconnect
-  ];
+  home.packages = [ workVpn ];
 }
