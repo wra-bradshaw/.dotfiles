@@ -30,9 +30,7 @@ in
         chrome-devtools = {
           type = "local";
           command = [
-            "npx"
-            "-y"
-            "chrome-devtools-mcp@latest"
+            "${pkgs.chrome-devtools-mcp}/bin/chrome-devtools-mcp"
             "--autoConnect"
             "--userDataDir=${heliumUserDataDir}"
           ];

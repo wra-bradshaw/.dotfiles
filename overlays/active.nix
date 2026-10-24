@@ -2,6 +2,7 @@
 inputs.nixpkgs.lib.composeManyExtensions [
   (import ./annas-mcp.nix { })
   (import ./apfel-llm.nix { })
+  (import ./chrome-devtools-mcp.nix { })
   (import ./helium.nix { })
   (import ./ical.nix { })
   (import ./opencode.nix { })
