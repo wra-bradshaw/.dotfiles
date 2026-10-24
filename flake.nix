@@ -2,19 +2,19 @@
   description = "Will's macOS and NixOS systems";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.*";
 
-    flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-parts.url = "https://flakehub.com/f/hercules-ci/flake-parts/0.1.*";
     nixos-unified = {
       url = "github:srid/nixos-unified";
     };
 
     nix-darwin = {
-      url = "github:LnL7/nix-darwin";
+      url = "https://flakehub.com/f/nix-darwin/nix-darwin/0.1.*";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "https://flakehub.com/f/nix-community/home-manager/0.1.*";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim = {
@@ -38,7 +38,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     neru = {
-      url = "github:y3owk1n/neru";
+      url = "https://flakehub.com/f/y3owk1n/neru/0.1.*";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     snap = {

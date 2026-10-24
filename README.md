@@ -45,31 +45,27 @@ until the Lima migration has been verified.
 
 ## SSH keys
 
-SSH private keys live only in the personal Bitwarden vault. `rbw` exposes the
-vault's SSH key items through its in-memory SSH agent; no private key is written
-to the repository, home directory, or a Nix generation.
+SSH private keys live only in 1Password. The 1Password SSH agent serves
+them to SSH and Git; no private key is written to the repository, home
+directory, or a Nix generation.
 
-Register and log in once on each machine:
+Turn on the agent once in 1Password under Settings > Developer > Use the
+SSH Agent, and keep 1Password running (menu bar / Start at login).
+
+Home Manager points both `SSH_AUTH_SOCK` and `IdentityAgent` at the
+portable `~/.1password/agent.sock` path. On macOS an activation step
+symlinks that path to the 1Password socket, so the same SSH config works
+on macOS and Linux:
 
 ```sh
-rbw register
-rbw login
-```
-
-For normal use, unlock the vault for one hour and use SSH normally:
-
-```sh
-rbw sync
-rbw unlock
-ssh-add -L
+ssh-add -l
 ssh my-server
-rbw lock
 ```
 
-The Bitwarden SSH key item named `Primary SSH Key` is used for Git commit
-signing. Other SSH key items become available to the agent after `rbw sync`
-without rebuilding or activating Nix. The old SOPS and SecretSpec provisioning
-are intentionally gone.
+The SSH key item named `Primary SSH Key` is used for Git commit signing
+via `op-ssh-sign`. Other SSH key items become available to the agent
+automatically without rebuilding or activating Nix. The old SOPS and
+SecretSpec provisioning are intentionally gone.
 
 ## Graphical NixOS VM
 
