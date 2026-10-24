@@ -4,7 +4,6 @@
     brewCasks.anki
     brewCasks.audacity
     brewCasks.discord
-    brewCasks.steam
     brewCasks.jan
     brewCasks.lookaway
     brewCasks.syntax-highlight

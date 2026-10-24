@@ -4,11 +4,11 @@
   ...
 }:
 let
-  signingKeyCommand = pkgs.writeShellScript "git-rbw-signing-key" ''
-    set -eu
-    public_key="$(${lib.getExe pkgs.rbw} get --field public_key "Primary SSH Key")"
-    printf 'key::%s\n' "$public_key"
-  '';
+  opSshSign =
+    if pkgs.stdenv.hostPlatform.isDarwin then
+      "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+    else
+      lib.getExe' pkgs._1password-gui "op-ssh-sign";
 in
 {
   home.packages = [ pkgs.pass ];
@@ -26,9 +26,10 @@ in
     settings = {
       user.email = "will.bradshaw50@gmail.com";
       user.name = "will";
+      user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDR/R+t7y0cUpkC31jOylQ12qnRIOZmbBDu/ZVFW7Dgm";
       credential.helper = "${pkgs.git-credential-manager}/bin/git-credential-manager";
       init.defaultBranch = "main";
-      gpg.ssh.defaultKeyCommand = "${signingKeyCommand}";
+      gpg.ssh.program = opSshSign;
       url."ssh://git@github.com/".pushInsteadOf = "https://github.com/";
     };
   };

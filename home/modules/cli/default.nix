@@ -1,7 +1,7 @@
 {
   imports = [
     ./pi.nix
-    ./rbw.nix
+    ./1password-ssh.nix
     ./direnv.nix
     ./opencode.nix
     ./opencode-serve.nix
