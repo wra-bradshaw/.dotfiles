@@ -45,6 +45,10 @@
       url = "github:wra-bradshaw/snap";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    dilly-dally = {
+      url = "github:wra-bradshaw/dilly-dally";
+      flake = false;
+    };
   };
 
   outputs =
