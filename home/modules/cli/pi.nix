@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, flake, ... }:
 {
   programs.pi-coding-agent = {
     enable = true;
@@ -25,5 +25,6 @@
 
   home.file = {
     ".agents/skills/anki-connect/SKILL.md".source = ../../pi/skills/anki-connect/SKILL.md;
+    ".agents/skills/dilly-dally/SKILL.md".source = "${flake.inputs.dilly-dally}/skills/dilly-dally/SKILL.md";
   };
 }

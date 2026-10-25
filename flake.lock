@@ -71,6 +71,22 @@
         "type": "github"
       }
     },
+    "dilly-dally": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1792923182,
+        "narHash": "sha256-65CpGVijj0OtWYfhqXO7eC0bOtNMvHot8HoWhCgBjQo=",
+        "owner": "wra-bradshaw",
+        "repo": "dilly-dally",
+        "rev": "7a58780cce5f78d08c9c8f49c42d466633be45bb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "wra-bradshaw",
+        "repo": "dilly-dally",
+        "type": "github"
+      }
+    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": "nixpkgs-lib"
@@ -434,6 +450,7 @@
       "inputs": {
         "brew-api": "brew-api",
         "brew-nix": "brew-nix",
+        "dilly-dally": "dilly-dally",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
         "neru": "neru",
