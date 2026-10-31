@@ -3,24 +3,24 @@ _: final: _prev:
 let
   inherit (final) lib stdenv fetchurl;
 
-  version = "0.0.0-dev-20769";
+  version = "2.2.5";
 
   releaseForSystem = {
     "x86_64-linux" = {
       target = "linux-x64";
-      hash = "sha512-wJdiVGTZ9AFWLnZ20Wxzg0DAt982Jj1S6cv/vypwNOjQU75cMvP9kxRBd6MgqCqHLeTAoZiJYuwKA0ogTFsSaA==";
+      hash = "sha512-BkHAfTqNsg/qphyHNrnH+DGkOxZsGjamNpM5DvwoEvz7ZAPNw8mEbMXGTCDOAH+/+40Eqeie6KNZBZZQwPCjaA==";
     };
     "aarch64-linux" = {
       target = "linux-arm64";
-      hash = "sha512-bQMhfZtjWiU7+aa4Vz7jN2IYjivAG9tRfZ2QcltRbJrRgBxVSDtMOyx57oMeKJEPRBKCkGMJ3BNIiaE8jxwa7g==";
+      hash = "sha512-O4qOy/WRYQmhClMB/5qBaoYfzaDK1+PJRQOfU80ixyj5ruQbCxraH+VW2UyHb6RWOlUv41fec+isd62LvCuwuA==";
     };
     "x86_64-darwin" = {
       target = "darwin-x64";
-      hash = "sha512-V4eqpGswRMHnkU1KEu8TdoHCyj0tbb0IUKQbbOeHmuCiZnKJETt2AhIbJ4RK0RKAsUmZ8DskLXhxMoFWDVqhuA==";
+      hash = "sha512-z+wqIBXk5DVwXVdyQJHOwwnnOlFOx0LfAlx3PzubJjE/3a948KPBkJruF5zm6yyglJGzNgR3ji7oD/B/HOMD+w==";
     };
     "aarch64-darwin" = {
       target = "darwin-arm64";
-      hash = "sha512-/IeuHZsHGehzQd9pSPrbFu9aL8v9lMqY/nVmUcrAYgxV4QvDbqKFThT82kATAgsCTxGEJAVMOPFB+6VZ4ZhBeg==";
+      hash = "sha512-UwGb2MIJqLSh4wfrkvqNiAohG1Wf5t96Nx7113QvmtCn5LGimmXYN0Tb1chD0mMRRdPvnUguevKRdwM0txZY1Q==";
     };
   };
 
