@@ -30,6 +30,8 @@
         "com.apple.AppleMultitouchTrackpad".HIDScrollZoomModifierMask = 1048576;
         "com.apple.driver.AppleBluetoothMultitouch.trackpad".HIDScrollZoomModifierMask = 1048576;
         NSGlobalDomain."SLSMenuBarUseBlurredAppearance" = false;
+        # lets `rex do client.window.new` (skhd ctrl-return) open windows in the app
+        "com.superlogical.rex"."rex.client.remoteControl" = true;
       };
 
       finder = {

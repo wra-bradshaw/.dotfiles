@@ -160,8 +160,8 @@ in
   imports = [
     neruModule
     ./packages.nix
-    # ./paneru.nix # disabled in favor of omniwm; kept for easy rollback
-    ./omniwm.nix
+    ./paneru.nix
+    # ./omniwm.nix # disabled in favor of paneru; kept for easy rollback
     ./ghostty.nix
     ./rex.nix
     ./zotero.nix
