@@ -17,15 +17,20 @@ in
     extraPackages = with pkgs; [
       nodejs
     ];
-    tui = {
-      theme = "system";
-      plugin = [ "@prevalentware/opencode-goal-plugin" ];
+    cli = {
+      theme.name = "system";
+      diffs.wrap = "word";
+      session = {
+        sidebar = "auto";
+        scrollbar = false;
+        thinking = "hide";
+      };
+      animations = true;
     };
     context = ''
       Always write math in LaTeX. Inline math is written inline in `\( ... \)`. Display/block level math is written in `$$ ... $$` on _its own new line_.
     '';
     settings = {
-      plugin = [ "@prevalentware/opencode-goal-plugin" ];
       mcp = {
         chrome-devtools = {
           type = "local";

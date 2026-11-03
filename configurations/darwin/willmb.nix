@@ -2,12 +2,14 @@
 {
   imports = [
     ../../modules/darwin/system.nix
+    ../../modules/darwin/foqos.nix
     ../../darwin/common
   ];
 
   username = "will";
 
   services.solarWallpaper.enable = true;
+  programs.foqos.enable = true;
 
   nixpkgs.hostPlatform = "aarch64-darwin";
   networking = {

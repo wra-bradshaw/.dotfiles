@@ -11,8 +11,8 @@
         * : /usr/bin/open -na ~/Applications/Home\ Manager\ Apps/Helium.app
       ]
       ctrl - return [
-        "Ghostty" ~
-        * : /usr/bin/open -na ~/Applications/Home\ Manager\ Apps/Ghostty.app
+        "Rex Beta" ~
+        * : /usr/bin/open -na ~/Applications/Home\ Manager\ Apps/Rex\ Beta.app
       ]
     '';
   };

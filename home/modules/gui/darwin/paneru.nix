@@ -44,6 +44,11 @@ in
             bundle_id = "com.mitchellh.ghostty",
             width = 0.66,
           },
+          rex = {
+            title = ".*",
+            bundle_id = "com.superlogical.rex",
+            width = 0.66,
+          },
           harvest = {
             title = ".*",
             bundle_id = "com.getharvest.harvestxapp",

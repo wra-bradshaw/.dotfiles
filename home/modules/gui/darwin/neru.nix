@@ -1,6 +1,6 @@
 _: {
   services.neru = {
-    enable = true;
+    enable = false;
     config = ''
       # Neru default configuration
       # Copy to ~/.config/neru/config.toml to customize.
