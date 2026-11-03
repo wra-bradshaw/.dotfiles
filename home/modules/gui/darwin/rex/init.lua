@@ -1,0 +1,3 @@
+rex.bind("ctrl+enter", "client.window.new")
+rex.bind("ctrl+cmd+=", "pane.balance")
+rex.bind("cmd+0", "client.font.reset")

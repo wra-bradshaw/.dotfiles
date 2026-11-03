@@ -34,9 +34,11 @@
       active = import ../../overlays/active.nix { inherit inputs; };
       annas-mcp = import ../../overlays/annas-mcp.nix { };
       apfel-llm = import ../../overlays/apfel-llm.nix { };
+      foqos = import ../../overlays/foqos.nix { };
       helium = import ../../overlays/helium.nix { };
       ical = import ../../overlays/ical.nix { };
       opencode = import ../../overlays/opencode.nix { };
+      rex-app = import ../../overlays/rex-app.nix { };
     };
   };
 
