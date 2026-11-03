@@ -33,5 +33,19 @@ in
       ${lib.getExe pkgs.rsync} "''${rsyncFlags[@]}" \
         ${lib.escapeShellArg "${pkgs.foqos}/Applications/${appName}/"} ${lib.escapeShellArg "/Applications/${appName}"}
     '';
+
+    # Launch Foqos at login. `open -g` starts it without taking focus.
+    launchd.user.agents.foqos = {
+      serviceConfig = {
+        ProgramArguments = [
+          "/usr/bin/open"
+          "-g"
+          "-a"
+          "/Applications/${appName}"
+        ];
+        RunAtLoad = true;
+        KeepAlive = false;
+      };
+    };
   };
 }

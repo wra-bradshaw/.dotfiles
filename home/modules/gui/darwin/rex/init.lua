@@ -1,3 +1,5 @@
 rex.bind("ctrl+enter", "client.window.new")
 rex.bind("ctrl+cmd+=", "pane.balance")
 rex.bind("cmd+0", "client.font.reset")
+rex.bind("ctrl+h", "pane.focus.left")
+rex.bind("ctrl+l", "pane.focus.right")

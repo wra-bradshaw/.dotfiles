@@ -26,6 +26,7 @@ in
         thinking = "hide";
       };
       animations = true;
+      tabs.mode = "off";
     };
     context = ''
       Always write math in LaTeX. Inline math is written inline in `\( ... \)`. Display/block level math is written in `$$ ... $$` on _its own new line_.
