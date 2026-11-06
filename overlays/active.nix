@@ -6,6 +6,7 @@ inputs.nixpkgs.lib.composeManyExtensions [
   (import ./foqos.nix { })
   (import ./helium.nix { })
   (import ./ical.nix { })
+  (import ./ntn.nix { })
   (import ./opencode.nix { })
   (import ./rex-app.nix { })
   (_: prev: { snap = inputs.snap.packages.${prev.stdenv.hostPlatform.system}.default; })

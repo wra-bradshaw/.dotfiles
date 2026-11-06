@@ -39,5 +39,6 @@
     shfmt
     annas-mcp
     antigravity-cli
+    ntn
   ];
 }
