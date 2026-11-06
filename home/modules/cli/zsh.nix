@@ -44,6 +44,11 @@
       local prompt_suffix="%{$fg_bold[green]%}❯%{$reset_color%} "
       RPROMPT=
 
+      # Keep Rex's matching `rex` CLI first on PATH; Nix/direnv can reorder it.
+      if [ -n "$REX_BIN_DIR" ]; then
+        export PATH="$REX_BIN_DIR:$PATH"
+      fi
+
       function get_pwd(){
       		git_root=$PWD
       		while [[ $git_root != / && ! -e $git_root/.git ]]; do

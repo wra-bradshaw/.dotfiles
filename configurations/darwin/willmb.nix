@@ -9,6 +9,7 @@
   username = "will";
 
   services.solarWallpaper.enable = true;
+  services.tailscale.enable = true;
   programs.foqos.enable = true;
 
   nixpkgs.hostPlatform = "aarch64-darwin";
