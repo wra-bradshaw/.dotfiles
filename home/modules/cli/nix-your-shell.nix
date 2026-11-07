@@ -1,4 +1,4 @@
-{ ... }: {
+_: {
   programs.nix-your-shell = {
     enable = true;
     enableZshIntegration = true; # or fish/nushell

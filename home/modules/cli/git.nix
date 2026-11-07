@@ -24,9 +24,11 @@ in
       signByDefault = true;
     };
     settings = {
-      user.email = "will.bradshaw50@gmail.com";
-      user.name = "will";
-      user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDR/R+t7y0cUpkC31jOylQ12qnRIOZmbBDu/ZVFW7Dgm";
+      user = {
+        email = "will.bradshaw50@gmail.com";
+        name = "will";
+        signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDR/R+t7y0cUpkC31jOylQ12qnRIOZmbBDu/ZVFW7Dgm";
+      };
       credential.helper = "${pkgs.git-credential-manager}/bin/git-credential-manager";
       init.defaultBranch = "main";
       gpg.ssh.program = opSshSign;

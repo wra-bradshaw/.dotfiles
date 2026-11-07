@@ -39,6 +39,11 @@ in
       };
     })
   ];
+  # nixos-unified defaults this to a string, which current nixpkgs rejects.
+  nix.settings.experimental-features = lib.mkForce [
+    "nix-command"
+    "flakes"
+  ];
   networking.hostName = "willnixos";
   username = "will";
   system.stateVersion = "26.05";

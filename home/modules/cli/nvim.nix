@@ -355,7 +355,8 @@
         clangd.enable = true;
         nixd.enable = true;
         astro.enable = true;
-        sourcekit.enable = true;
+        # swiftc is currently marked broken in nixpkgs on Linux.
+        sourcekit.enable = pkgs.stdenv.hostPlatform.isDarwin;
         ty.enable = true;
         tailwindcss.enable = true;
         yamlls = {

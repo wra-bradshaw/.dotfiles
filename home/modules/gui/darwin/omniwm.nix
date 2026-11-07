@@ -29,7 +29,9 @@ let
     (hotkey "moveWindowToWorkspaceDown" "Option+Command+J")
   ]
   ++ builtins.genList (i: hotkey "switchWorkspace.${toString i}" "Option+${toString (i + 1)}") 5
-  ++ builtins.genList (i: hotkey "moveToWorkspace.${toString i}" "Option+Shift+${toString (i + 1)}") 5;
+  ++ builtins.genList (
+    i: hotkey "moveToWorkspace.${toString i}" "Option+Shift+${toString (i + 1)}"
+  ) 5;
 
   # Paneru's virtual workspaces 1-5.
   workspace = id: name: {
