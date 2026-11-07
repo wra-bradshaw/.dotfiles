@@ -25,7 +25,8 @@
 
   home.file = {
     ".agents/skills/anki-connect/SKILL.md".source = ../../pi/skills/anki-connect/SKILL.md;
-    ".agents/skills/dilly-dally/SKILL.md".source = "${flake.inputs.dilly-dally}/skills/dilly-dally/SKILL.md";
+    ".agents/skills/dilly-dally/SKILL.md".source =
+      "${flake.inputs.dilly-dally}/skills/dilly-dally/SKILL.md";
     # Rex's own `rex skill setup` writes this file imperatively; ship it from the
     # repo instead so `home-manager switch` owns the path.
     ".agents/skills/rex/SKILL.md".source = ../../pi/skills/rex/SKILL.md;

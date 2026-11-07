@@ -1,11 +1,31 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
-  configDir = "/Users/${config.username}/.config/cf-nix-cache";
+  userHome = "/Users/${config.username}";
+  configDir = "${userHome}/.config/cf-nix-cache";
   netrcSource = "${configDir}/netrc";
+
+  # Runs as root inside the Nix daemon after every successful build. It must not
+  # fail (a non-zero exit fails the build) and shouldn't block the build, so the
+  # upload is detached and its output goes to a log.
+  postBuildHook = pkgs.writeShellScript "cf-nix-cache-post-build-hook" ''
+    [ -n "$OUT_PATHS" ] || exit 0
+    export HOME=${lib.escapeShellArg userHome}
+    export XDG_CONFIG_HOME="$HOME/.config"
+    (
+      ${lib.getExe pkgs.cf-nix-cache} push will $OUT_PATHS
+    ) >>/var/log/cf-nix-cache-push.log 2>&1 </dev/null &
+    exit 0
+  '';
 in
 {
   environment.etc."nix/nix.custom.conf".text = ''
     !include ${configDir}/nix.conf
+    post-build-hook = ${postBuildHook}
   '';
 
   environment.etc."determinate/config.json".text = builtins.toJSON {
