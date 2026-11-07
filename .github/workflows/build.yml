@@ -1,0 +1,85 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CACHE_NAME: will
+
+jobs:
+  build:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: willmb (macOS)
+            runner: macos-latest
+            attr: darwinConfigurations.willmb.system
+            restart: sudo launchctl kickstart -k system/systems.determinate.nix-daemon
+          - name: willnixos (Linux)
+            runner: ubuntu-24.04-arm
+            attr: nixosConfigurations.willnixos.config.system.build.toplevel
+            restart: sudo systemctl restart nix-daemon.service
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/determinate-nix-action@v3
+
+      - name: Configure the Nix cache
+        env:
+          CF_NIX_CACHE_ENDPOINT: ${{ secrets.CF_NIX_CACHE_ENDPOINT }}
+          CF_NIX_CACHE_PUBLIC_KEY: ${{ secrets.CF_NIX_CACHE_PUBLIC_KEY }}
+          CF_NIX_CACHE_PULL_TOKEN: ${{ secrets.CF_NIX_CACHE_PULL_TOKEN }}
+        run: |
+          if [ -z "$CF_NIX_CACHE_ENDPOINT" ] || [ -z "$CF_NIX_CACHE_PUBLIC_KEY" ] || [ -z "$CF_NIX_CACHE_PULL_TOKEN" ]; then
+            echo "::warning::cf-nix-cache secrets are unavailable; building without the cache"
+            exit 0
+          fi
+
+          endpoint="${CF_NIX_CACHE_ENDPOINT%/}"
+          host="${endpoint#*://}"
+          host="${host%%/*}"
+
+          sudo mkdir -p /etc/determinate
+          netrc="$RUNNER_TEMP/cf-nix-cache-netrc"
+          (umask 077; printf 'machine %s login token password %s\n' "$host" "$CF_NIX_CACHE_PULL_TOKEN" > "$netrc")
+          jq -n --arg netrc "$netrc" '{authentication: {additionalNetrcSources: [$netrc]}}' \
+            | sudo tee /etc/determinate/config.json >/dev/null
+
+          printf 'extra-substituters = %s/cache/%s\nextra-trusted-public-keys = %s\n' \
+            "$endpoint" "$CACHE_NAME" "$CF_NIX_CACHE_PUBLIC_KEY" \
+            | sudo tee -a /etc/nix/nix.custom.conf >/dev/null
+
+          ${{ matrix.restart }}
+          for _ in $(seq 1 30); do
+            nix store info >/dev/null 2>&1 && break
+            sleep 1
+          done
+
+      - name: Build ${{ matrix.name }}
+        run: nix build --print-build-logs --out-link result ".#${{ matrix.attr }}"
+
+      - name: Push to the Nix cache
+        if: github.event_name != 'pull_request'
+        env:
+          CF_NIX_CACHE_ENDPOINT: ${{ secrets.CF_NIX_CACHE_ENDPOINT }}
+          CF_NIX_CACHE_TOKEN: ${{ secrets.CF_NIX_CACHE_TOKEN }}
+        run: |
+          if [ -z "$CF_NIX_CACHE_ENDPOINT" ] || [ -z "$CF_NIX_CACHE_TOKEN" ]; then
+            echo "::error::CF_NIX_CACHE_ENDPOINT and CF_NIX_CACHE_TOKEN secrets are required to push"
+            exit 1
+          fi
+          nix shell --inputs-from . cf-nix-cache#cli --command \
+            cf-nix-cache push "$CACHE_NAME" ./result
