@@ -3,24 +3,24 @@ _: final: _prev:
 let
   inherit (final) lib stdenv fetchurl;
 
-  version = "2.2.5";
+  version = "2.2.6";
 
   releaseForSystem = {
     "x86_64-linux" = {
       target = "linux-x64";
-      hash = "sha512-BkHAfTqNsg/qphyHNrnH+DGkOxZsGjamNpM5DvwoEvz7ZAPNw8mEbMXGTCDOAH+/+40Eqeie6KNZBZZQwPCjaA==";
+      hash = "sha256-381p8dURrhDtYmdotB2EuBAMxKpkzstp2ji6einTNVE=";
     };
     "aarch64-linux" = {
       target = "linux-arm64";
-      hash = "sha512-O4qOy/WRYQmhClMB/5qBaoYfzaDK1+PJRQOfU80ixyj5ruQbCxraH+VW2UyHb6RWOlUv41fec+isd62LvCuwuA==";
+      hash = "sha256-IjUuIAYw7GGkimW59cK2JzKK5QAmWNgcBn9nxftomJg=";
     };
     "x86_64-darwin" = {
       target = "darwin-x64";
-      hash = "sha512-z+wqIBXk5DVwXVdyQJHOwwnnOlFOx0LfAlx3PzubJjE/3a948KPBkJruF5zm6yyglJGzNgR3ji7oD/B/HOMD+w==";
+      hash = "sha256-TxR1wLZC7OMmgdvUov1ffB72GD3O0OysOGHLPRikmhU=";
     };
     "aarch64-darwin" = {
       target = "darwin-arm64";
-      hash = "sha512-UwGb2MIJqLSh4wfrkvqNiAohG1Wf5t96Nx7113QvmtCn5LGimmXYN0Tb1chD0mMRRdPvnUguevKRdwM0txZY1Q==";
+      hash = "sha256-YT67dN2O/3Z7udRCo3tAxNmUa6J/FTiYUGihuWeBN6M=";
     };
   };
 

@@ -2,12 +2,12 @@ _:
 (_final: prev: {
   ntn = prev.stdenv.mkDerivation (finalAttrs: {
     pname = "ntn";
-    version = "0.23.26";
+    version = "0.23.28";
 
     # The npm tarball bundles prebuilt (self-contained) binaries for every platform.
     src = prev.fetchurl {
       url = "https://registry.npmjs.org/ntn/-/ntn-${finalAttrs.version}.tgz";
-      hash = "sha512-YdJG008Vpg52hkRM28a0+5KMhMR62humOy0t1CybtMEonRAWe82iEgIK5ZGiEc4Ze6BaOaVdpIimk3Mfu3Q9Bw==";
+      hash = "sha256-fo4riFgbFvZLX12VujErlRggwGkvGLF7RiroRI1g2RE=";
     };
 
     nativeBuildInputs = [ prev.installShellFiles ];
