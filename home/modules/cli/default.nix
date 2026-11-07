@@ -18,6 +18,7 @@
     ./nix.nix
     ./ssh.nix
     ./aws.nix
+    ./cf-nix-cache.nix
     ./nix-your-shell.nix
   ];
 }

@@ -4,9 +4,9 @@ _:
   let
     inherit (prev) lib;
 
-    version = "0.12.2";
-    commit = "f487d52";
-    date = "2026-07-29T08:11:58Z";
+    version = "0.13.1";
+    commit = "d75e817";
+    date = "2026-10-28T11:00:32Z";
   in
   {
     ical = prev.buildGoModule (finalAttrs: {
@@ -17,10 +17,10 @@ _:
         owner = "BRO3886";
         repo = "ical";
         tag = "v${finalAttrs.version}";
-        hash = "sha256-APmqU3yqiA08RH/5ED220Q3yZIQ2zFURbDEsf0xpt38=";
+        hash = "sha256-k9TL/l/UWoF/Gcn5T+wJrtQsoLwc+pfTfjPiexsm3MY=";
       };
 
-      vendorHash = "sha256-an2RZmzdfL2wz3tE/4w1hGTmihaai0C33E9R/tMAa5c=";
+      vendorHash = "sha256-0RpCUpExlbZS5UIjdWlPteyLqE2Ff0cH3MnT4Et+Us4=";
 
       ldflags = [
         "-X main.version=v${version}"

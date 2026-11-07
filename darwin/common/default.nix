@@ -1,6 +1,7 @@
 {
   imports = [
     ./nix.nix
+    ./nix-cache.nix
     ./fonts.nix
     ./users.nix
     ./mas.nix

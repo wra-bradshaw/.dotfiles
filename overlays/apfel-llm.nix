@@ -2,11 +2,11 @@ _:
 (_final: prev: {
   apfel-llm = prev.stdenv.mkDerivation (finalAttrs: {
     pname = "apfel";
-    version = "1.9.1";
+    version = "1.16.0";
 
     src = prev.fetchzip {
       url = "https://github.com/Arthur-Ficial/apfel/releases/download/v${finalAttrs.version}/apfel-${finalAttrs.version}-arm64-macos.tar.gz";
-      sha256 = "sha256-buaQKZTxICkEzmdc73cX1oLVFt2TbAi7jb2fVgpNfwY=";
+      sha256 = "sha256-u2HkXoXjZk4sTOkwOnm9Uz8oLHin3LqF71DTqXtF17Y=";
       stripRoot = false;
     };
 
