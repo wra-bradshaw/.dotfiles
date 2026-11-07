@@ -10,14 +10,16 @@ let
   netrcSource = "${configDir}/netrc";
 
   # Runs as root inside the Nix daemon after every successful build. It must not
-  # fail (a non-zero exit fails the build) and shouldn't block the build, so the
-  # upload is detached and its output goes to a log.
+  # fail (a non-zero exit stops further builds) and shouldn't block the build, so
+  # the upload is detached and its output goes to a log. The CLI runs nix and
+  # nix-store from PATH, which the daemon's environment doesn't provide.
   postBuildHook = pkgs.writeShellScript "cf-nix-cache-post-build-hook" ''
     [ -n "$OUT_PATHS" ] || exit 0
+    export PATH="/nix/var/nix/profiles/default/bin:$PATH"
     export HOME=${lib.escapeShellArg userHome}
     export XDG_CONFIG_HOME="$HOME/.config"
     (
-      ${lib.getExe pkgs.cf-nix-cache} push will $OUT_PATHS
+      ${lib.getExe' pkgs.cf-nix-cache "cf-nix-cache"} push will $OUT_PATHS
     ) >>/var/log/cf-nix-cache-push.log 2>&1 </dev/null &
     exit 0
   '';
