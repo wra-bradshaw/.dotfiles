@@ -7,6 +7,5 @@
     ./mitmproxy.nix
     ./nixos-vm.nix
     ./packages.nix
-    ./valgrind.nix
   ];
 }
