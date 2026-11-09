@@ -4,6 +4,7 @@ inputs.nixpkgs.lib.composeManyExtensions [
   (import ./apfel-llm.nix { })
   (import ./chrome-devtools-mcp.nix { })
   (import ./foqos.nix { })
+  (import ./gersemi.nix { })
   (import ./helium.nix { })
   (import ./ical.nix { })
   (import ./ntn.nix { })
