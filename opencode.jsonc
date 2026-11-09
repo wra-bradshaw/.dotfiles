@@ -1,0 +1,45 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  // Agents for .agents/skills/flake-update.
+  "agents": {
+    "flake-bot": {
+      "description": "Runs the flake-update skill end to end (used by the scheduled CI job)",
+      "mode": "primary",
+      "model": "opencode-go/muse-spark-1.3-contributor#xhigh",
+      "system": "You maintain Will's Nix dotfiles. Load the `flake-update` skill and follow it.",
+      "permissions": [
+        { "action": "question", "resource": "*", "effect": "deny" },
+        { "action": "subagent", "resource": "*", "effect": "deny" },
+        { "action": "subagent", "resource": "flake-*", "effect": "allow" },
+      ],
+    },
+    "flake-analyzer": {
+      "description": "Works out what a flake.lock update means for this repo: breaking changes and needed follow-ups. Read-only; writes .flake-update/analysis.md",
+      "mode": "subagent",
+      "model": "opencode-go/muse-spark-1.3-contributor#xhigh",
+      "system": "{file:.agents/skills/flake-update/agents/flake-analyzer.md}",
+      "permissions": [{ "action": "question", "resource": "*", "effect": "deny" }],
+    },
+    "flake-updater": {
+      "description": "Applies the changes in .flake-update/analysis.md and commits them locally",
+      "mode": "subagent",
+      "model": "opencode-go/muse-spark-1.3-contributor#xhigh",
+      "system": "{file:.agents/skills/flake-update/agents/flake-updater.md}",
+      "permissions": [{ "action": "question", "resource": "*", "effect": "deny" }],
+    },
+    "flake-pins": {
+      "description": "Brings the pinned packages in overlays/ up to their latest stable releases, refreshing every hash; commits each bump locally",
+      "mode": "subagent",
+      "model": "opencode-go/muse-spark-1.3-contributor#xhigh",
+      "system": "{file:.agents/skills/flake-update/agents/flake-pins.md}",
+      "permissions": [{ "action": "question", "resource": "*", "effect": "deny" }],
+    },
+    "flake-ci-fixer": {
+      "description": "Diagnoses failing checks or builds after a flake update, fixes the repo, and commits locally",
+      "mode": "subagent",
+      "model": "opencode-go/muse-spark-1.3-contributor#xhigh",
+      "system": "{file:.agents/skills/flake-update/agents/flake-ci-fixer.md}",
+      "permissions": [{ "action": "question", "resource": "*", "effect": "deny" }],
+    },
+  },
+}

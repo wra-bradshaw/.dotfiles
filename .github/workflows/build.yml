@@ -21,6 +21,13 @@ jobs:
     name: ${{ matrix.name }}
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 120
+    # Only pushes, manual runs, and same-repo PRs by the owner or the bot use the cache.
+    env:
+      TRUSTED: >-
+        ${{ github.event_name != 'pull_request' || (
+          github.event.pull_request.head.repo.full_name == github.repository && (
+            github.event.pull_request.user.login == github.repository_owner ||
+            github.event.pull_request.user.login == vars.FLAKE_BOT_LOGIN)) }}
     strategy:
       fail-fast: false
       matrix:
@@ -35,19 +42,17 @@ jobs:
             restart: sudo systemctl restart nix-daemon.service
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: DeterminateSystems/determinate-nix-action@v3
 
       - name: Configure the Nix cache
+        if: env.TRUSTED == 'true'
         env:
           CF_NIX_CACHE_ENDPOINT: ${{ secrets.CF_NIX_CACHE_ENDPOINT }}
           CF_NIX_CACHE_PUBLIC_KEY: ${{ secrets.CF_NIX_CACHE_PUBLIC_KEY }}
           CF_NIX_CACHE_PULL_TOKEN: ${{ secrets.CF_NIX_CACHE_PULL_TOKEN }}
         run: |
-          if [ -z "$CF_NIX_CACHE_ENDPOINT" ] || [ -z "$CF_NIX_CACHE_PUBLIC_KEY" ] || [ -z "$CF_NIX_CACHE_PULL_TOKEN" ]; then
-            echo "::warning::cf-nix-cache secrets are unavailable; building without the cache"
-            exit 0
-          fi
-
           endpoint="${CF_NIX_CACHE_ENDPOINT%/}"
           host="${endpoint#*://}"
           host="${host%%/*}"
@@ -72,14 +77,10 @@ jobs:
         run: nix build --print-build-logs --out-link result ".#${{ matrix.attr }}"
 
       - name: Push to the Nix cache
-        if: github.event_name != 'pull_request'
+        if: env.TRUSTED == 'true'
         env:
           CF_NIX_CACHE_ENDPOINT: ${{ secrets.CF_NIX_CACHE_ENDPOINT }}
           CF_NIX_CACHE_TOKEN: ${{ secrets.CF_NIX_CACHE_TOKEN }}
         run: |
-          if [ -z "$CF_NIX_CACHE_ENDPOINT" ] || [ -z "$CF_NIX_CACHE_TOKEN" ]; then
-            echo "::error::CF_NIX_CACHE_ENDPOINT and CF_NIX_CACHE_TOKEN secrets are required to push"
-            exit 1
-          fi
           nix shell --inputs-from . cf-nix-cache#cli --command \
             cf-nix-cache push "$CACHE_NAME" ./result

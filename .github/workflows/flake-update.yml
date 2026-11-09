@@ -1,0 +1,111 @@
+name: Flake update
+
+on:
+  schedule:
+    - cron: "0 14 * * 0,3" # 00:00 AEST Mon and Thu
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: Run a fix round on this PR (empty runs a full update)
+  workflow_run:
+    workflows: [Build, Check]
+    types: [completed]
+
+permissions:
+  contents: read
+  pull-requests: read
+  actions: read
+
+jobs:
+  run:
+    if: >-
+      github.event_name != 'workflow_run' || (
+        github.event.workflow_run.conclusion == 'failure' &&
+        github.event.workflow_run.event == 'pull_request' &&
+        startsWith(github.event.workflow_run.head_branch, 'flake-update/') &&
+        github.event.workflow_run.actor.login == vars.FLAKE_BOT_LOGIN)
+    concurrency: flake-update
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 180
+    env:
+      MAX_ROUNDS: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: DeterminateSystems/determinate-nix-action@v3
+
+      - name: Plan
+        id: plan
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ inputs.pr || github.event.workflow_run.pull_requests[0].number }}
+          FAILED_SHA: ${{ github.event.workflow_run.head_sha }}
+          BOT: ${{ vars.FLAKE_BOT_LOGIN }}
+        run: |
+          git config --global user.name "$BOT"
+          git config --global user.email "$BOT@users.noreply.github.com"
+          if [ -z "$PR" ]; then
+            echo "prompt=Use the flake-update skill in update mode." >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          read -r state head rounds < <(gh pr view "$PR" --json state,headRefOid,comments \
+            --jq '[.state, .headRefOid, ([.comments[] | select(.body | contains("<!-- flake-update-fix"))] | length)] | @tsv')
+          if [ "$state" != OPEN ] || { [ -n "$FAILED_SHA" ] && [ "$FAILED_SHA" != "$head" ]; }; then
+            echo "Stale or closed; nothing to do."
+            exit 0
+          fi
+          if [ "$rounds" -ge "$MAX_ROUNDS" ]; then
+            echo "::error::PR #$PR is still failing after $MAX_ROUNDS fix rounds"
+            exit 1
+          fi
+          echo "prompt=Use the flake-update skill in fix mode for PR #$PR, round $((rounds + 1))." >> "$GITHUB_OUTPUT"
+          echo "pr=$PR" >> "$GITHUB_OUTPUT"
+
+      - name: Run the agent
+        id: agent
+        if: steps.plan.outputs.prompt
+        env:
+          GH_TOKEN: ${{ github.token }}
+          OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+          CI: "true"
+          PROMPT: ${{ steps.plan.outputs.prompt }}
+        run: |
+          nix run .#nixosConfigurations.willnixos.pkgs.opencode -- run --standalone --auto --archived \
+            --agent flake-bot "$PROMPT" 2>&1 | tee "$RUNNER_TEMP/opencode.log"
+          result=$(grep -o 'FLAKE_UPDATE_RESULT: [a-z-]*' "$RUNNER_TEMP/opencode.log" | tail -n1 | cut -d' ' -f2)
+          echo "result=${result:-missing}" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/create-github-app-token@v2
+        id: app
+        if: steps.agent.outputs.result
+        with:
+          app-id: ${{ secrets.FLAKE_BOT_APP_ID }}
+          private-key: ${{ secrets.FLAKE_BOT_PRIVATE_KEY }}
+
+      - name: Publish as the bot
+        if: steps.agent.outputs.result
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+          PR: ${{ steps.plan.outputs.pr }}
+          RESULT: ${{ steps.agent.outputs.result }}
+        run: |
+          gh auth setup-git
+          git remote set-url origin "https://github.com/$GITHUB_REPOSITORY.git"
+          if [ -n "$PR" ]; then
+            mkdir -p .flake-update
+            printf '\n<!-- flake-update-fix -->\n' >> .flake-update/comment.md
+          fi
+          # Run publish.sh as committed, not as the agent may have left it.
+          git show "$GITHUB_SHA:.agents/skills/flake-update/scripts/publish.sh" > "$RUNNER_TEMP/publish.sh"
+          bash "$RUNNER_TEMP/publish.sh" "$RESULT" ${PR:+"$PR"}
+
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.plan.outputs.prompt
+        with:
+          name: flake-update-${{ github.run_id }}
+          path: |
+            .flake-update/
+            ${{ runner.temp }}/opencode.log
+          include-hidden-files: true
