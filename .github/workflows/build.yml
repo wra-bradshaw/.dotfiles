@@ -17,7 +17,7 @@ jobs:
   build:
     name: ${{ matrix.name }}
     runs-on: ${{ matrix.runner }}
-    timeout-minutes: 120
+    timeout-minutes: 240
     # Only pushes, manual runs, and same-repo PRs by the owner or the bot use the cache.
     env:
       TRUSTED: >-
@@ -63,6 +63,7 @@ jobs:
 
       - name: Build ${{ matrix.name }}
         if: steps.plan.outputs.build == 'true'
+        timeout-minutes: 210
         run: nix build --keep-going --print-build-logs --out-link result ".#${{ matrix.attr }}"
 
       - uses: wra-bradshaw/cf-nix-cache/push@v0.9.0
