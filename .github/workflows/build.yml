@@ -13,9 +13,6 @@ concurrency:
   group: build-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  CACHE_NAME: will
-
 jobs:
   build:
     name: ${{ matrix.name }}
@@ -35,52 +32,38 @@ jobs:
           - name: willmb (macOS)
             runner: macos-latest
             attr: darwinConfigurations.willmb.system
-            restart: sudo launchctl kickstart -k system/systems.determinate.nix-daemon
           - name: willnixos (Linux)
             runner: ubuntu-24.04-arm
             attr: nixosConfigurations.willnixos.config.system.build.toplevel
-            restart: sudo systemctl restart nix-daemon.service
     steps:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
-      - uses: DeterminateSystems/determinate-nix-action@v3
+      - uses: wra-bradshaw/cf-nix-cache@v0.8.0
+        with:
+          cache: will
+          endpoint: ${{ env.TRUSTED == 'true' && secrets.CF_NIX_CACHE_ENDPOINT || '' }}
+          public-key: ${{ secrets.CF_NIX_CACHE_PUBLIC_KEY }}
+          pull-token: ${{ env.TRUSTED == 'true' && secrets.CF_NIX_CACHE_PULL_TOKEN || '' }}
+          push-token: ${{ env.TRUSTED == 'true' && secrets.CF_NIX_CACHE_TOKEN || '' }}
 
-      - name: Configure the Nix cache
-        if: env.TRUSTED == 'true'
-        env:
-          CF_NIX_CACHE_ENDPOINT: ${{ secrets.CF_NIX_CACHE_ENDPOINT }}
-          CF_NIX_CACHE_PUBLIC_KEY: ${{ secrets.CF_NIX_CACHE_PUBLIC_KEY }}
-          CF_NIX_CACHE_PULL_TOKEN: ${{ secrets.CF_NIX_CACHE_PULL_TOKEN }}
+      # Downloading a fully cached closure just to push nothing wastes GiBs.
+      - name: Check for anything to build
+        id: plan
         run: |
-          endpoint="${CF_NIX_CACHE_ENDPOINT%/}"
-          host="${endpoint#*://}"
-          host="${host%%/*}"
-
-          sudo mkdir -p /etc/determinate
-          netrc="$RUNNER_TEMP/cf-nix-cache-netrc"
-          (umask 077; printf 'machine %s login token password %s\n' "$host" "$CF_NIX_CACHE_PULL_TOKEN" > "$netrc")
-          jq -n --arg netrc "$netrc" '{authentication: {additionalNetrcSources: [$netrc]}}' \
-            | sudo tee /etc/determinate/config.json >/dev/null
-
-          printf 'extra-substituters = %s/cache/%s\nextra-trusted-public-keys = %s\n' \
-            "$endpoint" "$CACHE_NAME" "$CF_NIX_CACHE_PUBLIC_KEY" \
-            | sudo tee -a /etc/nix/nix.custom.conf >/dev/null
-
-          ${{ matrix.restart }}
-          for _ in $(seq 1 30); do
-            nix store info >/dev/null 2>&1 && break
-            sleep 1
-          done
+          log="$RUNNER_TEMP/dry-run.log"
+          if ! nix build --dry-run ".#${{ matrix.attr }}" 2> "$log"; then
+            cat "$log" >&2
+            exit 1
+          fi
+          cat "$log"
+          if grep -q 'will be built' "$log"; then
+            echo "build=true" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Build ${{ matrix.name }}
-        run: nix build --print-build-logs --out-link result ".#${{ matrix.attr }}"
+        if: steps.plan.outputs.build == 'true'
+        run: nix build --keep-going --print-build-logs --out-link result ".#${{ matrix.attr }}"
 
-      - name: Push to the Nix cache
-        if: env.TRUSTED == 'true'
-        env:
-          CF_NIX_CACHE_ENDPOINT: ${{ secrets.CF_NIX_CACHE_ENDPOINT }}
-          CF_NIX_CACHE_TOKEN: ${{ secrets.CF_NIX_CACHE_TOKEN }}
-        run: |
-          nix shell --inputs-from . cf-nix-cache#cli --command \
-            cf-nix-cache push "$CACHE_NAME" ./result
+      - uses: wra-bradshaw/cf-nix-cache/push@v0.8.0
+        if: always()

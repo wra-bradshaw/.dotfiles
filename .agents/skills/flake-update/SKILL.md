@@ -16,6 +16,8 @@ You orchestrate; subagents do the heavy lifting so your context stays small.
   lint. Builds are CI's job, but interactively you may run one. Send long
   output (`nix flake check`, builds, CI logs) to a file in `.flake-update/`
   and read the end of it.
+- **Never add code comments**, and don't let subagents add them. Explanations
+  go in commit messages, the PR body, or the PR comment.
 - **Commit locally, never push.** `scripts/publish.sh <result> [pr]` (next to
   this file) does every write to GitHub. In CI the workflow runs it after you
   finish, and your `gh` is read-only. Interactively, show the user what you

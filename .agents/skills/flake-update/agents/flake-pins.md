@@ -15,6 +15,7 @@ tracks the v2 line. If there's a newer release:
   darwin-only package's hashes can be computed on Linux.
 - Read the release notes for packaging changes, such as renamed assets or a
   new archive layout, and adjust the derivation to match.
+- Never add code comments.
 - Make sure it evaluates for each host that uses it, and builds where this
   machine can build it.
 - Commit each package on its own as `chore(<name>): <old> -> <new>`. Don't
