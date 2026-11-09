@@ -34,7 +34,12 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
-      - uses: DeterminateSystems/determinate-nix-action@v3
+      - uses: wra-bradshaw/cf-nix-cache@v0.9.0
+        with:
+          cache: will
+          endpoint: ${{ secrets.CF_NIX_CACHE_ENDPOINT }}
+          public-key: ${{ secrets.CF_NIX_CACHE_PUBLIC_KEY }}
+          pull-token: ${{ secrets.CF_NIX_CACHE_PULL_TOKEN }}
 
       - name: Plan
         id: plan
