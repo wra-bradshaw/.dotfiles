@@ -7,6 +7,7 @@ inputs.nixpkgs.lib.composeManyExtensions [
   (import ./gersemi.nix { })
   (import ./helium.nix { })
   (import ./ical.nix { })
+  (import ./mitmproxy.nix { })
   (import ./ntn.nix { })
   (import ./opencode.nix { })
   (import ./rex-app.nix { })
