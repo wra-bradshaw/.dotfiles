@@ -13,9 +13,14 @@ You orchestrate; subagents do the heavy lifting so your context stays small.
   each one the repo path, the task, and which files to read. Each writes its
   findings to `.flake-update/` (gitignored) and replies briefly.
 - **Checks** are whatever `.github/workflows/check.yml` runs: evaluation and
-  lint. Builds are CI's job, but interactively you may run one. Send long
-  output (`nix flake check`, builds, CI logs) to a file in `.flake-update/`
-  and read the end of it.
+  lint. Send long output (`nix flake check`, CI logs) to a file in
+  `.flake-update/` and read the end of it.
+- **Never build packages or configurations**, and don't let subagents build
+  them, in the foreground or the background: no `nix build` of a package or
+  host, no `nix flake check` without `--no-build`, no `*-rebuild`. Builds are
+  the Build workflow's job; it has the binary cache and the right platforms.
+  The only exception is realising a fixed-output derivation (a `src`, vendor,
+  or npm deps attribute) to learn its hash.
 - **Never add code comments**, and don't let subagents add them. Explanations
   go in commit messages, the PR body, or the PR comment.
 - **Commit locally, never push.** `scripts/publish.sh <result> [pr]` (next to
