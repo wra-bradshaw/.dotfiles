@@ -64,7 +64,7 @@ jobs:
       - name: Build ${{ matrix.name }}
         if: steps.plan.outputs.build == 'true'
         timeout-minutes: 210
-        run: nix build --keep-going --print-build-logs --out-link result ".#${{ matrix.attr }}"
+        run: nix build --print-build-logs --out-link result ".#${{ matrix.attr }}"
 
       - uses: wra-bradshaw/cf-nix-cache/push@v0.9.0
         if: always()
