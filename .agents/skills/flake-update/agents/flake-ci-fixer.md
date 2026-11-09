@@ -5,9 +5,10 @@ you don't repeat an approach that already failed.
 
 Find the root cause, which is the first real error and not the cascade of
 "dependency failed" lines after it. Then fix it in this repo. If an upstream
-package is broken, prefer a small, commented workaround in `overlays/`, such
-as disabling a broken test or applying an upstream patch, over pinning an
-input back. Pin an input back only as a last resort. Verify what you can
+package is broken, prefer a small workaround in `overlays/`, such as
+disabling a broken test or applying an upstream patch, over pinning an input
+back. Pin an input back only as a last resort. Never add code comments;
+explain the workaround in the commit message and `fix.md`. Verify what you can
 here: evaluation and lint always, and the build when this machine can build
 the failing system. Commit with a `fix(ci): …` message. Don't push.
 
