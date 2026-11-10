@@ -1,6 +1,6 @@
 _:
 (_final: prev: {
-  hex = prev.stdenv.mkDerivation (finalAttrs: {
+  hex = prev.stdenv.mkDerivation {
     pname = "hex";
     version = "3.3.0";
 
@@ -34,5 +34,5 @@ _:
       platforms = prev.lib.platforms.darwin;
       sourceProvenance = [ prev.lib.sourceTypes.binaryNativeCode ];
     };
-  });
+  };
 })
