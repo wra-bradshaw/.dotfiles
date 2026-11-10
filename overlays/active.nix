@@ -5,6 +5,7 @@ inputs.nixpkgs.lib.composeManyExtensions [
   (import ./chrome-devtools-mcp.nix { })
   (import ./foqos.nix { })
   (import ./helium.nix { })
+  (import ./hex.nix { })
   (import ./ical.nix { })
   (import ./ntn.nix { })
   (import ./opencode.nix { })

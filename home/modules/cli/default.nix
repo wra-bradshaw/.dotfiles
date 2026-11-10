@@ -4,6 +4,7 @@
     ./1password-ssh.nix
     ./direnv.nix
     ./opencode.nix
+    ./claude.nix
     ./opencode-serve.nix
     ./docker.nix
     ./spell.nix

@@ -9,6 +9,7 @@
     brewCasks.syntax-highlight
     brewCasks.firefox
     brewCasks.roblox
+    hex
     brewCasks.sketch
     brewCasks.chatgpt
     (lib.lowPrio brewCasks.claude)

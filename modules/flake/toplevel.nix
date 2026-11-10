@@ -36,6 +36,7 @@
       apfel-llm = import ../../overlays/apfel-llm.nix { };
       foqos = import ../../overlays/foqos.nix { };
       helium = import ../../overlays/helium.nix { };
+      hex = import ../../overlays/hex.nix { };
       ical = import ../../overlays/ical.nix { };
       opencode = import ../../overlays/opencode.nix { };
       rex-app = import ../../overlays/rex-app.nix { };
