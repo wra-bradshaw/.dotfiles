@@ -59,6 +59,14 @@
     keyboard = {
       enableKeyMapping = true;
       remapCapsLockToControl = true;
+      # Dictation key (Consumer page 0x0C, usage 0xCF) -> F5 (Keyboard page 0x07, usage 0x3E).
+      # Merged into the same `hidutil property --set` as the caps lock remap above.
+      userKeyMapping = [
+        {
+          HIDKeyboardModifierMappingSrc = 51539607759; # 0xC000000CF
+          HIDKeyboardModifierMappingDst = 30064771134; # 0x70000003E
+        }
+      ];
     };
   };
 
