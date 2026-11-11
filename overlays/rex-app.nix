@@ -3,13 +3,13 @@ _:
   rex-app = prev.stdenv.mkDerivation (finalAttrs: {
     pname = "rex";
     version = "0.1.0";
-    build = "1853";
+    build = "1925";
 
     # The versioned URL comes from the Sparkle feed the app ships with
     # (SUFeedURL in Info.plist); `latest.dmg` currently serves this same file.
     src = prev.fetchurl {
       url = "https://blob.superlogical.com/public/rex-app/preview/Rex-${finalAttrs.version}-${finalAttrs.build}.dmg";
-      hash = "sha256-4uXEAh3+nZtiZd0aZBxvxzOpslIVkUVy6ngOCzATsKU=";
+      hash = "sha256-8ubEtR9X+mvEEjuU753QX4+pd+U4OTcXjKp0ZBVaQnk=";
     };
 
     nativeBuildInputs = [ prev._7zz ];
