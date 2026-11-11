@@ -2,11 +2,11 @@ _:
 (_final: prev: {
   chrome-devtools-mcp = prev.stdenv.mkDerivation (finalAttrs: {
     pname = "chrome-devtools-mcp";
-    version = "1.12.0";
+    version = "1.13.0";
 
     src = prev.fetchurl {
       url = "https://registry.npmjs.org/chrome-devtools-mcp/-/chrome-devtools-mcp-${finalAttrs.version}.tgz";
-      hash = "sha256-Sq3jFnw+eBx5fWEJ7WA6DKW4yzY6KJ4uqsqpsMXSo2A=";
+      hash = "sha256-kVjEtKh5LLUirkb3buqpSRzgRhajrpcimhYnfgKkrqQ=";
     };
 
     nativeBuildInputs = [ prev.makeWrapper ];
@@ -20,13 +20,13 @@ _:
     installPhase = ''
       runHook preInstall
       mkdir -p $out/lib/chrome-devtools-mcp
-      cp -R build skills package.json LICENSE README.md $out/lib/chrome-devtools-mcp/
+      cp -R out skills package.json LICENSE README.md $out/lib/chrome-devtools-mcp/
       mkdir -p $out/bin
       makeWrapper ${prev.nodejs_24}/bin/node $out/bin/chrome-devtools-mcp \
-        --add-flags "$out/lib/chrome-devtools-mcp/build/src/bin/chrome-devtools-mcp.js" \
+        --add-flags "$out/lib/chrome-devtools-mcp/out/Default/gen/src/bin/chrome-devtools-mcp.js" \
         --set CHROME_DEVTOOLS_MCP_NO_UPDATE_CHECKS 1
       makeWrapper ${prev.nodejs_24}/bin/node $out/bin/chrome-devtools \
-        --add-flags "$out/lib/chrome-devtools-mcp/build/src/bin/chrome-devtools.js" \
+        --add-flags "$out/lib/chrome-devtools-mcp/out/Default/gen/src/bin/chrome-devtools.js" \
         --set CHROME_DEVTOOLS_MCP_NO_UPDATE_CHECKS 1
       runHook postInstall
     '';
