@@ -6,7 +6,7 @@ _:
 
     src = prev.fetchzip {
       url = "https://github.com/Arthur-Ficial/apfel/releases/download/v${finalAttrs.version}/apfel-${finalAttrs.version}-arm64-macos.tar.gz";
-      sha256 = "sha256-rK9QgTmq93Rc86JW2ltrpqe4IWy07dJKbgzN+xZsjEI=";
+      sha256 = "sha256-49pQKTxV8ip3UfeR9dYgoxSl6+Urirtv03GMyElDruI=";
       stripRoot = false;
     };
 
