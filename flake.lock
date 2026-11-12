@@ -65,11 +65,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794266748,
-        "narHash": "sha256-KqpXudvPqkp/RwCcEduMKagmFmsVKZBUzYlHhY0efio=",
+        "lastModified": 1794446980,
+        "narHash": "sha256-nBV1WREJNfqkTA82AnNUUmheXyryY/0LeTPcxloHVI8=",
         "owner": "wra-bradshaw",
         "repo": "cf-nix-cache",
-        "rev": "60b7e0c0c08227a208ab467a5d495b371536bfb8",
+        "rev": "4b46ef3b3b5a09c60aa70948349b2782a9c84d46",
         "type": "github"
       },
       "original": {
