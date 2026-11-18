@@ -35,6 +35,7 @@
       annas-mcp = import ../../overlays/annas-mcp.nix { };
       apfel-llm = import ../../overlays/apfel-llm.nix { };
       foqos = import ../../overlays/foqos.nix { };
+      gersemi = import ../../overlays/gersemi.nix { };
       helium = import ../../overlays/helium.nix { };
       hex = import ../../overlays/hex.nix { };
       ical = import ../../overlays/ical.nix { };
