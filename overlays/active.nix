@@ -3,6 +3,7 @@ inputs.nixpkgs.lib.composeManyExtensions [
   (import ./annas-mcp.nix { })
   (import ./apfel-llm.nix { })
   (import ./chrome-devtools-mcp.nix { })
+  (import ./codex.nix { })
   (import ./foqos.nix { })
   (import ./gersemi.nix { })
   (import ./helium.nix { })
