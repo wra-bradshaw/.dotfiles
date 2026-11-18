@@ -19,11 +19,11 @@
     "brew-api": {
       "flake": false,
       "locked": {
-        "lastModified": 1794755894,
-        "narHash": "sha256-0iTsv0mbrRMqMiy/uNkFGVOTyR14OQRTs8c0kfPCXgQ=",
+        "lastModified": 1795027894,
+        "narHash": "sha256-wr+EcMskptVzBJc6e/6Nn1hyvQF//Fv24MNnn4VRV8g=",
         "owner": "BatteredBunny",
         "repo": "brew-api",
-        "rev": "78f3c424c553fbc7b88ec6235b8cf74cf1c07694",
+        "rev": "06bf3361ba6ac3d9fbbf7d1a59cae70e77ee7070",
         "type": "github"
       },
       "original": {
@@ -206,12 +206,12 @@
         ]
       },
       "locked": {
-        "lastModified": 1794715309,
-        "narHash": "sha256-awkBBs5ctFKgEYjpNGpi3t/VqF589n5EWfdinRb2gNI=",
-        "rev": "a1293da7dd8e497e08d26173f97e2976b36a31ea",
-        "revCount": 7603,
+        "lastModified": 1794963576,
+        "narHash": "sha256-+CPrP74GDJ63f7bgEFC9Av4hbxc7K9WUNv1ZVRifRe8=",
+        "rev": "2b13c9cb3aa20653e6f8ee0b7f8331a53ea9b0a9",
+        "revCount": 7619,
         "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/nix-community/home-manager/0.1.7603%2Brev-a1293da7dd8e497e08d26173f97e2976b36a31ea/01a1dd5f-8a24-7ff3-8be6-d690521f125a/source.tar.gz"
+        "url": "https://api.flakehub.com/f/pinned/nix-community/home-manager/0.1.7619%2Brev-2b13c9cb3aa20653e6f8ee0b7f8331a53ea9b0a9/01a1ec2b-fa66-7740-a501-803122098f39/source.tar.gz"
       },
       "original": {
         "type": "tarball",
@@ -240,12 +240,12 @@
         ]
       },
       "locked": {
-        "lastModified": 1794758359,
-        "narHash": "sha256-xmfe6h8zlgiIfRA97Djnioe4i7zQ1HQsbdNqkFaUauE=",
-        "rev": "19c17d0326bd7cc9f7551bf18b39a10a64bfea9a",
-        "revCount": 1671,
+        "lastModified": 1795016529,
+        "narHash": "sha256-omBQj+NID5Gt0aFmSp4vPKN+4NmYmrEoe1pq0JoVjZU=",
+        "rev": "107f211ae54113be870873eaa0bc69acbface249",
+        "revCount": 1686,
         "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/y3owk1n/neru/0.1.1671%2Brev-19c17d0326bd7cc9f7551bf18b39a10a64bfea9a/01a1dfef-eff9-73c0-b63d-2e1ad27f3201/source.tar.gz"
+        "url": "https://api.flakehub.com/f/pinned/y3owk1n/neru/0.1.1686%2Brev-107f211ae54113be870873eaa0bc69acbface249/01a1ef53-5664-7e41-8c2a-9c92179182da/source.tar.gz"
       },
       "original": {
         "type": "tarball",
@@ -350,12 +350,12 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1793540411,
-        "narHash": "sha256-fiPJ88izTVucjeo2EQ3jk4aWmLg03I1D4vxnX2QjEgE=",
-        "rev": "0bb2eedc20e4739f29e8045034f2828ad7054f8f",
-        "revCount": 1106360,
+        "lastModified": 1794042290,
+        "narHash": "sha256-ziZn2PvCJE5JEEpqTdxXwJpPB+L3YqoCpTAMCzyaP3U=",
+        "rev": "f4a03c008967841f2a0b3cb7c436fc6fc31671f6",
+        "revCount": 1113206,
         "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/DeterminateSystems/nixpkgs-weekly/0.1.1106360%2Brev-0bb2eedc20e4739f29e8045034f2828ad7054f8f/01a1c3f2-e148-76b0-8164-649ce64c7e5b/source.tar.gz"
+        "url": "https://api.flakehub.com/f/pinned/DeterminateSystems/nixpkgs-weekly/0.1.1113206%2Brev-f4a03c008967841f2a0b3cb7c436fc6fc31671f6/01a1e7ff-6305-7ad2-bb1f-9855526cb446/source.tar.gz"
       },
       "original": {
         "type": "tarball",
@@ -418,11 +418,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1794408140,
-        "narHash": "sha256-vS4BTt6CkLn2BLcYA7kZUxFNnZpPgW0GJ73s/VoPhWc=",
+        "lastModified": 1794943345,
+        "narHash": "sha256-1d33ym1V/UxX9pcNbrpG0/P8riFHE8VuVAc3T8WN52I=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "44849d3d24b28d59fa963bd832ec59c60c56a34c",
+        "rev": "b67578f451bd779e79ec42f8153a403421a4b266",
         "type": "github"
       },
       "original": {
@@ -442,11 +442,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794601793,
-        "narHash": "sha256-GWivrePJy8Rqv2O7y1c9x4u5/I4PFh+tHTxJvvojj14=",
+        "lastModified": 1794691538,
+        "narHash": "sha256-dVdoqDataThJBsXewaK5IU3IAVWqVvETADj9Nxj8+WQ=",
         "owner": "karinushka",
         "repo": "paneru",
-        "rev": "1d0bb62b0dd5983c91a1bec5b5e15f649570a866",
+        "rev": "3678a7837124aea18824db5e8142233737491535",
         "type": "github"
       },
       "original": {
