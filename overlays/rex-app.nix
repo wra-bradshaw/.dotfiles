@@ -3,13 +3,13 @@ _:
   rex-app = prev.stdenv.mkDerivation (finalAttrs: {
     pname = "rex";
     version = "0.1.0";
-    build = "1973";
+    build = "2042";
 
     # The versioned URL comes from the Sparkle feed the app ships with
     # (SUFeedURL in Info.plist); `latest.dmg` currently serves this same file.
     src = prev.fetchurl {
       url = "https://blob.superlogical.com/public/rex-app/preview/Rex-${finalAttrs.version}-${finalAttrs.build}.dmg";
-      hash = "sha256-I139zJ+Oa35qivXy3Du+X7Oxafkv9wnTkPBtyHZQ18Y=";
+      hash = "sha256-Pw+ZqxjvH4p4BYmW/M+pD1XOZZDmjhV5ckQaoahJ0ik=";
     };
 
     nativeBuildInputs = [ prev._7zz ];
@@ -31,7 +31,7 @@ _:
     installPhase = ''
       runHook preInstall
       mkdir -p "$out/Applications"
-      cp -R "Rex Beta/Rex Beta.app" "$out/Applications/"
+      cp -R "Rex/Rex.app" "$out/Applications/"
       runHook postInstall
     '';
 
