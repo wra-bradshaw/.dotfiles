@@ -49,6 +49,9 @@
       url = "github:wra-bradshaw/cf-nix-cache";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixpkgs-codex = {
+      url = "github:NixOS/nixpkgs/e21fec321d73511849707a7585e4ea155ee4bf40";
+    };
     dilly-dally = {
       url = "github:wra-bradshaw/dilly-dally";
       flake = false;
