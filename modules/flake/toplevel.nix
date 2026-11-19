@@ -37,6 +37,7 @@
       codex = import ../../overlays/codex.nix { inherit inputs; };
       foqos = import ../../overlays/foqos.nix { };
       gersemi = import ../../overlays/gersemi.nix { };
+      git-credential-manager = import ../../overlays/git-credential-manager.nix { };
       helium = import ../../overlays/helium.nix { };
       hex = import ../../overlays/hex.nix { };
       ical = import ../../overlays/ical.nix { };
