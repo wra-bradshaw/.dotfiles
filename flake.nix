@@ -49,6 +49,7 @@
       url = "github:wra-bradshaw/cf-nix-cache";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # TODO: Remove workaround: codex fails under nixpkgs' new cargoUseSystemLibs hook and is uncached on aarch64-darwin; drop this input and overlays/codex.nix together once the main nixpkgs lock includes https://github.com/NixOS/nixpkgs/commit/16b463698a5b9f20881b6c5f1150ce37e2456db9
     nixpkgs-codex = {
       url = "github:NixOS/nixpkgs/e21fec321d73511849707a7585e4ea155ee4bf40";
     };
