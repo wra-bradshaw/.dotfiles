@@ -1,6 +1,6 @@
 _: _final: prev:
 let
-  version = "0.22.1.1";
+  version = "0.22.2.1";
 in
 {
   helium =
@@ -10,7 +10,7 @@ in
         inherit version;
         src = prev.fetchurl {
           url = "https://github.com/imputnet/helium-macos/releases/download/${version}/helium_${version}_arm64-macos.dmg";
-          hash = "sha256-jCNEgMASI8nbyejcW8W+CLjkNBQ31i2unXWUK1lPvVE=";
+          hash = "sha256-wzU6qTaERhMhAgPJR8PTFd6zJVx40JKTFBxEfdMkw4g=";
         };
         nativeBuildInputs = [
           prev._7zz
@@ -42,7 +42,7 @@ in
         inherit version;
         src = prev.fetchurl {
           url = "https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-arm64.AppImage";
-          hash = "sha256-4+BJ/cFfHDsYU+azrOvuXIjbC7hnJ2q0DFj1ulR5TQs=";
+          hash = "sha256-CyyCP1JJcbEdfbPKrKFWfQGJblWzSF5y7a3fNHINeIk=";
         };
         meta.mainProgram = "helium";
       };
