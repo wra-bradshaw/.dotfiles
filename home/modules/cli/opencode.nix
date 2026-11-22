@@ -42,6 +42,10 @@ in
           ];
           enabled = true;
         };
+        hark = {
+          type = "remote";
+          url = "https://hark.fyi/mcp";
+        };
       };
     };
   };

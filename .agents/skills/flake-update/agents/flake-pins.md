@@ -16,7 +16,15 @@ tracks the v2 line. If there's a newer release:
   darwin-only package's hashes can be computed on Linux.
 - Read the release notes for packaging changes, such as renamed assets or a
   new archive layout, and adjust the derivation to match.
-- Never add code comments.
+- Never add code comments, except the workaround marker. If a release needs
+  a temporary workaround for a problem in it, such as a dangling symlink or
+  a broken test, put this single line directly above the workaround:
+  `# TODO: Remove workaround: <what's broken and when this can go>`.
+- When you bump an overlay that already has a
+  `# TODO: Remove workaround` marker, check whether the new release still
+  needs it, for example by unpacking the new `src` and looking. Remove the
+  workaround and its marker only when you can see the problem is gone, and
+  mention it in the commit message.
 - Make sure it evaluates for each host that uses it. Never build the package
   itself or a host configuration; CI's Build workflow does that.
 - Commit each package on its own as `chore(<name>): <old> -> <new>`. Don't
@@ -25,4 +33,5 @@ tracks the v2 line. If there's a newer release:
 If you can't finish one, revert that file and move on.
 
 Write `.flake-update/pins.md` with one line per overlay: `UPDATED <old> -> <new>`,
-`CURRENT <version>`, or `FAILED <reason>`. Reply with those lines.
+`CURRENT <version>`, or `FAILED <reason>`, plus any workarounds added or
+removed. Reply with those lines.

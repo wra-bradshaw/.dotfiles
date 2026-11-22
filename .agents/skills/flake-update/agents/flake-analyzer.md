@@ -10,10 +10,26 @@ interface changes in the smaller inputs. Don't read through nixpkgs history;
 it's far too large to be useful. Note any overlay that nixpkgs now packages at
 the same or a newer version. Don't change the repo.
 
-Write `.flake-update/analysis.md` with three sections: required changes,
-recommended changes, and notes for a human. Make each change specific: the
-file, the old form and the new form, and why, with a link. Also write
-`.flake-update/pr-analysis.md`, a short summary for the PR.
+Then review the temporary workarounds. Each is marked with a line like
+`# TODO: Remove workaround: <reason>`; find them all with
+`rg -n 'TODO: Remove workaround'`. For each, work out whether the updated
+inputs fix the underlying problem, using evidence you can get without
+building: the linked issue or PR is closed or merged and the fix is in the
+locked revision, `nix eval` shows the package is no longer `meta.broken` or
+is now at a fixed version, the option now has the right default, or the
+pinned-back input has moved past the bad release. Only propose removing a
+workaround when you have that evidence; otherwise it stays. A marker in
+`overlays/` whose cause is in the pinned release itself, rather than in an
+input, is checked later by `flake-pins` when it bumps that release; list it
+as `KEEP` and say so.
 
-Reply with the number of required and recommended changes, and one line for
-each required change.
+Write `.flake-update/analysis.md` with four sections: required changes,
+recommended changes, workarounds, and notes for a human. Make each change
+specific: the file, the old form and the new form, and why, with a link. In
+workarounds, list every marker as `REMOVE` (with the evidence and exactly
+what to delete, including the marker line) or `KEEP` (with why it's still
+needed). Also write `.flake-update/pr-analysis.md`, a short summary for the
+PR.
+
+Reply with the number of required and recommended changes and workarounds
+to remove, and one line for each required change and each removal.

@@ -10,9 +10,7 @@ let
   hostMount = "/mnt/host";
   mountHash = builtins.hashString "sha256" "${hostHome}:${hostMount}";
   mountTag = "lima-${builtins.substring 0 16 mountHash}";
-  # Determinate's native Linux builder exposes Darwin's case-hacked store
-  # paths to Linux builds. Normalize this entry until the builder translates
-  # those paths itself.
+  # TODO: Remove workaround: Determinate's native Linux builder exposes Darwin's case-hacked store paths to Linux builds; drop once it translates them itself
   linuxTerminfo = pkgs.runCommand "linux-terminfo" { } ''
     if [[ -e ${pkgs.ncurses}/share/terminfo/l/linux ]]; then
       cp ${pkgs.ncurses}/share/terminfo/l/linux "$out"
@@ -34,12 +32,12 @@ in
   nixpkgs.overlays = [
     (_: prev: {
       terraform = prev.terraform.overrideAttrs {
-        # Terraform's test suite exhausts the native Linux builder's /build.
+        # TODO: Remove workaround: Terraform's test suite exhausts the native Linux builder's /build
         doCheck = false;
       };
     })
   ];
-  # nixos-unified defaults this to a string, which current nixpkgs rejects.
+  # TODO: Remove workaround: nixos-unified defaults this to a string, which current nixpkgs rejects; drop once nixos-unified sets a list
   nix.settings.experimental-features = lib.mkForce [
     "nix-command"
     "flakes"
@@ -49,6 +47,7 @@ in
   system.stateVersion = "26.05";
 
   boot = {
+    # TODO: Remove workaround: uses linuxTerminfo above; remove both together
     initrd.systemd.contents."/etc/terminfo/l/linux".source = lib.mkForce linuxTerminfo;
     initrd.availableKernelModules = [
       "virtio_pci"

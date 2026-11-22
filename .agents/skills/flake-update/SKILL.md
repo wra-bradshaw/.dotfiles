@@ -22,7 +22,21 @@ You orchestrate; subagents do the heavy lifting so your context stays small.
   The only exception is realising a fixed-output derivation (a `src`, vendor,
   or npm deps attribute) to learn its hash.
 - **Never add code comments**, and don't let subagents add them. Explanations
-  go in commit messages, the PR body, or the PR comment.
+  go in commit messages, the PR body, or the PR comment. The one exception is
+  the workaround marker below.
+- **Mark temporary workarounds.** Anything added only to get past an upstream
+  problem that will probably be fixed later, such as a disabled test, a
+  backported patch, a `mkForce` over a bad default, an input pinned back, or
+  a package or option disabled on one platform, gets a single comment line
+  directly above it:
+
+  ```nix
+  # TODO: Remove workaround: <what's broken upstream and when this can go, with a link if there is one>
+  ```
+
+  Keep the exact prefix `TODO: Remove workaround` so it can be found with
+  `rg 'TODO: Remove workaround'`, and remove the marker with the workaround.
+  Permanent choices aren't workarounds and don't get a marker.
 - **Commit locally, never push.** `scripts/publish.sh <result> [pr]` (next to
   this file) does every write to GitHub. In CI the workflow runs it after you
   finish, and your `gh` is read-only. Interactively, show the user what you
@@ -36,8 +50,10 @@ You orchestrate; subagents do the heavy lifting so your context stays small.
 1. With a clean tree, create `flake-update/<YYYY-MM-DD>` from `origin/main`.
    Copy `flake.lock` to `.flake-update/flake.lock.old`, run
    `nix flake update`, and commit the lock on its own.
-2. Have `flake-analyzer` work out what the changes mean for this repo.
-3. If it found anything to change, have `flake-updater` apply it.
+2. Have `flake-analyzer` work out what the changes mean for this repo, and
+   check every `TODO: Remove workaround` marker against the new lock.
+3. If it found anything to change, including workarounds that can now be
+   removed, have `flake-updater` apply it.
 4. Have `flake-pins` bring the pinned packages in `overlays/` up to date. If
    it reports a lot of outdated packages, you can split them across several
    `flake-pins` runs in parallel, each owning different files.
@@ -48,6 +64,7 @@ You orchestrate; subagents do the heavy lifting so your context stays small.
    - the analysis summary
    - the repo changes
    - the pinned packages that were bumped
+   - workarounds added and removed, and the markers that are still needed
    - anything left unresolved
 
    The result is then `ready`, and `publish.sh ready` opens the PR with
@@ -62,7 +79,9 @@ reached.
 1. Check out the PR branch. Save the failed jobs' logs for the head commit
    (`gh run view <run> --log-failed`) under `.flake-update/ci/`.
 2. Have `flake-ci-fixer` fix them. Point it at the earlier rounds in the PR
-   comments so it doesn't repeat an approach that already failed.
+   comments so it doesn't repeat an approach that already failed. If the PR
+   removed a workaround, tell it which, so it can restore the workaround if
+   that's what broke.
 3. Write `.flake-update/comment.md`, a few lines saying what failed and what
    changed. The result is one of:
    - `fixed`: there are new commits. If the branch conflicted with main, you

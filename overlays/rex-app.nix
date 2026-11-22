@@ -16,9 +16,7 @@ _:
 
     dontStrip = true;
 
-    # The shipped Sparkle.framework contains a dangling
-    # `XPCServices -> Versions/Current/XPCServices` link; Sparkle ships no
-    # XPCServices directory in this build, so the fixup check must be skipped.
+    # TODO: Remove workaround: the shipped Sparkle.framework has a dangling XPCServices symlink; drop once a Rex build ships without it
     dontCheckForBrokenSymlinks = true;
 
     unpackPhase = ''
