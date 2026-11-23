@@ -3,9 +3,9 @@
 
   select-nixpkgs.py select     write .flake-update/nixpkgs.{json,md}; changes nothing
   select-nixpkgs.py apply      apply .flake-update/nixpkgs.json and commit
-  select-nixpkgs.py pin ATTR   take ATTR from the newest cooled-down revision that has it cached
+  select-nixpkgs.py pin ATTR   take ATTR from the newest old-enough revision that has it cached
 
-Candidates are nixpkgs-unstable channel advances at least --cooldown-days old
+Candidates are nixpkgs-unstable channel advances at least --min-age-hours old
 and newer than the locked revision. For each, newest first, every host's
 derivation graph is walked against cache.nixos.org the way `nix build --dry-run`
 does, so the result doesn't depend on what's in the local store. Anything that
@@ -93,9 +93,9 @@ def gh_json(path):
     return json.loads(run(["gh", "api", path]).stdout)
 
 
-def channel_revs(cooldown_days):
+def channel_revs(min_age_hours):
     pushes = gh_json(f"repos/NixOS/nixpkgs/activity?ref=refs/heads/{BRANCH}&activity_type=push&per_page=100")
-    cutoff = dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=cooldown_days)
+    cutoff = dt.datetime.now(dt.timezone.utc) - dt.timedelta(hours=min_age_hours)
     revs = []
     for p in pushes:
         pushed = dt.datetime.fromisoformat(p["timestamp"].replace("Z", "+00:00"))
@@ -322,7 +322,7 @@ def analyse(cand, base, specs, revs, current, max_pins):
         for attr, systems in sorted(tops_by_attr.items()):
             pin = find_pin_rev(attr, sorted(systems), [r["rev"] for r in revs][:8] + [current], skip={rev})
             if pin is None:
-                problems.append(f"no cooled-down revision has {attr} cached")
+                problems.append(f"no old-enough revision has {attr} cached")
                 break
             pins.append({"attr": attr, "systems": sorted(systems), "rev": pin})
     result["problems"] = problems
@@ -413,7 +413,7 @@ def cmd_select(args):
     current, current_time = locked_nixpkgs()
     log(f"locked nixpkgs {current[:12]}")
     revs = []
-    for r in channel_revs(args.cooldown_days):
+    for r in channel_revs(args.min_age_hours):
         if r["rev"] == current or commit_time(r["rev"]) <= current_time:
             break
         revs.append(r)
@@ -563,7 +563,7 @@ def _apply(data):
     run(["git", "add", "flake.nix", "flake.lock"])
     commit(
         f"chore(nixpkgs): {old[:12]} -> {new[:12]}\n\n"
-        f"Newest {BRANCH} advance at least a week old that the hosts can take\n"
+        f"Newest {BRANCH} advance at least a day old that the hosts can take\n"
         f"from cache.nixos.org (see the PR body).\n\n"
         f"https://github.com/NixOS/nixpkgs/compare/{old}...{new}"
     )
@@ -591,10 +591,10 @@ def cmd_pin(args):
     specs = hosts()
     current, current_time = locked_nixpkgs()
     systems = sorted(set(args.system)) if args.system else sorted({s["system"] for s in specs.values()})
-    revs = [r["rev"] for r in channel_revs(args.cooldown_days)][:8]
+    revs = [r["rev"] for r in channel_revs(args.min_age_hours)][:8]
     rev = find_pin_rev(args.attr, systems, revs + [current])
     if rev is None:
-        raise SystemExit(f"no cooled-down revision has {args.attr} cached for {', '.join(systems)}")
+        raise SystemExit(f"no old-enough revision has {args.attr} cached for {', '.join(systems)}")
     add_pin(args.attr, systems, rev, replace=args.replace)
     commit(
         f"fix: take {args.attr} from nixpkgs {rev[:12]} on {', '.join(systems)}\n\n"
@@ -606,7 +606,7 @@ def cmd_pin(args):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--cooldown-days", type=float, default=7)
+    ap.add_argument("--min-age-hours", type=float, default=24)
     sub = ap.add_subparsers(dest="cmd", required=True)
     s = sub.add_parser("select")
     s.add_argument("--max-candidates", type=int, default=6)

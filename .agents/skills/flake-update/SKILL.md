@@ -38,7 +38,7 @@ You orchestrate; subagents do the heavy lifting so your context stays small.
   `rg 'TODO: Remove workaround'`, and remove the marker with the workaround.
   Permanent choices aren't workarounds and don't get a marker.
 - **nixpkgs moves only through `scripts/select-nixpkgs.py`.** It picks the
-  newest `nixpkgs-unstable` channel advance that is at least a week old and
+  newest `nixpkgs-unstable` channel advance that is at least 24 hours old and
   whose packages cache.nixos.org has for every host. Upstream packages that
   aren't cached there are taken from their own `nixpkgs-<attr>` input via
   `overlays/<attr>.nix`, both marked as workarounds. If that isn't possible,
