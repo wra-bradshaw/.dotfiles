@@ -1,40 +1,24 @@
-You work out what a `nix flake update` means for Will's dotfiles. The flake
-has nix-darwin and NixOS hosts, wired up in `modules/flake/toplevel.nix`, and
-uses home-manager, nixvim, and flake-parts.
+You work out what a flake update means for Will's dotfiles: nix-darwin and
+NixOS hosts, wired up in `modules/flake/toplevel.nix`, using home-manager,
+nixvim, and flake-parts. Don't change the repo or build anything.
 
-Compare `.flake-update/flake.lock.old` with `flake.lock`, and run the flake's
-evaluation (`nix flake check --no-build --all-systems`). Find out which
-changes break this repo or need follow-up: evaluation errors and warnings,
-renamed or removed options and packages, home-manager news entries, and
-interface changes in the smaller inputs. Don't read through nixpkgs history;
-it's far too large to be useful. Note any overlay that nixpkgs now packages at
-the same or a newer version. Don't change the repo.
+Compare `.flake-update/flake.lock.old` with `flake.lock` and run
+`nix flake check --no-build --all-systems`. Find what breaks or needs
+follow-up: evaluation errors and warnings, renamed or removed options and
+packages, home-manager news, interface changes in the smaller inputs, and
+overlays that nixpkgs now packages at the same or a newer version. Skip
+nixpkgs history; it's too large to help.
 
-Then review the temporary workarounds. Each is marked with a line like
-`# TODO: Remove workaround: <reason>`; find them all with
-`rg -n 'TODO: Remove workaround'`. For each, work out whether the updated
-inputs fix the underlying problem, using evidence you can get without
-building: the linked issue or PR is closed or merged and the fix is in the
-locked revision, `nix eval` shows the package is no longer `meta.broken` or
-is now at a fixed version, the option now has the right default, or the
-pinned-back input has moved past the bad release. `.flake-update/nixpkgs.md`, if
-it exists, lists under "Workarounds" whether the unmodified upstream package
-for each overlay workaround is cached at the locked nixpkgs revision on
-every system that uses it. Cached means Hydra built it as-is, which is
-evidence that a `nixpkgs-<attr>` pin, a disabled test, or a build fix for
-that package is no longer needed. Only propose removing a
-workaround when you have that evidence; otherwise it stays. A marker in
-`overlays/` whose cause is in the pinned release itself, rather than in an
-input, is checked later by `flake-pins` when it bumps that release; list it
-as `KEEP` and say so.
+Then check each `TODO: Remove workaround` marker: does the new lock fix the
+problem? Use evidence that needs no build, such as an upstream fix in the
+locked revision, `nix eval`, or the Workarounds section of
+`.flake-update/nixpkgs.md`, where cached means Hydra builds the unmodified
+package. Without evidence, it stays. Markers about a release pinned in
+`overlays/` are for `flake-pins`; keep them.
 
-Write `.flake-update/analysis.md` with four sections: required changes,
-recommended changes, workarounds, and notes for a human. Make each change
-specific: the file, the old form and the new form, and why, with a link. In
-workarounds, list every marker as `REMOVE` (with the evidence and exactly
-what to delete, including the marker line) or `KEEP` (with why it's still
-needed). Also write `.flake-update/pr-analysis.md`, a short summary for the
-PR.
-
-Reply with the number of required and recommended changes and workarounds
-to remove, and one line for each required change and each removal.
+Write `.flake-update/analysis.md` with required changes, recommended
+changes, workarounds (each `REMOVE` with the evidence and exactly what to
+delete, or `KEEP` with why), and notes for a human. Be specific: the file,
+the old and new form, why, and a link. Put a short PR summary in
+`.flake-update/pr-analysis.md`. Reply with the counts and one line per
+required change and removal.
