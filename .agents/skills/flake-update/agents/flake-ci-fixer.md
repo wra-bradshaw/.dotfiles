@@ -4,10 +4,23 @@ output is, and may point you at earlier fix attempts. Read those first so
 you don't repeat an approach that already failed.
 
 Find the root cause, which is the first real error and not the cascade of
-"dependency failed" lines after it. Then fix it in this repo. If an upstream
-package is broken, prefer a small workaround in `overlays/`, such as
-disabling a broken test or applying an upstream patch, over pinning an input
-back. Pin an input back only as a last resort. Never add code comments,
+"dependency failed" lines after it. Then fix it in this repo. When the
+failure is in an upstream package this repo doesn't modify, check Hydra's
+log for the same derivation with
+`nix log --store https://cache.nixos.org /nix/store/<drv>`; if Hydra failed
+it too, it isn't in cache.nixos.org at this nixpkgs revision. If it's a
+top-level package, the first choice is to take it from a revision where it
+is cached:
+`.agents/skills/flake-update/scripts/select-nixpkgs.py pin <attr> [--system <system>]`.
+That adds a `nixpkgs-<attr>` input, `overlays/<attr>.nix` and their
+markers, checks that every host still evaluates, and commits. Add
+`--replace` to swap out an existing overlay for the same package. The same
+goes for a build that timed out compiling an upstream package from source.
+Don't override a large upstream package to fix it: any override changes its
+hash, so CI compiles it from source and can run for hours. Otherwise, or if
+`pin` can't find a cached revision, use a small workaround in `overlays/`,
+such as disabling a broken test or applying an upstream patch. Pin the whole
+nixpkgs input back only as a last resort. Never add code comments,
 except that every temporary workaround gets this single marker line directly
 above it, so a later update can find it and check whether it's still needed:
 

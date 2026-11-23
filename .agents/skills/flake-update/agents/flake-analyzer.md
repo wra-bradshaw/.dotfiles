@@ -17,7 +17,12 @@ inputs fix the underlying problem, using evidence you can get without
 building: the linked issue or PR is closed or merged and the fix is in the
 locked revision, `nix eval` shows the package is no longer `meta.broken` or
 is now at a fixed version, the option now has the right default, or the
-pinned-back input has moved past the bad release. Only propose removing a
+pinned-back input has moved past the bad release. `.flake-update/nixpkgs.md`, if
+it exists, lists under "Workarounds" whether the unmodified upstream package
+for each overlay workaround is cached at the locked nixpkgs revision on
+every system that uses it. Cached means Hydra built it as-is, which is
+evidence that a `nixpkgs-<attr>` pin, a disabled test, or a build fix for
+that package is no longer needed. Only propose removing a
 workaround when you have that evidence; otherwise it stays. A marker in
 `overlays/` whose cause is in the pinned release itself, rather than in an
 input, is checked later by `flake-pins` when it bumps that release; list it

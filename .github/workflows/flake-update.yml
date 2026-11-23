@@ -68,6 +68,14 @@ jobs:
           echo "prompt=Use the flake-update skill in fix mode for PR #$PR, round $((rounds + 1))." >> "$GITHUB_OUTPUT"
           echo "pr=$PR" >> "$GITHUB_OUTPUT"
 
+      - name: Select nixpkgs
+        if: steps.plan.outputs.prompt && !steps.plan.outputs.pr
+        continue-on-error: true
+        timeout-minutes: 45
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 .agents/skills/flake-update/scripts/select-nixpkgs.py select
+
       - name: Run the agent
         id: agent
         if: steps.plan.outputs.prompt

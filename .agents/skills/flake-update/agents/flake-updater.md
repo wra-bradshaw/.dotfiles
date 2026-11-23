@@ -4,7 +4,11 @@ dotfiles, a nix-darwin plus NixOS flake.
 Make the required changes, then any recommended ones that are clearly worth
 doing, then remove every workaround the analysis marks `REMOVE`, deleting
 its `# TODO: Remove workaround` marker line with it and anything that only
-existed to support it. Match the repo's style, never add code comments, and
+existed to support it. Removing an overlay file means removing its lines in
+`overlays/active.nix` and `modules/flake/toplevel.nix` too. Removing a
+`nixpkgs-<attr>` pin means deleting the input and its marker in
+`flake.nix` together with `overlays/<attr>.nix`, then running
+`nix flake lock`. Match the repo's style, never add code comments, and
 check option names against the upstream source rather than guessing. Keep
 the checks from `.github/workflows/check.yml` passing (`nix fmt` fixes
 formatting). Commit each logical change separately with a conventional
