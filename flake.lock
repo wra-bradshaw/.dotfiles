@@ -441,6 +441,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-vtsls": {
+      "locked": {
+        "lastModified": 1794042290,
+        "narHash": "sha256-ziZn2PvCJE5JEEpqTdxXwJpPB+L3YqoCpTAMCzyaP3U=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "f4a03c008967841f2a0b3cb7c436fc6fc31671f6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "f4a03c008967841f2a0b3cb7c436fc6fc31671f6",
+        "type": "github"
+      }
+    },
     "nixvim": {
       "inputs": {
         "flake-parts": [
@@ -554,6 +570,7 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-codex": "nixpkgs-codex",
         "nixpkgs-harlequin": "nixpkgs-harlequin",
+        "nixpkgs-vtsls": "nixpkgs-vtsls",
         "nixvim": "nixvim",
         "paneru": "paneru",
         "snap": "snap"

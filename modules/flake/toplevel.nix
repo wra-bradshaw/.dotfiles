@@ -45,6 +45,7 @@
       mitmproxy = import ../../overlays/mitmproxy.nix { };
       opencode = import ../../overlays/opencode.nix { };
       rex-app = import ../../overlays/rex-app.nix { };
+      vtsls = import ../../overlays/vtsls.nix { inherit inputs; };
     };
   };
 
