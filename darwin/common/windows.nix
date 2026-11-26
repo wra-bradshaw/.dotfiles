@@ -1,8 +1,7 @@
 { pkgs, ... }:
 let
-  # Open a window in the running Rex app rather than launching a second instance.
   rexNewWindow = pkgs.writeShellScript "rex-new-window" ''
-    app="$HOME/Applications/Home Manager Apps/Rex Beta.app"
+    app="$HOME/Applications/Home Manager Apps/Rex.app"
     rex="$app/Contents/Helpers/Rex Server.rex/Contents/MacOS/rex"
     client=$("$rex" client ls --json 2>/dev/null | ${pkgs.jq}/bin/jq -r '
       first(.clients[]
@@ -25,7 +24,7 @@ in
         * : /usr/bin/open -na ~/Applications/Home\ Manager\ Apps/Helium.app
       ]
       ctrl - return [
-        "Rex Beta" ~
+        "Rex" ~
         * : ${rexNewWindow}
       ]
     '';
