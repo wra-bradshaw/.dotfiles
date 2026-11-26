@@ -5,7 +5,7 @@
     brewCasks.audacity
     brewCasks.discord
     brewCasks.jan
-    brewCasks.lookaway
+    lookaway
     brewCasks.syntax-highlight
     brewCasks.firefox
     brewCasks.roblox
