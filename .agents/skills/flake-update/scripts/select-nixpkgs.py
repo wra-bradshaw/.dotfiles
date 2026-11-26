@@ -475,11 +475,17 @@ def add_pin(attr, systems, rev, replace=False):
         raise RuntimeError(f"{overlay.relative_to(ROOT)} already exists")
     touched = [ROOT / f for f in ("flake.nix", "flake.lock", "overlays/active.nix", "modules/flake/toplevel.nix")] + [overlay]
     saved = {f: (f.read_text() if f.exists() else None) for f in touched}
+    new_overlay = saved[overlay] is None
     try:
         _write_pin(attr, systems, rev, overlay)
+        if new_overlay:
+            # Flakes only see tracked files, so the evals below need the new overlay in the index.
+            run(["git", "add", "-N", str(overlay)])
         for spec in hosts().values():
             nix("eval", "--raw", f".#{spec['config']}.{spec['toplevel']}.drvPath")
     except Exception:
+        if new_overlay:
+            run(["git", "rm", "-q", "--cached", "--ignore-unmatch", str(overlay)], check=False)
         for f, text in saved.items():
             if text is None:
                 f.unlink(missing_ok=True)
