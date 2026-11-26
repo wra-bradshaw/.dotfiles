@@ -34,16 +34,15 @@
       active = import ../../overlays/active.nix { inherit inputs; };
       annas-mcp = import ../../overlays/annas-mcp.nix { };
       apfel-llm = import ../../overlays/apfel-llm.nix { };
-      codex = import ../../overlays/codex.nix { inherit inputs; };
       foqos = import ../../overlays/foqos.nix { };
-      gersemi = import ../../overlays/gersemi.nix { };
       git-credential-manager = import ../../overlays/git-credential-manager.nix { };
+      harlequin = import ../../overlays/harlequin.nix { inherit inputs; };
       helium = import ../../overlays/helium.nix { };
       hex = import ../../overlays/hex.nix { };
       ical = import ../../overlays/ical.nix { };
-      mitmproxy = import ../../overlays/mitmproxy.nix { };
       opencode = import ../../overlays/opencode.nix { };
       rex-app = import ../../overlays/rex-app.nix { };
+      vtsls = import ../../overlays/vtsls.nix { inherit inputs; };
     };
   };
 

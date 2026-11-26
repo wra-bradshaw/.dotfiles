@@ -3,24 +3,24 @@ _: final: _prev:
 let
   inherit (final) lib stdenv fetchurl;
 
-  version = "2.3.2";
+  version = "2.4.1";
 
   releaseForSystem = {
     "x86_64-linux" = {
       target = "linux-x64";
-      hash = "sha256-hFRo41qlorV0lFoLlmdeZMYE9Sec7ZqnJFBo2MC29rs=";
+      hash = "sha256-nb72jyMaMRtWRBxzx77AH22H6+RFI60Up7pHFv9cIDE=";
     };
     "aarch64-linux" = {
       target = "linux-arm64";
-      hash = "sha256-kak3Ep79ro64wMUBiuUz+fNRF/Jv/ZpNH3pfnaHmkwY=";
+      hash = "sha256-nrRWf/D6uQttrBBveGZSoOwV1l4l/7y7EG5e0c7k9OI=";
     };
     "x86_64-darwin" = {
       target = "darwin-x64";
-      hash = "sha256-VyTmxWAmsCs++2B0fU/3Y+UPEGaXC3i7rrMoGFNqdHk=";
+      hash = "sha256-LdevqRZLIW3wygAb5RVwPSMjTlbo5NVrB+X54RBSmEA=";
     };
     "aarch64-darwin" = {
       target = "darwin-arm64";
-      hash = "sha256-gp+RF5pvQID1KNOmdWuH0umVPev7CgaKWb9HPS11Nak=";
+      hash = "sha256-+5rvMxjhShOK7yg8qipsmnJ4sh7HNLqj9SwAVit328U=";
     };
   };
 
