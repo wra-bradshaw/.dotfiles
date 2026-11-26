@@ -4,7 +4,6 @@ inputs.nixpkgs.lib.composeManyExtensions [
   (import ./apfel-llm.nix { })
   (import ./chrome-devtools-mcp.nix { })
   (import ./foqos.nix { })
-  (import ./gersemi.nix { })
   (import ./git-credential-manager.nix { })
   (import ./harlequin.nix { inherit inputs; })
   (import ./helium.nix { })

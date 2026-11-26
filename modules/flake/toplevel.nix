@@ -35,7 +35,6 @@
       annas-mcp = import ../../overlays/annas-mcp.nix { };
       apfel-llm = import ../../overlays/apfel-llm.nix { };
       foqos = import ../../overlays/foqos.nix { };
-      gersemi = import ../../overlays/gersemi.nix { };
       git-credential-manager = import ../../overlays/git-credential-manager.nix { };
       harlequin = import ../../overlays/harlequin.nix { inherit inputs; };
       helium = import ../../overlays/helium.nix { };
