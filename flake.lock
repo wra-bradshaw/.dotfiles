@@ -364,22 +364,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-codex": {
-      "locked": {
-        "lastModified": 1794840529,
-        "narHash": "sha256-ySrWnmZB5UsZTYGHHnBjllT05O5iFjElCRS+mabtfP0=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "e21fec321d73511849707a7585e4ea155ee4bf40",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "e21fec321d73511849707a7585e4ea155ee4bf40",
-        "type": "github"
-      }
-    },
     "nixpkgs-harlequin": {
       "locked": {
         "lastModified": 1795249095,
@@ -568,7 +552,6 @@
         "nix-darwin": "nix-darwin_2",
         "nixos-unified": "nixos-unified",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-codex": "nixpkgs-codex",
         "nixpkgs-harlequin": "nixpkgs-harlequin",
         "nixpkgs-vtsls": "nixpkgs-vtsls",
         "nixvim": "nixvim",

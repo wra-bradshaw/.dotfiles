@@ -34,7 +34,6 @@
       active = import ../../overlays/active.nix { inherit inputs; };
       annas-mcp = import ../../overlays/annas-mcp.nix { };
       apfel-llm = import ../../overlays/apfel-llm.nix { };
-      codex = import ../../overlays/codex.nix { inherit inputs; };
       foqos = import ../../overlays/foqos.nix { };
       gersemi = import ../../overlays/gersemi.nix { };
       git-credential-manager = import ../../overlays/git-credential-manager.nix { };
