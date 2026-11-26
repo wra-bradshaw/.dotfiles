@@ -19,11 +19,11 @@
     "brew-api": {
       "flake": false,
       "locked": {
-        "lastModified": 1795378753,
-        "narHash": "sha256-qS7jDC/OIa0VYdya0lQVhp3W3PFYsHvIhA5N0xUCEUw=",
+        "lastModified": 1795642478,
+        "narHash": "sha256-DwYyGL2oDVk4+pO1Xpu0KgUn2Oq0w/UC0wXjW+xuFXg=",
         "owner": "BatteredBunny",
         "repo": "brew-api",
-        "rev": "ee6b9d57e71fcc991bece5f541f805b84f46ef62",
+        "rev": "7f4fad78a83aafef79c840e11676fbfb5afa1667",
         "type": "github"
       },
       "original": {
@@ -206,12 +206,12 @@
         ]
       },
       "locked": {
-        "lastModified": 1795366757,
-        "narHash": "sha256-Tp4Kh4R7ID1f2mMCDlb2PiFQ/DZZsnXB2u2juWN+TT4=",
-        "rev": "3b8140d21fa0a70b1b38c2ed29853dfe686234a6",
-        "revCount": 7630,
+        "lastModified": 1795618997,
+        "narHash": "sha256-d9Osol//t6hqeo1xlspsYMbhTJK507h6t0EmPyF5Db0=",
+        "rev": "6a13737c0ed27c7c285f59e3be423ed972aa605f",
+        "revCount": 7633,
         "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/nix-community/home-manager/0.1.7630%2Brev-3b8140d21fa0a70b1b38c2ed29853dfe686234a6/01a20433-9789-75e3-9332-0269fa665c12/source.tar.gz"
+        "url": "https://api.flakehub.com/f/pinned/nix-community/home-manager/0.1.7633%2Brev-6a13737c0ed27c7c285f59e3be423ed972aa605f/01a2133c-ea22-7491-b6f5-0c9e7e9b376c/source.tar.gz"
       },
       "original": {
         "type": "tarball",
@@ -240,12 +240,12 @@
         ]
       },
       "locked": {
-        "lastModified": 1795357735,
-        "narHash": "sha256-tmCaOo7MroRRZtTMi0NLODyJCAlcCooZa77D803bDQY=",
-        "rev": "b5bfbc3cf0dbd9c1644c6209675754fe5284fdb4",
-        "revCount": 1691,
+        "lastModified": 1795560607,
+        "narHash": "sha256-z1qwUj6TTBfzJsrBVXzQvIqrb7QW83X2eC69DMPi5VA=",
+        "rev": "6426276e117bec60fd8ebcbe875d080c30cbd028",
+        "revCount": 1699,
         "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/y3owk1n/neru/0.1.1691%2Brev-b5bfbc3cf0dbd9c1644c6209675754fe5284fdb4/01a203a9-a584-7e51-9b82-c87146f40316/source.tar.gz"
+        "url": "https://api.flakehub.com/f/pinned/y3owk1n/neru/0.1.1699%2Brev-6426276e117bec60fd8ebcbe875d080c30cbd028/01a20fc1-39c1-7f13-ab94-0b5a7bcc04e0/source.tar.gz"
       },
       "original": {
         "type": "tarball",
@@ -492,11 +492,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794827825,
-        "narHash": "sha256-FS/BVVnTKxST60EDReJuXWFjk4SJCudwKVERXgZU3sw=",
+        "lastModified": 1795117632,
+        "narHash": "sha256-l573vlNoKwZ7TSohEwjM6hCy+ZHN6mUKAv9lt7ctpt0=",
         "owner": "karinushka",
         "repo": "paneru",
-        "rev": "35344e6545a81610836116d413e5e26eb35529b7",
+        "rev": "8c79b382c61255457261c6b77adc86cab918cab6",
         "type": "github"
       },
       "original": {
