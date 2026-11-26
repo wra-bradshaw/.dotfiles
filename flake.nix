@@ -3,6 +3,8 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/619c39f6eac5d1ed6b8f073a9414baf7034b2356";
+    # TODO: Remove workaround: harlequin isn't cached for aarch64-linux at the main nixpkgs revision (https://hydra.nixos.org/job/nixpkgs/unstable/harlequin.aarch64-linux); drop this input and overlays/harlequin.nix together once select-nixpkgs.py reports it cached there
+    nixpkgs-harlequin.url = "github:NixOS/nixpkgs/93a9ed0a866099a230ed5146a5bb7d16fd5c9b14";
 
     flake-parts.url = "https://flakehub.com/f/hercules-ci/flake-parts/0.1.*";
     nixos-unified = {

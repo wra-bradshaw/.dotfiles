@@ -7,6 +7,7 @@ inputs.nixpkgs.lib.composeManyExtensions [
   (import ./foqos.nix { })
   (import ./gersemi.nix { })
   (import ./git-credential-manager.nix { })
+  (import ./harlequin.nix { inherit inputs; })
   (import ./helium.nix { })
   (import ./hex.nix { })
   (import ./ical.nix { })

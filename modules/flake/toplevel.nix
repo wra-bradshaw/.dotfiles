@@ -38,6 +38,7 @@
       foqos = import ../../overlays/foqos.nix { };
       gersemi = import ../../overlays/gersemi.nix { };
       git-credential-manager = import ../../overlays/git-credential-manager.nix { };
+      harlequin = import ../../overlays/harlequin.nix { inherit inputs; };
       helium = import ../../overlays/helium.nix { };
       hex = import ../../overlays/hex.nix { };
       ical = import ../../overlays/ical.nix { };

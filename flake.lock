@@ -380,6 +380,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-harlequin": {
+      "locked": {
+        "lastModified": 1795249095,
+        "narHash": "sha256-8JDgyVvWUZg5m9hNlL8Ge9aT647ng3Ukc8NPMiKNTPQ=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "93a9ed0a866099a230ed5146a5bb7d16fd5c9b14",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "93a9ed0a866099a230ed5146a5bb7d16fd5c9b14",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1793504054,
@@ -537,6 +553,7 @@
         "nixos-unified": "nixos-unified",
         "nixpkgs": "nixpkgs",
         "nixpkgs-codex": "nixpkgs-codex",
+        "nixpkgs-harlequin": "nixpkgs-harlequin",
         "nixvim": "nixvim",
         "paneru": "paneru",
         "snap": "snap"
