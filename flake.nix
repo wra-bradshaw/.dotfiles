@@ -2,7 +2,7 @@
   description = "Will's macOS and NixOS systems";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/f4a03c008967841f2a0b3cb7c436fc6fc31671f6";
+    nixpkgs.url = "github:NixOS/nixpkgs/619c39f6eac5d1ed6b8f073a9414baf7034b2356";
 
     flake-parts.url = "https://flakehub.com/f/hercules-ci/flake-parts/0.1.*";
     nixos-unified = {
