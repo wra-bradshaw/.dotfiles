@@ -6,3 +6,4 @@ secret.txt
 .direnv
 .DS_Store
 .flake-update
+__pycache__
