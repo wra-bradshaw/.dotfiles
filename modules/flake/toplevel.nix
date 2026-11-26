@@ -40,7 +40,6 @@
       helium = import ../../overlays/helium.nix { };
       hex = import ../../overlays/hex.nix { };
       ical = import ../../overlays/ical.nix { };
-      mitmproxy = import ../../overlays/mitmproxy.nix { };
       opencode = import ../../overlays/opencode.nix { };
       rex-app = import ../../overlays/rex-app.nix { };
       vtsls = import ../../overlays/vtsls.nix { inherit inputs; };
