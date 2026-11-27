@@ -2,6 +2,7 @@
   home.packages = with pkgs; [
     tree-sitter
     prettierd
+    biome
     gersemi
     typstyle
     ruff
@@ -577,47 +578,58 @@
               "rustfmt"
             ];
             javascript = {
-              __unkeyed-1 = "prettierd";
+              __unkeyed-1 = "biome";
+              __unkeyed-2 = "prettierd";
               timeout_ms = 5000;
             };
             javascriptreact = {
-              __unkeyed-1 = "prettierd";
+              __unkeyed-1 = "biome";
+              __unkeyed-2 = "prettierd";
               timeout_ms = 5000;
             };
             typescript = {
-              __unkeyed-1 = "prettierd";
+              __unkeyed-1 = "biome";
+              __unkeyed-2 = "prettierd";
               timeout_ms = 5000;
             };
             typescriptreact = {
-              __unkeyed-1 = "prettierd";
+              __unkeyed-1 = "biome";
+              __unkeyed-2 = "prettierd";
               timeout_ms = 5000;
             };
             html = {
-              __unkeyed-1 = "prettierd";
+              __unkeyed-1 = "biome";
+              __unkeyed-2 = "prettierd";
               timeout_ms = 5000;
             };
             vue = {
-              __unkeyed-1 = "prettierd";
+              __unkeyed-1 = "biome";
+              __unkeyed-2 = "prettierd";
               timeout_ms = 5000;
             };
             astro = {
-              __unkeyed-1 = "prettierd";
+              __unkeyed-1 = "biome";
+              __unkeyed-2 = "prettierd";
               timeout_ms = 5000;
             };
             svelte = {
-              __unkeyed-1 = "prettierd";
+              __unkeyed-1 = "biome";
+              __unkeyed-2 = "prettierd";
               timeout_ms = 5000;
             };
             css = {
-              __unkeyed-1 = "prettierd";
+              __unkeyed-1 = "biome";
+              __unkeyed-2 = "prettierd";
               timeout_ms = 5000;
             };
             scss = {
-              __unkeyed-1 = "prettierd";
+              __unkeyed-1 = "biome";
+              __unkeyed-2 = "prettierd";
               timeout_ms = 5000;
             };
             json = {
-              __unkeyed-1 = "prettierd";
+              __unkeyed-1 = "biome";
+              __unkeyed-2 = "prettierd";
               timeout_ms = 5000;
             };
             nix = {
@@ -647,6 +659,10 @@
             ];
           };
           formatters = {
+            biome = {
+              command = pkgs.lib.getExe pkgs.biome;
+              require_cwd = true;
+            };
             shellcheck = {
               command = pkgs.lib.getExe pkgs.shellcheck;
             };
