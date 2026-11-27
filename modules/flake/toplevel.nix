@@ -42,6 +42,7 @@
       ical = import ../../overlays/ical.nix { };
       lookaway = import ../../overlays/lookaway.nix { };
       opencode = import ../../overlays/opencode.nix { };
+      opencode-antigravity-acp = import ../../overlays/opencode-antigravity-acp.nix { };
       rex-app = import ../../overlays/rex-app.nix { };
       vtsls = import ../../overlays/vtsls.nix { inherit inputs; };
     };

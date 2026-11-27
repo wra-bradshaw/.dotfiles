@@ -12,6 +12,7 @@ inputs.nixpkgs.lib.composeManyExtensions [
   (import ./lookaway.nix { })
   (import ./ntn.nix { })
   (import ./opencode.nix { })
+  (import ./opencode-antigravity-acp.nix { })
   (import ./rex-app.nix { })
   (import ./vtsls.nix { inherit inputs; })
   (_: prev: { snap = inputs.snap.packages.${prev.stdenv.hostPlatform.system}.default; })

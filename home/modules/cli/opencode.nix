@@ -50,6 +50,8 @@ in
     };
   };
 
+  xdg.configFile."opencode/plugins/opencode-antigravity-acp".source = pkgs.opencode-antigravity-acp;
+
   services.opencode-serve = {
     enable = true;
     # programs.opencode already puts opencode (wrapped with nodejs) on PATH.
