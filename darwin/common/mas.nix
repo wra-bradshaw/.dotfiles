@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 {
   programs.mas = {
     enable = true;
@@ -25,4 +25,12 @@
       Xcode = 497799835;
     };
   };
+
+  system.activationScripts.postActivation.text = lib.mkAfter ''
+    xcode_developer_dir="/Applications/Xcode.app/Contents/Developer"
+    if [ -d "$xcode_developer_dir" ] && [ "$(/usr/bin/env -u DEVELOPER_DIR /usr/bin/xcode-select -p 2>/dev/null || true)" != "$xcode_developer_dir" ]; then
+      echo "pointing xcode-select at $xcode_developer_dir"
+      /usr/bin/xcode-select --switch "$xcode_developer_dir"
+    fi
+  '';
 }
